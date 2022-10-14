@@ -3,6 +3,12 @@
 
 #include "stdint.h"
 
+/*
+ * TP_RST -> PC2
+ * TP_SCL -> PB10
+ * TP_SDA -> PB11
+ */
+
 #define I2C_WR 0 /* 写控制bit */
 #define I2C_RD 1 /* 读控制bit */
 
@@ -15,9 +21,9 @@
 #define TP_RST_PORT GPIOC
 #define TP_RST_PIN GPIO_PIN_2
 
-#define __HAL_RCC_TP_INT_CLK_ENABLE() __HAL_RCC_GPIOA_CLK_ENABLE()
-#define TP_INT_PORT GPIOA
-#define TP_INT_PIN GPIO_PIN_4
+//#define __HAL_RCC_TP_INT_CLK_ENABLE() __HAL_RCC_GPIOA_CLK_ENABLE()
+//#define TP_INT_PORT GPIOA
+//#define TP_INT_PIN GPIO_PIN_4
 
 #define TP_SCL_SET_0 HAL_GPIO_WritePin(TP_I2C_PORT, TP_SCL_PIN, GPIO_PIN_RESET)
 #define TP_SCL_SET_1 HAL_GPIO_WritePin(TP_I2C_PORT, TP_SCL_PIN, GPIO_PIN_SET)
@@ -29,7 +35,7 @@
 #define TP_RST_SET_0 HAL_GPIO_WritePin(TP_RST_PORT, TP_RST_PIN, GPIO_PIN_RESET)
 #define TP_RST_SET_1 HAL_GPIO_WritePin(TP_RST_PORT, TP_RST_PIN, GPIO_PIN_SET)
 
-#define TP_INT_GET() HAL_GPIO_ReadPin(TP_INT_PORT, TP_INT_PIN)
+//#define TP_INT_GET() HAL_GPIO_ReadPin(TP_INT_PORT, TP_INT_PIN)
 
 /* 设备地址 */
 #define CST816_Device_Write_Addr 0x2A

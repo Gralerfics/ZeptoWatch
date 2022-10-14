@@ -9,7 +9,7 @@ void CST816_GPIO_Init(void) {
 	GPIO_InitTypeDef GPIO_Init;
 	__HAL_RCC_TP_I2C_CLK_ENABLE();
 	__HAL_RCC_TP_RST_CLK_ENABLE();
-	__HAL_RCC_TP_INT_CLK_ENABLE();
+//	__HAL_RCC_TP_INT_CLK_ENABLE();
 	
 	/* 初始化复位引脚 */
 	GPIO_Init.Pin = TP_RST_PIN;
@@ -19,12 +19,12 @@ void CST816_GPIO_Init(void) {
 	HAL_GPIO_WritePin(TP_RST_PORT, TP_RST_PIN, GPIO_PIN_SET);
 	
 	/* 初始化中断引脚 */
-	GPIO_Init.Pin = TP_INT_PIN;
-	GPIO_Init.Mode = GPIO_MODE_INPUT;
-	GPIO_Init.Pull = GPIO_PULLUP;
-	GPIO_Init.Speed = GPIO_SPEED_FREQ_HIGH;
-	HAL_GPIO_Init(TP_INT_PORT,&GPIO_Init);
-	HAL_GPIO_WritePin(TP_INT_PORT,TP_INT_PIN,GPIO_PIN_RESET);
+//	GPIO_Init.Pin = TP_INT_PIN;
+//	GPIO_Init.Mode = GPIO_MODE_INPUT;
+//	GPIO_Init.Pull = GPIO_PULLUP;
+//	GPIO_Init.Speed = GPIO_SPEED_FREQ_HIGH;
+//	HAL_GPIO_Init(TP_INT_PORT,&GPIO_Init);
+//	HAL_GPIO_WritePin(TP_INT_PORT,TP_INT_PIN,GPIO_PIN_RESET);
 	
 	/* 初始化I2C引脚 */
 	GPIO_Init.Pin = TP_SCL_PIN | TP_SDA_PIN;

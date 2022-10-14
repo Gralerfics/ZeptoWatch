@@ -30,6 +30,7 @@ void GC9A01_GPIO_Init(void) {
 	__HAL_RCC_LCD_DC_CLK_ENABLE();
 
 	/* LCD_SPI in spi.c */
+		/* IMPORTANT! SLK 或 SDA 需要上拉一个！ */
 
 	/* LCD_CS 片选默认接地 */
 

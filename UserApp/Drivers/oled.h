@@ -9,6 +9,11 @@ extern "C" {
 
 //#include "stm32f4xx_hal.h"
 
+/*
+ * OLED_SCL -> PB3
+ * OLED_SDA -> PB4
+ */
+
 /* 0.96', 128x64 */
 // 需要相应的 GPIO 引脚已经配置好开漏输出以及其他项
 #define OLED_I2C_PORT GPIOB
