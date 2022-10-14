@@ -1,9 +1,10 @@
 #include "gc9a01.h"
 
 #include <stdbool.h>
+#include "oled.h"
 
 void SPI_SendByte(uint8_t pByte) {
-	// while (HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_RESET);
+	while (HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_BUSY_TX);
 	HAL_SPI_Transmit_DMA(&hspi1, &pByte, 1);
 }
 
@@ -79,7 +80,7 @@ void GC9A01_Fill(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint8_t
 		}
 		HAL_SPI_Transmit_DMA(&hspi1, colors + idx * maxNum, curNum);
 		idx += 1;
-		HAL_Delay(12);
+		while (HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_BUSY_TX);
 	}
 //	CS_Set();
 }
