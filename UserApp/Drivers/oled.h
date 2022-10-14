@@ -16,10 +16,13 @@ extern "C" {
 
 /* 0.96', 128x64 */
 // 需要相应的 GPIO 引脚已经配置好开漏输出以及其他项
+#define __HAL_RCC_OLED_I2C_CLK_ENABLE() __HAL_RCC_GPIOB_CLK_ENABLE()
 #define OLED_I2C_PORT GPIOB
 #define OLED_I2C_SCL_PIN GPIO_PIN_3
 #define OLED_I2C_SDA_PIN GPIO_PIN_4
 #define OLED_I2C_ADDRESS 0x78
+
+void OLED_GPIO_Init();
 
 void OLED_Initialize();
 

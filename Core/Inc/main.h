@@ -60,14 +60,12 @@ void Error_Handler(void);
 #define Btn_OK_Pin GPIO_PIN_0
 #define Btn_OK_GPIO_Port GPIOC
 #define Btn_OK_EXTI_IRQn EXTI0_IRQn
+#define BLK_CTL_Pin GPIO_PIN_4
+#define BLK_CTL_GPIO_Port GPIOA
 #define LCD_SCL_Pin GPIO_PIN_5
 #define LCD_SCL_GPIO_Port GPIOA
 #define LCD_SDA_Pin GPIO_PIN_7
 #define LCD_SDA_GPIO_Port GPIOA
-#define OLED_SCL_Pin GPIO_PIN_3
-#define OLED_SCL_GPIO_Port GPIOB
-#define OLED_SDA_Pin GPIO_PIN_4
-#define OLED_SDA_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
