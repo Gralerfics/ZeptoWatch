@@ -1,6 +1,6 @@
 // SquareLine LVGL GENERATED FILE
-// EDITOR VERSION: SquareLine Studio 1.1.0
-// LVGL VERSION: 8.2
+// EDITOR VERSION: SquareLine Studio 1.1.1
+// LVGL VERSION: 8.2.0
 // PROJECT: Smart_Gadget
 
 #ifndef _SMART_GADGET_UI_H
@@ -10,18 +10,9 @@
 extern "C" {
 #endif
 
-#if defined __has_include
-#if __has_include("lvgl.h")
-#include "lvgl.h"
-#elif __has_include("lvgl/lvgl.h")
 #include "lvgl/lvgl.h"
-#else
-#include "lvgl.h"
-#endif
-#else
-#include "lvgl.h"
-#endif
 
+void Step_Animation(lv_obj_t * TargetObject, int startAngle, int endAngle);
 void Up_Animation(lv_obj_t * TargetObject, int delay);
 void hour_Animation(lv_obj_t * TargetObject, int delay);
 void min_Animation(lv_obj_t * TargetObject, int delay);

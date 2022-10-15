@@ -5,6 +5,15 @@
 
 #include "delay.h"
 
+/* 私有函数声明 */
+void OLED_GPIO_Init();
+void OLED_SetCursor(uint8_t pX, uint8_t pY);
+void OLED_I2C_EnableTransmission();
+void OLED_I2C_DisableTransmission();
+void OLED_I2C_SendByte(uint8_t pByte);
+void OLED_I2C_SendCommand(uint8_t pCmd);
+void OLED_I2C_SendData(uint8_t pData);
+
 void OLED_GPIO_Init() {
 	GPIO_InitTypeDef GPIO_InitStruct;
 	__HAL_RCC_OLED_I2C_CLK_ENABLE();

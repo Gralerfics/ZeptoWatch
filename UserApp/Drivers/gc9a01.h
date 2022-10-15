@@ -1,5 +1,5 @@
-#ifndef _GC9A01_H
-#define _GC9A01_H
+#ifndef __GC9A01_H
+#define __GC9A01_H
 
 #include "stm32f4xx_hal.h"
 #include "spi.h"

@@ -122,6 +122,7 @@ include_directories(
         Middlewares/Third_Party/FreeRTOS/Source/include
         Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
         UserApp
+        UserApp/Apps
         UserApp/Drivers
         UserApp/UI
         UserApp/Utils

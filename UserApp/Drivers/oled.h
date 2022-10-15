@@ -7,8 +7,6 @@ extern "C" {
 
 #include "stdint.h"
 
-//#include "stm32f4xx_hal.h"
-
 /*
  * OLED_SCL -> PB3
  * OLED_SDA -> PB4
@@ -22,13 +20,9 @@ extern "C" {
 #define OLED_I2C_SDA_PIN GPIO_PIN_4
 #define OLED_I2C_ADDRESS 0x78
 
-void OLED_GPIO_Init();
-
 void OLED_Initialize();
 
 void OLED_ClearCanvas();
-
-void OLED_SetCursor(uint8_t pX, uint8_t pY);
 
 void OLED_ShowChar(uint8_t Line, uint8_t Column, char Char);
 
@@ -41,16 +35,6 @@ void OLED_ShowSignedNum(uint8_t Line, uint8_t Column, int32_t Number, uint8_t Le
 void OLED_ShowFloat(uint8_t Line, uint8_t Column, double Number, uint8_t LengthLeft, uint8_t LengthRight);
 
 void OLED_ShowSignedFloat(uint8_t Line, uint8_t Column, double Number, uint8_t LengthLeft, uint8_t LengthRight);
-
-void OLED_I2C_EnableTransmission();
-
-void OLED_I2C_DisableTransmission();
-
-void OLED_I2C_SendByte(uint8_t pByte);
-
-void OLED_I2C_SendCommand(uint8_t pCmd);
-
-void OLED_I2C_SendData(uint8_t pData);
 
 #ifdef __cplusplus
 }

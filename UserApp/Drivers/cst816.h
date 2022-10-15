@@ -1,6 +1,7 @@
 #ifndef __CST816_H
 #define __CST816_H
 
+#include "stm32f4xx_hal.h"
 #include "stdint.h"
 
 /*
