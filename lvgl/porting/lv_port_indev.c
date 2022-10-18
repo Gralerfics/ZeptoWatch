@@ -78,8 +78,13 @@ static bool touchpad_is_pressed(void) {
 }
 
 static void touchpad_get_xy(lv_coord_t *x, lv_coord_t *y) {
-	(*x) = CST816_Instance.X_Pos;
-	(*y) = CST816_Instance.Y_Pos;
+	/* 显示方向朝左 */
+	(*x) = 240 - CST816_Instance.Y_Pos;
+	(*y) = CST816_Instance.X_Pos;
+
+	/* 正常显示方向 (朝上) */
+//	(*x) = CST816_Instance.X_Pos;
+//	(*y) = CST816_Instance.Y_Pos;
 }
 
 /* 编码器 */

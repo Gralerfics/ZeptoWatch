@@ -1,4 +1,4 @@
-#include "CST816.h" 
+#include "cst816.h"
 #include "delay.h"
 
 CST816_Info CST816_Instance;

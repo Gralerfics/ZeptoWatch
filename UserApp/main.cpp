@@ -6,7 +6,6 @@
 #include "ui.h"
 
 #include "tim.h"
-#include "rtc.h"
 
 #include "oled.h"
 #include "rtc_handler.h"
@@ -50,10 +49,10 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc) {
 	}
 
 	// Test
-	OLED_ShowNum(1, 1, RTC_Time.Hours, 7);
-	OLED_ShowNum(2, 1, RTC_Time.Minutes, 7);
-	OLED_ShowNum(3, 1, RTC_Time.Seconds, 7);
-	OLED_ShowNum(4, 1, RTC_LVGL_GetHourRotation(), 7);
+	OLED_ShowString(1, 3, (char *) ":  :");
+	OLED_ShowNum(1, 1, RTC_Time.Hours, 2);
+	OLED_ShowNum(1, 4, RTC_Time.Minutes, 2);
+	OLED_ShowNum(1, 7, RTC_Time.Seconds, 2);
 
 	// Move the arrows
 	uint16_t cSecAngle = RTC_LVGL_GetSecondRotation();

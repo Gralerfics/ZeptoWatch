@@ -124,8 +124,15 @@ include_directories(
         UserApp
         UserApp/Apps
         UserApp/Drivers
+        UserApp/Drivers/cst816
+        UserApp/Drivers/gc9a01
+#        UserApp/Drivers/mpu
+#        UserApp/Drivers/mpu/eMPL
+        UserApp/Drivers/oled
+#        UserApp/Drivers/wifi
         UserApp/UI
         UserApp/Utils
+        UserApp/Utils/delay
 )
 
 add_definitions(-DUSE_HAL_DRIVER -DSTM32F405xx)

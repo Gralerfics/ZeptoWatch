@@ -1,7 +1,6 @@
 #include "gc9a01.h"
 
 #include <stdbool.h>
-#include "oled.h"
 
 void SPI_SendByte(uint8_t pByte) {
 	while (HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_BUSY_TX);
@@ -126,8 +125,10 @@ void GC9A01_Init(void) {
 	SPI_SendCommand(0xB6);
 	SPI_SendData8(0x00);
 	SPI_SendData8(0x20);
+
 	SPI_SendCommand(0x36);
-	SPI_SendData8(0x08);		// 刷新方向: 0x08 or 0xC8 or 0x68 or 0xA8.
+	SPI_SendData8(0xA8);		// 刷新方向: 0x08 (朝上) or 0xC8 (朝下) or 0x68 (朝右) or 0xA8 (朝左). 注意触摸方面需要相应修改!
+
 	SPI_SendCommand(0x3A);
 	SPI_SendData8(0x05);
 	SPI_SendCommand(0x90);
