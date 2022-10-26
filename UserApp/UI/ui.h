@@ -14,7 +14,8 @@ extern "C" {
 
 extern lv_obj_t * ui_Home;
 extern lv_obj_t * ui_Test_Spinner;
-extern lv_obj_t * ui_Home_Roller1;
+extern lv_obj_t * ui_Home_Arc2;
+extern lv_obj_t * ui_Home_Roller2;
 
 
 

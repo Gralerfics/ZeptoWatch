@@ -9,6 +9,7 @@
 
 #include "oled.h"
 #include "rtc_handler.h"
+#include "lcd_brightness.h"
 
 void Main() {
 	OLED_Initialize();
@@ -20,8 +21,12 @@ void Main() {
 	ui_init();
 
 	HAL_TIM_Base_Start_IT(&htim2); // Lvgl Heart Beat Interrupt
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1); // ENABLE LCD_BLK (TIM3) PWM Channel
 
 	while (true) {
+		LCD_BRIGHTNESS_SetValue(lv_arc_get_value(ui_Home_Arc2));
+		LCD_BRIGHTNESS_ApplyValue(&htim3, TIM_CHANNEL_1);
+
 		lv_task_handler();
 	}
 }

@@ -6,7 +6,6 @@ extern "C" {
 #endif
 
 #include "stm32f4xx_hal.h"
-#include "stdint.h"
 #include "rtc.h"
 
 extern RTC_DateTypeDef RTC_Date;
