@@ -30,17 +30,18 @@ void lv_port_indev_init(void) {
 //	encoder_init();
 
 	/* 注册输入设备 */
-	static lv_indev_drv_t indev_drv;
 		/* 触摸板 */
-		lv_indev_drv_init(&indev_drv);
-		indev_drv.type = LV_INDEV_TYPE_POINTER;
-		indev_drv.read_cb = touchpad_read;
-		indev_touchpad = lv_indev_drv_register(&indev_drv);
+		static lv_indev_drv_t indev_touchpad_drv;
+		lv_indev_drv_init(&indev_touchpad_drv);
+		indev_touchpad_drv.type = LV_INDEV_TYPE_POINTER;
+		indev_touchpad_drv.read_cb = touchpad_read;
+		indev_touchpad = lv_indev_drv_register(&indev_touchpad_drv);
 		/* 编码器 */
-//		lv_indev_drv_init(&indev_drv);
-//		indev_drv.type = LV_INDEV_TYPE_ENCODER;
-//		indev_drv.read_cb = encoder_read;
-//		indev_encoder = lv_indev_drv_register(&indev_drv);
+//		static lv_indev_drv_t indev_encoder_drv;
+//		lv_indev_drv_init(&indev_encoder_drv);
+//		indev_encoder_drv.type = LV_INDEV_TYPE_ENCODER;
+//		indev_encoder_drv.read_cb = encoder_read;
+//		indev_encoder = lv_indev_drv_register(&indev_encoder_drv);
 
     /* Later you should create group(s) with `lv_group_t * group = lv_group_create()`,
      * add objects to the group with `lv_group_add_obj(group, obj)`

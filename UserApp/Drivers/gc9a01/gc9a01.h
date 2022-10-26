@@ -9,7 +9,7 @@
  * LCD_DC  -> PC5
  * LCD_SPI -> SPI1: SCL -> PA5
  *                  SDA -> PA7
- *                  CS  -> GND
+ *                  CS  -> GND (!)
  */
 
 #define __HAL_RCC_LCD_RST_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
@@ -31,6 +31,6 @@ void GC9A01_GPIO_Init(void);
 
 void GC9A01_Init(void);
 
-void GC9A01_Fill(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint8_t* colors);
+void GC9A01_Fill(uint16_t x_1, uint16_t y_1, uint16_t x_2, uint16_t y_2, uint16_t* colors);
 
 #endif

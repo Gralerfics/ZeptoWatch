@@ -5,8 +5,9 @@
 
 #define MY_DISP_HOR_RES 240
 #define MY_DISP_VER_RES 240
-#define BUFFER_ROWS 80
+#define BUFFER_ROWS 60
 #define SINGLE_BUFFERING
+#define DIRECT_SWAP_MODE
 
 /**********************
  *  STATIC PROTOTYPES
@@ -74,10 +75,14 @@ void disp_enable_update(void) { disp_flush_enabled = true; }
 
 void disp_disable_update(void) { disp_flush_enabled = false; }
 
-//uint8_t buf[MY_DISP_HOR_RES][BUFFER_ROWS][2];
-
 static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) {
     if (disp_flush_enabled) {
+#ifdef DIRECT_SWAP_MODE
+		/* 如果直接 DMA color_p, lv_conf.h 里面 LV_COLOR_16_SWAP 要设为 1.
+		 * 同时如果使用 Squareline Studio 要在新建工程时选择 16bit swap 模式. */
+		GC9A01_Fill(area -> x1, area -> y1, area -> x2, area -> y2, (uint16_t *) color_p);
+#else
+		/* 手动重排缓存 */
 		uint8_t buf[(area -> y2) - (area -> y1) + 1][(area -> x2) - (area -> x1) + 1][2];
 		for (int y = 0; y <= (area -> y2) - (area -> y1); y += 1) {
             for (int x = 0; x <= (area -> x2) - (area -> x1); x += 1) {
@@ -87,7 +92,7 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
             }
         }
 		GC9A01_Fill(area -> x1, area -> y1, area -> x2, area -> y2, (uint8_t *) buf);
-//		GC9A01_Fill(area -> x1, area -> y1, area -> x2, area -> y2, (uint8_t *) color_p);
+#endif
     }
     lv_disp_flush_ready(disp_drv);
 }

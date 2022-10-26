@@ -55,12 +55,12 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc) {
 	OLED_ShowNum(1, 7, RTC_Time.Seconds, 2);
 
 	// Move the arrows
-	uint16_t cSecAngle = RTC_LVGL_GetSecondRotation();
-	uint16_t cMinAngle = RTC_LVGL_GetMinuteRotation();
-	uint16_t cHourAngle = RTC_LVGL_GetHourRotation();
-	Step_Animation(ui_Sec,  cSecAngle - 60, cSecAngle);
-	if (RTC_Time.Seconds == 0) {
-		Step_Animation(ui_Min,  cMinAngle - 60, cMinAngle);
-	}
-	lv_img_set_angle(ui_Hour, cHourAngle);
+//	uint16_t cSecAngle = RTC_LVGL_GetSecondRotation();
+//	uint16_t cMinAngle = RTC_LVGL_GetMinuteRotation();
+//	uint16_t cHourAngle = RTC_LVGL_GetHourRotation();
+//	Step_Animation(ui_Sec,  cSecAngle - 60, cSecAngle);
+//	if (RTC_Time.Seconds == 0) {
+//		Step_Animation(ui_Min,  cMinAngle - 60, cMinAngle);
+//	}
+//	lv_img_set_angle(ui_Hour, cHourAngle);
 }
