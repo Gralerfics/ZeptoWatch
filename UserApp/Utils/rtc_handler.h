@@ -5,9 +5,10 @@
 extern "C" {
 #endif
 
-#include "stm32f4xx_hal.h"
+#include "common.h"
 #include "rtc.h"
 
+/* ==================== Body ==================== */
 extern RTC_DateTypeDef RTC_Date;
 extern RTC_TimeTypeDef RTC_Time;
 

@@ -122,7 +122,7 @@ include_directories(
         Middlewares/Third_Party/FreeRTOS/Source/include
         Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
         UserApp
-        UserApp/Apps
+        UserApp/Tasks
         UserApp/Drivers
         UserApp/Drivers/cst816
         UserApp/Drivers/gc9a01
@@ -132,7 +132,6 @@ include_directories(
 #        UserApp/Drivers/wifi
         UserApp/UI
         UserApp/Utils
-        UserApp/Utils/delay
 )
 
 add_definitions(-DUSE_HAL_DRIVER -DSTM32F405xx)

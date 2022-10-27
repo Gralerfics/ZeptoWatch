@@ -3,12 +3,6 @@
 #include "common.h"
 #include "gc9a01.h"
 
-#define MY_DISP_HOR_RES 240
-#define MY_DISP_VER_RES 240
-#define BUFFER_ROWS 60
-#define SINGLE_BUFFERING
-#define DIRECT_SWAP_MODE
-
 /**********************
  *  STATIC PROTOTYPES
  **********************/
