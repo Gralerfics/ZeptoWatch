@@ -121,17 +121,16 @@ include_directories(
         Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS
         Middlewares/Third_Party/FreeRTOS/Source/include
         Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
-        UserApp
-        UserApp/Tasks
-        UserApp/Drivers
-        UserApp/Drivers/cst816
-        UserApp/Drivers/gc9a01
-#        UserApp/Drivers/mpu
-#        UserApp/Drivers/mpu/eMPL
-        UserApp/Drivers/oled
-#        UserApp/Drivers/wifi
-        UserApp/UI
-        UserApp/Utils
+        ZeptoWatch
+        ZeptoWatch/Tasks
+        ZeptoWatch/Drivers
+        ZeptoWatch/Drivers/cst816
+        ZeptoWatch/Drivers/gc9a01
+        ZeptoWatch/Drivers/oled
+        ZeptoWatch/UI
+        ZeptoWatch/User/executer
+        ZeptoWatch/User/loader
+        ZeptoWatch/Utils
 )
 
 add_definitions(-DUSE_HAL_DRIVER -DSTM32F405xx)
@@ -142,7 +141,7 @@ file(GLOB_RECURSE SOURCES
         "lvgl/*.*"
         "Middlewares/*.*"
         "startup/*.*"
-        "UserApp/*.*"
+        "ZeptoWatch/*.*"
 )
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F405RGTx_FLASH.ld)
