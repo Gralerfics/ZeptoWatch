@@ -31,7 +31,7 @@ void lv_port_disp_init(void) {
 	static lv_disp_draw_buf_t draw_buf_dsc;
 #ifdef SINGLE_BUFFERING
 		/* 单缓冲 */
-		static lv_color_t buf_1[MY_DISP_HOR_RES * BUFFER_ROWS] __attribute__((section(".ccmram")));
+		static lv_color_t buf_1[MY_DISP_HOR_RES * BUFFER_ROWS];
 		lv_disp_draw_buf_init(&draw_buf_dsc, buf_1, NULL, MY_DISP_HOR_RES * BUFFER_ROWS);
 #endif
 #ifdef DOUBLE_BUFFERING
