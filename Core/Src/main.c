@@ -20,6 +20,7 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "dma.h"
+#include "i2s.h"
 #include "rtc.h"
 #include "spi.h"
 #include "tim.h"
@@ -98,6 +99,7 @@ int main(void)
   MX_TIM2_Init();
   MX_USART2_UART_Init();
   MX_TIM3_Init();
+  MX_I2S3_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */

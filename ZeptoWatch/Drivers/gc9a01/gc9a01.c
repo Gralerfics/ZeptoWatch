@@ -125,7 +125,7 @@ void GC9A01_Init(void) {
 	GC9A01_SPI_SendData8(0x20);
 
 	GC9A01_SPI_SendCommand(0x36);
-	GC9A01_SPI_SendData8(0xA8);		// 刷新方向: 0x08 (朝上) or 0xC8 (朝下) or 0x68 (朝右) or 0xA8 (朝左). 注意触摸方面需要相应修改!
+	GC9A01_SPI_SendData8(0x08);		// 刷新方向: 0x08 (朝上) or 0xC8 (朝下) or 0x68 (朝右) or 0xA8 (朝左). 注意触摸方面需要相应修改!
 
 	GC9A01_SPI_SendCommand(0x3A);
 	GC9A01_SPI_SendData8(0x05);
