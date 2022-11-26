@@ -61,16 +61,18 @@ void Error_Handler(void);
 #define BAT_ADC_GPIO_Port GPIOC
 #define BAT_CHRG_R_Pin GPIO_PIN_1
 #define BAT_CHRG_R_GPIO_Port GPIOC
-#define KEY_ON_R_Pin GPIO_PIN_0
-#define KEY_ON_R_GPIO_Port GPIOA
-#define PWR_ON_Pin GPIO_PIN_1
-#define PWR_ON_GPIO_Port GPIOA
+#define KEY_INT_Pin GPIO_PIN_0
+#define KEY_INT_GPIO_Port GPIOA
+#define BT_ON_R_Pin GPIO_PIN_1
+#define BT_ON_R_GPIO_Port GPIOA
 #define LCD_SCL_Pin GPIO_PIN_5
 #define LCD_SCL_GPIO_Port GPIOA
 #define LCD_BLK_Pin GPIO_PIN_6
 #define LCD_BLK_GPIO_Port GPIOA
 #define LCD_SDA_Pin GPIO_PIN_7
 #define LCD_SDA_GPIO_Port GPIOA
+#define MOTOR_Pin GPIO_PIN_6
+#define MOTOR_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

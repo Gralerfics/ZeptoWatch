@@ -43,7 +43,7 @@ void ui_Home_screen_init(void)
     lv_arc_set_value(ui_Home_Arc2, 60);
 
     ui_Home_Roller2 = lv_roller_create(ui_Home);
-    lv_roller_set_options(ui_Home_Roller2, "Option 1\nOption 2\nOption 3", LV_ROLLER_MODE_NORMAL);
+    lv_roller_set_options(ui_Home_Roller2, "BT On\nBt Off", LV_ROLLER_MODE_NORMAL);
     lv_obj_set_height(ui_Home_Roller2, 78);
     lv_obj_set_width(ui_Home_Roller2, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_align(ui_Home_Roller2, LV_ALIGN_CENTER);

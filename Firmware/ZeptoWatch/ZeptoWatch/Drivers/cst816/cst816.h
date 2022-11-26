@@ -5,7 +5,7 @@
 #include "stdint.h"
 
 /*
- * TP_RST -> PC2
+ * TP_RST -> PC2 (Deserted)
  * TP_SCL -> PB10
  * TP_SDA -> PB11
  */
@@ -18,9 +18,9 @@
 #define TP_SCL_PIN GPIO_PIN_10
 #define TP_SDA_PIN GPIO_PIN_11
 
-#define __HAL_RCC_TP_RST_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
-#define TP_RST_PORT GPIOC
-#define TP_RST_PIN GPIO_PIN_2
+//#define __HAL_RCC_TP_RST_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()
+//#define TP_RST_PORT GPIOC
+//#define TP_RST_PIN GPIO_PIN_2
 
 //#define __HAL_RCC_TP_INT_CLK_ENABLE() __HAL_RCC_GPIOA_CLK_ENABLE()
 //#define TP_INT_PORT GPIOA
@@ -33,8 +33,8 @@
 #define TP_SDA_SET_1 HAL_GPIO_WritePin(TP_I2C_PORT, TP_SDA_PIN, GPIO_PIN_SET)
 #define TP_SDA_GET() HAL_GPIO_ReadPin(TP_I2C_PORT, TP_SDA_PIN)
 
-#define TP_RST_SET_0 HAL_GPIO_WritePin(TP_RST_PORT, TP_RST_PIN, GPIO_PIN_RESET)
-#define TP_RST_SET_1 HAL_GPIO_WritePin(TP_RST_PORT, TP_RST_PIN, GPIO_PIN_SET)
+//#define TP_RST_SET_0 HAL_GPIO_WritePin(TP_RST_PORT, TP_RST_PIN, GPIO_PIN_RESET)
+//#define TP_RST_SET_1 HAL_GPIO_WritePin(TP_RST_PORT, TP_RST_PIN, GPIO_PIN_SET)
 
 //#define TP_INT_GET() HAL_GPIO_ReadPin(TP_INT_PORT, TP_INT_PIN)
 
@@ -121,7 +121,7 @@ uint8_t CST816_I2C_ReadByte(void);
 
 /* 触摸屏初始化相关函数 */
 void CST816_GPIO_Init(void);
-void CST816_Reset(void);
+//void CST816_Reset(void);
 
 /* 触摸屏操作函数 */
 void CST816_Get_Axis(void);

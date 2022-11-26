@@ -8,15 +8,15 @@ uint8_t CST816_Pen_Flag;
 void CST816_GPIO_Init(void) {
 	GPIO_InitTypeDef GPIO_Init;
 	__HAL_RCC_TP_I2C_CLK_ENABLE();
-	__HAL_RCC_TP_RST_CLK_ENABLE();
+//	__HAL_RCC_TP_RST_CLK_ENABLE();
 //	__HAL_RCC_TP_INT_CLK_ENABLE();
 	
 	/* 初始化复位引脚 */
-	GPIO_Init.Pin = TP_RST_PIN;
-	GPIO_Init.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_Init.Speed = GPIO_SPEED_FREQ_HIGH;
-	HAL_GPIO_Init(TP_RST_PORT, &GPIO_Init);
-	HAL_GPIO_WritePin(TP_RST_PORT, TP_RST_PIN, GPIO_PIN_SET);
+//	GPIO_Init.Pin = TP_RST_PIN;
+//	GPIO_Init.Mode = GPIO_MODE_OUTPUT_PP;
+//	GPIO_Init.Speed = GPIO_SPEED_FREQ_HIGH;
+//	HAL_GPIO_Init(TP_RST_PORT, &GPIO_Init);
+//	HAL_GPIO_WritePin(TP_RST_PORT, TP_RST_PIN, GPIO_PIN_SET);
 	
 	/* 初始化中断引脚 */
 //	GPIO_Init.Pin = TP_INT_PIN;
@@ -265,12 +265,12 @@ void CST816_I2C_WriteReg(uint8_t addr, uint8_t dat) {
 *	返 回 值: 无
 *********************************************************************************************************
 */
-void CST816_Reset(void) {
-	TP_RST_SET_0;
-	delay_ms(10);
-	TP_RST_SET_1;
-	delay_ms(100);
-}
+//void CST816_Reset(void) {
+//	TP_RST_SET_0;
+//	delay_ms(10);
+//	TP_RST_SET_1;
+//	delay_ms(100);
+//}
 
 /*
 *********************************************************************************************************

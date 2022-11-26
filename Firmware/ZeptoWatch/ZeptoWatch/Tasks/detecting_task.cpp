@@ -11,10 +11,26 @@ extern "C" {
 
 void StartDetectingTask(void const * argument) {
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1); // ENABLE LCD_BLK (TIM3) PWM Channel
+	LCD_BRIGHTNESS_SetTIMHandle(&htim3);
+	LCD_BRIGHTNESS_SetTIMChannel(TIM_CHANNEL_1);
+
+	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1); // ENABLE MOTOR (TIM4) PWM Channel
 
 	while (true) {
 		LCD_BRIGHTNESS_SetValue(lv_arc_get_value(ui_Home_Arc2));
-		LCD_BRIGHTNESS_ApplyValue(&htim3, TIM_CHANNEL_1);
+		LCD_BRIGHTNESS_ApplyValue();
+
+		if (LCD_BRIGHTNESS_Value > 70) {
+			__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, (LCD_BRIGHTNESS_Value - 70) * 9 / 3);
+		} else {
+			__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, 0);
+		}
+
+		if (lv_roller_get_selected(ui_Home_Roller2) == 0) {
+			HAL_GPIO_WritePin(BT_ON_R_GPIO_Port, BT_ON_R_Pin, GPIO_PIN_RESET);
+		} else {
+			HAL_GPIO_WritePin(BT_ON_R_GPIO_Port, BT_ON_R_Pin, GPIO_PIN_SET);
+		}
 
 		osDelay(1);
 	}
