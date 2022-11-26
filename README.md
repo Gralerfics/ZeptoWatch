@@ -15,6 +15,7 @@ Smart watch based on STM32F405RGT6.
 <div align="center">
     <img src="Documents/imgs/IMG_20221120_230033.jpg" width="400">
 </div>
+
 - Version 1.0: Polish up the schematics. Did not implemented.
 
 - Version 2.0: There are some **mistakes** that would be modified in Ver.3.0.
