@@ -1,6 +1,6 @@
 #include "lcd_brightness.h"
 
-uint8_t LCD_BRIGHTNESS_Value = 60;
+uint8_t LCD_BRIGHTNESS_Value = 80;
 
 TIM_HandleTypeDef *LCD_BRIGHTNESS_TIMHandle;
 uint32_t LCD_BRIGHTNESS_TIMChannel;

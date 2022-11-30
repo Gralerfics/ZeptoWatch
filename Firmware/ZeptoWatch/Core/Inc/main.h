@@ -63,8 +63,8 @@ void Error_Handler(void);
 #define BAT_CHRG_R_GPIO_Port GPIOC
 #define KEY_INT_Pin GPIO_PIN_0
 #define KEY_INT_GPIO_Port GPIOA
-#define BT_ON_R_Pin GPIO_PIN_1
-#define BT_ON_R_GPIO_Port GPIOA
+#define BT_RST_Pin GPIO_PIN_1
+#define BT_RST_GPIO_Port GPIOA
 #define LCD_SCL_Pin GPIO_PIN_5
 #define LCD_SCL_GPIO_Port GPIOA
 #define LCD_BLK_Pin GPIO_PIN_6

@@ -33,12 +33,12 @@ void CST816_GPIO_Init(void) {
 	HAL_GPIO_Init(TP_I2C_PORT, &GPIO_Init);
 	HAL_GPIO_WritePin(TP_I2C_PORT, TP_SCL_PIN | TP_SDA_PIN, GPIO_PIN_SET);
 
-	/* 给一个停止信号, 复位I2C总线上的所有设备到待机模式 */
+	/* 给一个停止信号, 复位 I2C 总线上的所有设备到待机模式 */
 	CST816_I2C_Stop();
 }
 
-/* 配置IIC的数据线为输入模式 */
-void SDA_INPUT() {
+/* 配置 IIC 的数据线为输入模式 */
+void TP_SDA_INPUT() {
 	GPIO_InitTypeDef GPIO_Init;
 	__HAL_RCC_TP_I2C_CLK_ENABLE();
 	
@@ -49,8 +49,8 @@ void SDA_INPUT() {
 	HAL_GPIO_Init(TP_I2C_PORT, &GPIO_Init);
 }
 
-/* 配置IIC的数据线为输出模式 */
-void SDA_OUT() {
+/* 配置 IIC 的数据线为输出模式 */
+void TP_SDA_OUT() {
 	GPIO_InitTypeDef GPIO_Init;
 	__HAL_RCC_TP_I2C_CLK_ENABLE();
 
@@ -61,7 +61,7 @@ void SDA_OUT() {
 }
 
 /* 延时函数 */
-static void I2C_Delay(void) {
+void CST816_I2C_Delay(void) {
 	delay_us(1);
 //	for (uint8_t i = 0; i < 15; i++);
 }
@@ -70,18 +70,18 @@ static void I2C_Delay(void) {
 void CST816_I2C_Start(void) {
 	TP_SDA_SET_1;
 	TP_SCL_SET_1;
-	I2C_Delay();
+	CST816_I2C_Delay();
 	TP_SDA_SET_0;
-	I2C_Delay();
+	CST816_I2C_Delay();
 	TP_SCL_SET_0;
-	I2C_Delay();
+	CST816_I2C_Delay();
 }
 
 /* IIC结束信号 */
 void CST816_I2C_Stop(void) {
 	TP_SDA_SET_0;
 	TP_SCL_SET_1;
-	I2C_Delay();
+	CST816_I2C_Delay();
 	TP_SDA_SET_1;
 }
 
@@ -95,11 +95,11 @@ void CST816_I2C_Stop(void) {
 */
 void CST816_I2C_Ack(void) {
 	TP_SDA_SET_0;	/* CPU驱动SDA = 0 */
-	I2C_Delay();
+	CST816_I2C_Delay();
 	TP_SCL_SET_1;	/* CPU产生1个时钟 */
-	I2C_Delay();
+	CST816_I2C_Delay();
 	TP_SCL_SET_0;
-	I2C_Delay();
+	CST816_I2C_Delay();
 	TP_SDA_SET_1;	/* CPU释放SDA总线 */
 }
 
@@ -113,11 +113,11 @@ void CST816_I2C_Ack(void) {
 */
 void CST816_I2C_NAck(void) {
 	TP_SDA_SET_1;	/* CPU驱动SDA = 1 */
-	I2C_Delay();
+	CST816_I2C_Delay();
 	TP_SCL_SET_1;	/* CPU产生1个时钟 */
-	I2C_Delay();
+	CST816_I2C_Delay();
 	TP_SCL_SET_0;
-	I2C_Delay();
+	CST816_I2C_Delay();
 }
 
 /*
@@ -137,15 +137,15 @@ void CST816_I2C_SendByte(uint8_t _ucByte) {
 		} else {
 			TP_SDA_SET_0;
 		}
-		I2C_Delay();
+		CST816_I2C_Delay();
 		TP_SCL_SET_1;
-		I2C_Delay();
+		CST816_I2C_Delay();
 		TP_SCL_SET_0;
 		if (i == 7) {
-			 TP_SDA_SET_1; // 释放总线
+			TP_SDA_SET_1; // 释放总线
 		}
 		_ucByte <<= 1;
-		I2C_Delay();
+		CST816_I2C_Delay();
 	}
 }
 
@@ -167,15 +167,15 @@ uint8_t CST816_I2C_ReadByte(void) {
 		//一定要先左移再写入数据，不然数据不对齐
 		value <<= 1;
 		TP_SCL_SET_1;
-		I2C_Delay();
-		SDA_INPUT();
+		CST816_I2C_Delay();
+		TP_SDA_INPUT();
 		if (TP_SDA_GET())	//读取到高电平则写1
 		{
 			value = value + 1;	//自加1
 		}
 		TP_SCL_SET_0;
-		SDA_OUT();
-		I2C_Delay();
+		TP_SDA_OUT();
+		CST816_I2C_Delay();
 	}
 	return value;
 }
@@ -191,18 +191,18 @@ uint8_t CST816_I2C_ReadByte(void) {
 uint8_t CST816_I2C_WaitAck(void) {
 	uint8_t re;
 	TP_SDA_SET_1;	/* CPU释放SDA总线 */
-	I2C_Delay();
+	CST816_I2C_Delay();
 	TP_SCL_SET_1;	/* CPU驱动SCL = 1, 此时器件会返回ACK应答 */
-	I2C_Delay();
-	SDA_INPUT();
+	CST816_I2C_Delay();
+	TP_SDA_INPUT();
 	if (TP_SDA_GET()) { /* CPU读取SDA口线状态 */
 		re = 1;
 	} else {
 		re = 0;
 	}
 	TP_SCL_SET_0;
-	SDA_OUT();
-	I2C_Delay();
+	TP_SDA_OUT();
+	CST816_I2C_Delay();
 	return re;
 }
 

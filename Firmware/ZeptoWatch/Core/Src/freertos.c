@@ -49,6 +49,7 @@
 /* USER CODE END Variables */
 osThreadId lvglTaskHandle;
 osThreadId detectingTaskHandle;
+osThreadId imuTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -57,6 +58,7 @@ osThreadId detectingTaskHandle;
 
 void StartLvglTask(void const * argument);
 void StartDetectingTask(void const * argument);
+void StartImuTask(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -96,6 +98,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_TIMERS */
 	/* start timers, add new ones, ... */
+
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -104,12 +107,16 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of lvglTask */
-  osThreadDef(lvglTask, StartLvglTask, osPriorityHigh, 0, 1024);
+  osThreadDef(lvglTask, StartLvglTask, osPriorityRealtime, 0, 1024);
   lvglTaskHandle = osThreadCreate(osThread(lvglTask), NULL);
 
   /* definition and creation of detectingTask */
   osThreadDef(detectingTask, StartDetectingTask, osPriorityNormal, 0, 128);
   detectingTaskHandle = osThreadCreate(osThread(detectingTask), NULL);
+
+  /* definition and creation of imuTask */
+  osThreadDef(imuTask, StartImuTask, osPriorityBelowNormal, 0, 512);
+  imuTaskHandle = osThreadCreate(osThread(imuTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
@@ -151,6 +158,24 @@ __weak void StartDetectingTask(void const * argument)
 		osDelay(1);
 	}
   /* USER CODE END StartDetectingTask */
+}
+
+/* USER CODE BEGIN Header_StartImuTask */
+/**
+* @brief Function implementing the imuTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartImuTask */
+__weak void StartImuTask(void const * argument)
+{
+  /* USER CODE BEGIN StartImuTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartImuTask */
 }
 
 /* Private application code --------------------------------------------------*/

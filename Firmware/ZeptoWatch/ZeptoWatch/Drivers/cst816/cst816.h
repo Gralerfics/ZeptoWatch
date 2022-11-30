@@ -2,7 +2,6 @@
 #define __CST816_H
 
 #include "common.h"
-#include "stdint.h"
 
 /*
  * TP_RST -> PC2 (Deserted)

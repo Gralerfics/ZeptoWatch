@@ -1,5 +1,7 @@
 #include "rtc_handler.h"
 
+#include "ui.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -19,12 +21,6 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *mHrtc) {
 	if (HAL_RTC_SetAlarm_IT(mHrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK) {
 		Error_Handler();
 	}
-
-	// Test
-//	OLED_ShowString(1, 3, (char *) ":  :");
-//	OLED_ShowNum(1, 1, RTC_Time.Hours, 2);
-//	OLED_ShowNum(1, 4, RTC_Time.Minutes, 2);
-//	OLED_ShowNum(1, 7, RTC_Time.Seconds, 2);
 
 	// Move the arrows
 //	uint16_t cSecAngle = RTC_LVGL_GetSecondRotation();
