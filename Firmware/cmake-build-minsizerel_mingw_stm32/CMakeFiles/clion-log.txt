@@ -1,5 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2022.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_MAKE_PROGRAM=D:/Environments/MinGW/bin/mingw32-make.exe -DCMAKE_C_COMPILER=D:/Environments/Embedded/GNU_Tools_ARM_Embedded/bin/arm-none-eabi-gcc.exe -DCMAKE_CXX_COMPILER=D:/Environments/Embedded/GNU_Tools_ARM_Embedded/bin/arm-none-eabi-g++.exe -G "CodeBlocks - MinGW Makefiles" -S C:\Workplace\ZeptoWatch\Firmware -B C:\Workplace\ZeptoWatch\Firmware\cmake-build-minsizerel_mingw_stm32
--- Maximum optimization for size
--- Configuring done
--- Generating done
--- Build files have been written to: C:/Workplace/ZeptoWatch/Firmware/cmake-build-minsizerel_mingw_stm32
