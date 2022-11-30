@@ -1,0 +1,3 @@
+C:/Workplace/ZeptoWatch/Firmware/cmake-build-debug/CMakeFiles/ZeptoWatch.elf.dir
+C:/Workplace/ZeptoWatch/Firmware/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Workplace/ZeptoWatch/Firmware/cmake-build-debug/CMakeFiles/rebuild_cache.dir

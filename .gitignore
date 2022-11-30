@@ -1,7 +1,6 @@
-/Firmware/ZeptoWatch/cmake-build-release_mingw_stm32/
-/Firmware/ZeptoWatch/cmake-build-minsizerel_mingw_stm32/
-/Firmware/ZeptoWatch/cmake-build-debug_mingw_stm32/
-/Firmware/ZeptoWatch/cmake-build-debug/
-/Firmware/ZeptoWatch/.idea/
-/Firmware/ref/
+/Firmware/cmake-build-release_mingw_stm32/
+/Firmware/cmake-build-minsizerel_mingw_stm32/
+/Firmware/cmake-build-debug_mingw_stm32/
+/Firmware/cmake-build-debug/
+/Firmware/.idea
 /Hardware/ZeptoWatch_backup/
