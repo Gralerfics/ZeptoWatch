@@ -11,7 +11,7 @@ set(CMAKE_AR arm-none-eabi-ar)
 set(CMAKE_OBJCOPY arm-none-eabi-objcopy)
 set(CMAKE_OBJDUMP arm-none-eabi-objdump)
 set(SIZE arm-none-eabi-size)
-set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_Libraries)
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 # project settings
 project(ZeptoWatch C CXX ASM)
@@ -130,7 +130,6 @@ include_directories(
         ZeptoWatch/Drivers/mpu6050
         ZeptoWatch/Drivers/mpu6050/eMPL
         ZeptoWatch/Tasks
-        ZeptoWatch/UI
         ZeptoWatch/Utils
 )
 
