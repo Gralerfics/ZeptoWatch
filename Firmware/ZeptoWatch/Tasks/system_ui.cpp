@@ -4,6 +4,7 @@
 #include "lv_port_disp.h"
 #include "lv_port_indev.h"
 #include "tim.h"
+#include "ui.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,10 +15,14 @@ void StartSystemUI(void const * argument) {
 	lv_port_disp_init();
 	lv_port_indev_init();
 
+	ui_init();
+
 	HAL_TIM_Base_Start_IT(&htim2); // Lvgl Heart Beat Interrupt
 
 	for (;;) {
 		lv_task_handler();
+
+
 
 		osDelay(1);
 	}

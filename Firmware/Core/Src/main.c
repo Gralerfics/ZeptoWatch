@@ -31,8 +31,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "pikaScript.h"
 #include "retarget.h"
+//#include "pikaScript.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -65,10 +65,10 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-char __platform_getchar(void) {
-	uint8_t peek;
-	while (1) if (HAL_OK == HAL_UART_Receive(&huart2, &peek, 1, 0)) return peek;
-}
+//char __platform_getchar(void) {
+//	uint8_t peek;
+//	while (1) if (HAL_OK == HAL_UART_Receive(&huart2, &peek, 1, 0)) return peek;
+//}
 /* USER CODE END 0 */
 
 /**
@@ -109,9 +109,10 @@ int main(void)
   MX_USB_OTG_FS_HCD_Init();
   MX_ADC1_Init();
   MX_TIM4_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
-	PikaObj *pikaMain = pikaScriptInit();
-	pikaScriptShell(pikaMain);
+//	PikaObj *pikaMain = pikaScriptInit();
+//	pikaScriptShell(pikaMain);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

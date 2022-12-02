@@ -7,7 +7,6 @@ extern "C" {
 
 #include "common.h"
 
-/* ==================== Body ==================== */
 void Delay_us(uint32_t t);
 void Delay_ms(uint32_t t);
 

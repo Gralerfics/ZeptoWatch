@@ -57,6 +57,7 @@ include_directories(
         Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
         Drivers/CMSIS/Device/ST/STM32F4xx/Include
         Drivers/CMSIS/Include
+        Libraries/
         Libraries/lvgl
         Libraries/lvgl/porting
         Libraries/lvgl/src
@@ -130,6 +131,7 @@ include_directories(
         ZeptoWatch/Drivers/mpu6050
         ZeptoWatch/Drivers/mpu6050/eMPL
         ZeptoWatch/Tasks
+        ZeptoWatch/UI
         ZeptoWatch/Utils
 )
 
