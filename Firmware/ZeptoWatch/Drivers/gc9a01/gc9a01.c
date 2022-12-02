@@ -23,30 +23,30 @@ void GC9A01_SPI_SendData16(uint16_t pData) {
 }
 
 void GC9A01_GPIO_Init(void) {
-	GPIO_InitTypeDef GPIO_InitStruct;
+	GPIO_InitTypeDef GPIO_InitStructure;
 	__HAL_RCC_LCD_RST_CLK_ENABLE();
 	__HAL_RCC_LCD_DC_CLK_ENABLE();
 
 	/* LCD_SPI in spi.c */
 		/* IMPORTANT! SLK 或 SDA 需要上拉一个！ (?) */
-		/* 或 spi.h 中要是 "GPIO_InitStruct.Pull = GPIO_PULLUP;" */
+		/* 或 spi.h 中要是 "GPIO_InitStructure.Pull = GPIO_PULLUP;" */
 
 	/* LCD_CS 片选默认接地 */
 
 	/* LCD_RST */
-	GPIO_InitStruct.Pin = LCD_RST_PIN;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(LCD_RST_PORT, &GPIO_InitStruct);
+	GPIO_InitStructure.Pin = LCD_RST_PIN;
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(LCD_RST_PORT, &GPIO_InitStructure);
 	HAL_GPIO_WritePin(LCD_RST_PORT, LCD_RST_PIN, GPIO_PIN_SET);
 
 	/* LCD_DC */
-	GPIO_InitStruct.Pin = LCD_DC_PIN;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(LCD_DC_PORT, &GPIO_InitStruct);
+	GPIO_InitStructure.Pin = LCD_DC_PIN;
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	HAL_GPIO_Init(LCD_DC_PORT, &GPIO_InitStructure);
 	HAL_GPIO_WritePin(LCD_DC_PORT, LCD_DC_PIN, GPIO_PIN_SET);
 }
 
@@ -125,7 +125,11 @@ void GC9A01_Init(void) {
 	GC9A01_SPI_SendData8(0x20);
 
 	GC9A01_SPI_SendCommand(0x36);
-	GC9A01_SPI_SendData8(0xA8);		// 刷新方向: 0x08 (朝上) or 0xC8 (朝下) or 0x68 (朝右) or 0xA8 (朝左). 注意触摸方面需要相应修改!
+	/* 刷新方向: 0x08 (朝上) or 0xC8 (朝下) or 0x68 (朝右) or 0xA8 (朝左). 注意触摸方面需要相应修改! */
+//	GC9A01_SPI_SendData8(0x08);
+//	GC9A01_SPI_SendData8(0xC8);
+	GC9A01_SPI_SendData8(0x68);
+//	GC9A01_SPI_SendData8(0xA8);
 
 	GC9A01_SPI_SendCommand(0x3A);
 	GC9A01_SPI_SendData8(0x05);

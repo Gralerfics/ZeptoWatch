@@ -84,6 +84,8 @@ extern "C" {
  *      MACROS
  **********************/
 
+#define PIKASCRIPT
+
 /** Gives 1 if the x.y.z version is supported in the current version
  * Usage:
  *

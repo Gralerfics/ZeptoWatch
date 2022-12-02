@@ -9,9 +9,6 @@
  * TP_SDA -> PB11
  */
 
-#define I2C_WR 0 /* 写控制bit */
-#define I2C_RD 1 /* 读控制bit */
-
 #define __HAL_RCC_TP_I2C_CLK_ENABLE() __HAL_RCC_GPIOB_CLK_ENABLE()
 #define TP_I2C_PORT GPIOB
 #define TP_SCL_PIN GPIO_PIN_10

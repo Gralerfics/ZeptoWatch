@@ -62,7 +62,7 @@ void TP_SDA_OUT() {
 
 /* 延时函数 */
 void CST816_I2C_Delay(void) {
-	delay_us(1);
+	Delay_us(1);
 //	for (uint8_t i = 0; i < 15; i++);
 }
 
@@ -267,9 +267,9 @@ void CST816_I2C_WriteReg(uint8_t addr, uint8_t dat) {
 */
 //void CST816_Reset(void) {
 //	TP_RST_SET_0;
-//	delay_ms(10);
+//	Delay_ms(10);
 //	TP_RST_SET_1;
-//	delay_ms(100);
+//	Delay_ms(100);
 //}
 
 /*
