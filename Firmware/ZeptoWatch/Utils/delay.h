@@ -8,8 +8,8 @@ extern "C" {
 #include "common.h"
 
 /* ==================== Body ==================== */
-void delay_us(uint32_t t);
-void delay_ms(uint32_t t);
+void Delay_us(uint32_t t);
+void Delay_ms(uint32_t t);
 
 #ifdef __cplusplus
 }

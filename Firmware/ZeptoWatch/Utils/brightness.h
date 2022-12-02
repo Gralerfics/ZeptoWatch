@@ -7,14 +7,12 @@ extern "C" {
 
 #include "common.h"
 
-/* ==================== Body ==================== */
-extern uint8_t LCD_BRIGHTNESS_Value;
+void Brightness_SetTIMHandle(TIM_HandleTypeDef *htim);
+void Brightness_SetTIMChannel(uint32_t channel);
+void Brightness_Start();
 
-void LCD_BRIGHTNESS_SetValue(uint8_t val);
-void LCD_BRIGHTNESS_SetTIMHandle(TIM_HandleTypeDef *htim);
-void LCD_BRIGHTNESS_SetTIMChannel(uint32_t channel);
-
-void LCD_BRIGHTNESS_ApplyValue();
+void Brightness_SetValue(uint8_t val);
+uint8_t Brightness_GetValue();
 
 #ifdef __cplusplus
 }

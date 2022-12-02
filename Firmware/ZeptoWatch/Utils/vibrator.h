@@ -7,7 +7,6 @@ extern "C" {
 
 #include "common.h"
 
-/* ==================== Body ==================== */
 
 
 #ifdef __cplusplus

@@ -9,7 +9,7 @@ uint8_t MPU_Initialize(void) {
 	MPU_GPIO_Init();										// 初始化 I2C 总线
 
 	MPU_Write_Byte(MPU_PWR_MGMT1_REG, 0x80);		// 复位 MPU6050
-	delay_ms(500);
+	Delay_ms(500);
 	MPU_Write_Byte(MPU_PWR_MGMT1_REG, 0x00);		// 唤醒 MPU6050
 	MPU_Set_Gyro_Fsr(3);								// 设置陀螺仪量程, ±2000dps
 	MPU_Set_Accel_Fsr(0);								// 设置加速度量程, ±2g
@@ -248,7 +248,7 @@ void IMU_SDA_OUT() {
 }
 
 void MPU_IIC_Delay(void) {
-	delay_us(2);
+	Delay_us(2);
 }
 
 void MPU_IIC_Start(void) {

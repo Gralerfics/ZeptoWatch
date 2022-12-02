@@ -1,25 +1,32 @@
 #include "brightness.h"
 
-uint8_t LCD_BRIGHTNESS_Value = 80;
+TIM_HandleTypeDef *Brightness_TIMHandle;
+uint32_t Brightness_TIMChannel;
 
-TIM_HandleTypeDef *LCD_BRIGHTNESS_TIMHandle;
-uint32_t LCD_BRIGHTNESS_TIMChannel;
+void Brightness_SetTIMHandle(TIM_HandleTypeDef *htim) {
+	Brightness_TIMHandle = htim;
+}
 
-void LCD_BRIGHTNESS_SetValue(uint8_t val) {
-	if (LCD_BRIGHTNESS_Value >= 0 && LCD_BRIGHTNESS_Value <= 100) {
-		LCD_BRIGHTNESS_Value = val;
+void Brightness_SetTIMChannel(uint32_t channel) {
+	Brightness_TIMChannel = channel;
+}
+
+void Brightness_Start() {
+	if (Brightness_TIMHandle != nullptr && IS_TIM_CCX_INSTANCE(Brightness_TIMHandle -> Instance, Brightness_TIMChannel)) {
+		HAL_TIM_PWM_Start(Brightness_TIMHandle, Brightness_TIMChannel);
 	}
 }
 
-void LCD_BRIGHTNESS_SetTIMHandle(TIM_HandleTypeDef *htim) {
-	LCD_BRIGHTNESS_TIMHandle = htim;
+void Brightness_SetValue(uint8_t val) {
+	if (val >= 0 && val <= 100) {
+		__HAL_TIM_SET_COMPARE(Brightness_TIMHandle, Brightness_TIMChannel, val);
+	}
 }
 
-void LCD_BRIGHTNESS_SetTIMChannel(uint32_t channel) {
-	LCD_BRIGHTNESS_TIMChannel = channel;
-}
-
-/* 0 ~ 100 */
-void LCD_BRIGHTNESS_ApplyValue() {
-	__HAL_TIM_SET_COMPARE(LCD_BRIGHTNESS_TIMHandle, LCD_BRIGHTNESS_TIMChannel, LCD_BRIGHTNESS_Value);
+uint8_t Brightness_GetValue() {
+	if (Brightness_TIMHandle != nullptr && IS_TIM_CCX_INSTANCE(Brightness_TIMHandle -> Instance, Brightness_TIMChannel)) {
+		return __HAL_TIM_GET_COMPARE(Brightness_TIMHandle, Brightness_TIMChannel);
+	} else {
+		return 255;
+	}
 }
