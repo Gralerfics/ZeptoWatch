@@ -19,6 +19,7 @@
 #include "PikaMain.h"
 #include "PikaStdLib_SysObj.h"
 #include "PikaStdLib.h"
+#include "STM32F4.h"
 #include "PikaStdData.h"
 #include "TinyObj.h"
 #include "PikaStdData_ByteArray.h"
@@ -39,6 +40,26 @@
 #include "TinyObj.h"
 #include "PikaStdData_dict_keys.h"
 #include "TinyObj.h"
+#include "PikaStdDevice.h"
+#include "TinyObj.h"
+#include "PikaStdDevice_ADC.h"
+#include "PikaStdDevice_BaseDev.h"
+#include "PikaStdDevice_BaseDev.h"
+#include "TinyObj.h"
+#include "PikaStdDevice_CAN.h"
+#include "PikaStdDevice_BaseDev.h"
+#include "PikaStdDevice_GPIO.h"
+#include "PikaStdDevice_BaseDev.h"
+#include "PikaStdDevice_IIC.h"
+#include "PikaStdDevice_BaseDev.h"
+#include "PikaStdDevice_PWM.h"
+#include "PikaStdDevice_BaseDev.h"
+#include "PikaStdDevice_SPI.h"
+#include "PikaStdDevice_BaseDev.h"
+#include "PikaStdDevice_Time.h"
+#include "PikaStdDevice_BaseDev.h"
+#include "PikaStdDevice_UART.h"
+#include "PikaStdDevice_BaseDev.h"
 #include "PikaStdLib.h"
 #include "TinyObj.h"
 #include "PikaStdLib_MemChecker.h"
@@ -54,6 +75,22 @@
 #include "PikaStdTask_Task.h"
 #include "PikaStdLib_SysObj.h"
 #include "PikaStdData_List.h"
+#include "STM32F4.h"
+#include "TinyObj.h"
+#include "STM32F4_ADC.h"
+#include "PikaStdDevice_ADC.h"
+#include "STM32F4_GPIO.h"
+#include "PikaStdDevice_GPIO.h"
+#include "STM32F4_IIC.h"
+#include "PikaStdDevice_IIC.h"
+#include "STM32F4_GPIO.h"
+#include "STM32F4_GPIO.h"
+#include "STM32F4_PWM.h"
+#include "PikaStdDevice_PWM.h"
+#include "STM32F4_Time.h"
+#include "PikaStdDevice_Time.h"
+#include "STM32F4_UART.h"
+#include "PikaStdDevice_UART.h"
 
 #ifndef PIKA_MODULE_PIKADEBUG_DISABLE
 void PikaDebug_DebugerMethod(PikaObj *self, Args *args){
@@ -122,6 +159,7 @@ class_inhert(PikaMain, PikaStdLib_SysObj);
 PikaObj *New_PikaMain(Args *args){
     PikaObj *self = New_PikaStdLib_SysObj(args);
     obj_newObj(self, "PikaStdLib", "PikaStdLib", New_PikaStdLib);
+    obj_newObj(self, "STM32F4", "STM32F4", New_STM32F4);
     obj_setClass(self, PikaMain);
     return self;
 }
@@ -1210,6 +1248,1519 @@ Arg *PikaStdData_dict_keys(PikaObj *self){
 }
 #endif
 
+#ifndef PIKA_MODULE_PIKASTDDEVICE_DISABLE
+void PikaStdDevice_ADCMethod(PikaObj *self, Args *args){
+    Arg* res = PikaStdDevice_ADC(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_ADC,
+    "ADC", ""
+);
+
+void PikaStdDevice_BaseDevMethod(PikaObj *self, Args *args){
+    Arg* res = PikaStdDevice_BaseDev(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_BaseDev,
+    "BaseDev", ""
+);
+
+void PikaStdDevice_CANMethod(PikaObj *self, Args *args){
+    Arg* res = PikaStdDevice_CAN(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_CAN,
+    "CAN", ""
+);
+
+void PikaStdDevice_GPIOMethod(PikaObj *self, Args *args){
+    Arg* res = PikaStdDevice_GPIO(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_GPIO,
+    "GPIO", ""
+);
+
+void PikaStdDevice_IICMethod(PikaObj *self, Args *args){
+    Arg* res = PikaStdDevice_IIC(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_IIC,
+    "IIC", ""
+);
+
+void PikaStdDevice_PWMMethod(PikaObj *self, Args *args){
+    Arg* res = PikaStdDevice_PWM(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_PWM,
+    "PWM", ""
+);
+
+void PikaStdDevice_SPIMethod(PikaObj *self, Args *args){
+    Arg* res = PikaStdDevice_SPI(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_SPI,
+    "SPI", ""
+);
+
+void PikaStdDevice_TimeMethod(PikaObj *self, Args *args){
+    Arg* res = PikaStdDevice_Time(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_Time,
+    "Time", ""
+);
+
+void PikaStdDevice_UARTMethod(PikaObj *self, Args *args){
+    Arg* res = PikaStdDevice_UART(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_UART,
+    "UART", ""
+);
+
+class_def(PikaStdDevice){
+    __BEFORE_MOETHOD_DEF
+    constructor_def(PikaStdDevice_ADC, 193450093),
+    constructor_def(PikaStdDevice_CAN, 193452183),
+    constructor_def(PikaStdDevice_IIC, 193458970),
+    constructor_def(PikaStdDevice_PWM, 193467065),
+    constructor_def(PikaStdDevice_SPI, 193470097),
+    constructor_def(PikaStdDevice_BaseDev, 1189166879),
+    constructor_def(PikaStdDevice_GPIO, 2089114740),
+    constructor_def(PikaStdDevice_UART, 2089601825),
+    constructor_def(PikaStdDevice_Time, 2089610356),
+};
+class_inhert(PikaStdDevice, TinyObj);
+
+PikaObj *New_PikaStdDevice(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, PikaStdDevice);
+    return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKASTDDEVICE_DISABLE
+void PikaStdDevice_ADC___init__Method(PikaObj *self, Args *args){
+    PikaStdDevice_ADC___init__(self);
+}
+method_typedef(
+    PikaStdDevice_ADC___init__,
+    "__init__", ""
+);
+
+void PikaStdDevice_ADC_disableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_ADC_disable(self);
+}
+method_typedef(
+    PikaStdDevice_ADC_disable,
+    "disable", ""
+);
+
+void PikaStdDevice_ADC_enableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_ADC_enable(self);
+}
+method_typedef(
+    PikaStdDevice_ADC_enable,
+    "enable", ""
+);
+
+void PikaStdDevice_ADC_platformDisableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_ADC_platformDisable(self);
+}
+method_typedef(
+    PikaStdDevice_ADC_platformDisable,
+    "platformDisable", ""
+);
+
+void PikaStdDevice_ADC_platformEnableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_ADC_platformEnable(self);
+}
+method_typedef(
+    PikaStdDevice_ADC_platformEnable,
+    "platformEnable", ""
+);
+
+void PikaStdDevice_ADC_platformReadMethod(PikaObj *self, Args *args){
+    PikaStdDevice_ADC_platformRead(self);
+}
+method_typedef(
+    PikaStdDevice_ADC_platformRead,
+    "platformRead", ""
+);
+
+void PikaStdDevice_ADC_readMethod(PikaObj *self, Args *args){
+    pika_float res = PikaStdDevice_ADC_read(self);
+    method_returnFloat(args, res);
+}
+method_typedef(
+    PikaStdDevice_ADC_read,
+    "read", ""
+);
+
+void PikaStdDevice_ADC_setPinMethod(PikaObj *self, Args *args){
+    char* pin = args_getStr(args, "pin");
+    PikaStdDevice_ADC_setPin(self, pin);
+}
+method_typedef(
+    PikaStdDevice_ADC_setPin,
+    "setPin", "pin"
+);
+
+class_def(PikaStdDevice_ADC){
+    __BEFORE_MOETHOD_DEF
+    method_def(PikaStdDevice_ADC_disable, 314893497),
+    method_def(PikaStdDevice_ADC_platformDisable, 326843198),
+    method_def(PikaStdDevice_ADC_setPin, 461696568),
+    method_def(PikaStdDevice_ADC_platformEnable, 835227025),
+    method_def(PikaStdDevice_ADC___init__, 904762485),
+    method_def(PikaStdDevice_ADC_platformRead, 1797695974),
+    method_def(PikaStdDevice_ADC_enable, 2071294892),
+    method_def(PikaStdDevice_ADC_read, 2090683713),
+};
+class_inhert(PikaStdDevice_ADC, PikaStdDevice_BaseDev);
+
+PikaObj *New_PikaStdDevice_ADC(Args *args){
+    PikaObj *self = New_PikaStdDevice_BaseDev(args);
+    obj_setClass(self, PikaStdDevice_ADC);
+    return self;
+}
+
+Arg *PikaStdDevice_ADC(PikaObj *self){
+    return obj_newObjInPackage(New_PikaStdDevice_ADC);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKASTDDEVICE_DISABLE
+void PikaStdDevice_BaseDev_addEventCallBackMethod(PikaObj *self, Args *args){
+    Arg* eventCallback = args_getArg(args, "eventCallback");
+    PikaStdDevice_BaseDev_addEventCallBack(self, eventCallback);
+}
+method_typedef(
+    PikaStdDevice_BaseDev_addEventCallBack,
+    "addEventCallBack", "eventCallback"
+);
+
+void PikaStdDevice_BaseDev_platformGetEventIdMethod(PikaObj *self, Args *args){
+    PikaStdDevice_BaseDev_platformGetEventId(self);
+}
+method_typedef(
+    PikaStdDevice_BaseDev_platformGetEventId,
+    "platformGetEventId", ""
+);
+
+class_def(PikaStdDevice_BaseDev){
+    __BEFORE_MOETHOD_DEF
+#if PIKA_EVENT_ENABLE
+    method_def(PikaStdDevice_BaseDev_platformGetEventId, 794288473),
+#endif
+#if PIKA_EVENT_ENABLE
+    method_def(PikaStdDevice_BaseDev_addEventCallBack, 1710815869),
+#endif
+};
+class_inhert(PikaStdDevice_BaseDev, TinyObj);
+
+PikaObj *New_PikaStdDevice_BaseDev(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, PikaStdDevice_BaseDev);
+    return self;
+}
+
+Arg *PikaStdDevice_BaseDev(PikaObj *self){
+    return obj_newObjInPackage(New_PikaStdDevice_BaseDev);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKASTDDEVICE_DISABLE
+void PikaStdDevice_CAN___init__Method(PikaObj *self, Args *args){
+    PikaStdDevice_CAN___init__(self);
+}
+method_typedef(
+    PikaStdDevice_CAN___init__,
+    "__init__", ""
+);
+
+void PikaStdDevice_CAN_addFilterMethod(PikaObj *self, Args *args){
+    int id = args_getInt(args, "id");
+    int ide = args_getInt(args, "ide");
+    int rtr = args_getInt(args, "rtr");
+    int mode = args_getInt(args, "mode");
+    int mask = args_getInt(args, "mask");
+    int hdr = args_getInt(args, "hdr");
+    PikaStdDevice_CAN_addFilter(self, id, ide, rtr, mode, mask, hdr);
+}
+method_typedef(
+    PikaStdDevice_CAN_addFilter,
+    "addFilter", "id,ide,rtr,mode,mask,hdr"
+);
+
+void PikaStdDevice_CAN_disableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_CAN_disable(self);
+}
+method_typedef(
+    PikaStdDevice_CAN_disable,
+    "disable", ""
+);
+
+void PikaStdDevice_CAN_enableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_CAN_enable(self);
+}
+method_typedef(
+    PikaStdDevice_CAN_enable,
+    "enable", ""
+);
+
+void PikaStdDevice_CAN_platformDisableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_CAN_platformDisable(self);
+}
+method_typedef(
+    PikaStdDevice_CAN_platformDisable,
+    "platformDisable", ""
+);
+
+void PikaStdDevice_CAN_platformEnableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_CAN_platformEnable(self);
+}
+method_typedef(
+    PikaStdDevice_CAN_platformEnable,
+    "platformEnable", ""
+);
+
+void PikaStdDevice_CAN_platformReadMethod(PikaObj *self, Args *args){
+    PikaStdDevice_CAN_platformRead(self);
+}
+method_typedef(
+    PikaStdDevice_CAN_platformRead,
+    "platformRead", ""
+);
+
+void PikaStdDevice_CAN_platformReadBytesMethod(PikaObj *self, Args *args){
+    PikaStdDevice_CAN_platformReadBytes(self);
+}
+method_typedef(
+    PikaStdDevice_CAN_platformReadBytes,
+    "platformReadBytes", ""
+);
+
+void PikaStdDevice_CAN_platformWriteMethod(PikaObj *self, Args *args){
+    PikaStdDevice_CAN_platformWrite(self);
+}
+method_typedef(
+    PikaStdDevice_CAN_platformWrite,
+    "platformWrite", ""
+);
+
+void PikaStdDevice_CAN_platformWriteBytesMethod(PikaObj *self, Args *args){
+    PikaStdDevice_CAN_platformWriteBytes(self);
+}
+method_typedef(
+    PikaStdDevice_CAN_platformWriteBytes,
+    "platformWriteBytes", ""
+);
+
+void PikaStdDevice_CAN_readMethod(PikaObj *self, Args *args){
+    int length = args_getInt(args, "length");
+    char* res = PikaStdDevice_CAN_read(self, length);
+    method_returnStr(args, res);
+}
+method_typedef(
+    PikaStdDevice_CAN_read,
+    "read", "length"
+);
+
+void PikaStdDevice_CAN_readBytesMethod(PikaObj *self, Args *args){
+    int length = args_getInt(args, "length");
+    Arg* res = PikaStdDevice_CAN_readBytes(self, length);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_CAN_readBytes,
+    "readBytes", "length"
+);
+
+void PikaStdDevice_CAN_setBaudRateMethod(PikaObj *self, Args *args){
+    int baudRate = args_getInt(args, "baudRate");
+    PikaStdDevice_CAN_setBaudRate(self, baudRate);
+}
+method_typedef(
+    PikaStdDevice_CAN_setBaudRate,
+    "setBaudRate", "baudRate"
+);
+
+void PikaStdDevice_CAN_setIdMethod(PikaObj *self, Args *args){
+    int id = args_getInt(args, "id");
+    PikaStdDevice_CAN_setId(self, id);
+}
+method_typedef(
+    PikaStdDevice_CAN_setId,
+    "setId", "id"
+);
+
+void PikaStdDevice_CAN_setModeMethod(PikaObj *self, Args *args){
+    char* mode = args_getStr(args, "mode");
+    PikaStdDevice_CAN_setMode(self, mode);
+}
+method_typedef(
+    PikaStdDevice_CAN_setMode,
+    "setMode", "mode"
+);
+
+void PikaStdDevice_CAN_setNameMethod(PikaObj *self, Args *args){
+    char* name = args_getStr(args, "name");
+    PikaStdDevice_CAN_setName(self, name);
+}
+method_typedef(
+    PikaStdDevice_CAN_setName,
+    "setName", "name"
+);
+
+void PikaStdDevice_CAN_writeMethod(PikaObj *self, Args *args){
+    char* data = args_getStr(args, "data");
+    PikaStdDevice_CAN_write(self, data);
+}
+method_typedef(
+    PikaStdDevice_CAN_write,
+    "write", "data"
+);
+
+void PikaStdDevice_CAN_writeBytesMethod(PikaObj *self, Args *args){
+    uint8_t* data = args_getBytes(args, "data");
+    int length = args_getInt(args, "length");
+    PikaStdDevice_CAN_writeBytes(self, data, length);
+}
+method_typedef(
+    PikaStdDevice_CAN_writeBytes,
+    "writeBytes", "data,length"
+);
+
+class_def(PikaStdDevice_CAN){
+    __BEFORE_MOETHOD_DEF
+    method_def(PikaStdDevice_CAN_setMode, 203499702),
+    method_def(PikaStdDevice_CAN_setName, 203520690),
+    method_def(PikaStdDevice_CAN_setId, 274291614),
+    method_def(PikaStdDevice_CAN_write, 279491920),
+    method_def(PikaStdDevice_CAN_disable, 314893497),
+    method_def(PikaStdDevice_CAN_platformDisable, 326843198),
+    method_def(PikaStdDevice_CAN_addFilter, 464296980),
+    method_def(PikaStdDevice_CAN_readBytes, 545481704),
+    method_def(PikaStdDevice_CAN_platformReadBytes, 673804205),
+    method_def(PikaStdDevice_CAN_platformWriteBytes, 726970812),
+    method_def(PikaStdDevice_CAN_writeBytes, 787295575),
+    method_def(PikaStdDevice_CAN_platformEnable, 835227025),
+    method_def(PikaStdDevice_CAN___init__, 904762485),
+    method_def(PikaStdDevice_CAN_platformWrite, 1348314773),
+    method_def(PikaStdDevice_CAN_setBaudRate, 1620269241),
+    method_def(PikaStdDevice_CAN_platformRead, 1797695974),
+    method_def(PikaStdDevice_CAN_enable, 2071294892),
+    method_def(PikaStdDevice_CAN_read, 2090683713),
+};
+class_inhert(PikaStdDevice_CAN, PikaStdDevice_BaseDev);
+
+PikaObj *New_PikaStdDevice_CAN(Args *args){
+    PikaObj *self = New_PikaStdDevice_BaseDev(args);
+    obj_setClass(self, PikaStdDevice_CAN);
+    return self;
+}
+
+Arg *PikaStdDevice_CAN(PikaObj *self){
+    return obj_newObjInPackage(New_PikaStdDevice_CAN);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKASTDDEVICE_DISABLE
+void PikaStdDevice_GPIO___init__Method(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO___init__(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO___init__,
+    "__init__", ""
+);
+
+void PikaStdDevice_GPIO_disableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO_disable(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO_disable,
+    "disable", ""
+);
+
+void PikaStdDevice_GPIO_enableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO_enable(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO_enable,
+    "enable", ""
+);
+
+void PikaStdDevice_GPIO_getIdMethod(PikaObj *self, Args *args){
+    int res = PikaStdDevice_GPIO_getId(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    PikaStdDevice_GPIO_getId,
+    "getId", ""
+);
+
+void PikaStdDevice_GPIO_getModeMethod(PikaObj *self, Args *args){
+    char* res = PikaStdDevice_GPIO_getMode(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    PikaStdDevice_GPIO_getMode,
+    "getMode", ""
+);
+
+void PikaStdDevice_GPIO_getPinMethod(PikaObj *self, Args *args){
+    char* res = PikaStdDevice_GPIO_getPin(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    PikaStdDevice_GPIO_getPin,
+    "getPin", ""
+);
+
+void PikaStdDevice_GPIO_highMethod(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO_high(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO_high,
+    "high", ""
+);
+
+void PikaStdDevice_GPIO_lowMethod(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO_low(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO_low,
+    "low", ""
+);
+
+void PikaStdDevice_GPIO_platformDisableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO_platformDisable(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO_platformDisable,
+    "platformDisable", ""
+);
+
+void PikaStdDevice_GPIO_platformEnableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO_platformEnable(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO_platformEnable,
+    "platformEnable", ""
+);
+
+void PikaStdDevice_GPIO_platformHighMethod(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO_platformHigh(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO_platformHigh,
+    "platformHigh", ""
+);
+
+void PikaStdDevice_GPIO_platformLowMethod(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO_platformLow(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO_platformLow,
+    "platformLow", ""
+);
+
+void PikaStdDevice_GPIO_platformReadMethod(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO_platformRead(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO_platformRead,
+    "platformRead", ""
+);
+
+void PikaStdDevice_GPIO_platformSetModeMethod(PikaObj *self, Args *args){
+    PikaStdDevice_GPIO_platformSetMode(self);
+}
+method_typedef(
+    PikaStdDevice_GPIO_platformSetMode,
+    "platformSetMode", ""
+);
+
+void PikaStdDevice_GPIO_readMethod(PikaObj *self, Args *args){
+    int res = PikaStdDevice_GPIO_read(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    PikaStdDevice_GPIO_read,
+    "read", ""
+);
+
+void PikaStdDevice_GPIO_setIdMethod(PikaObj *self, Args *args){
+    int id = args_getInt(args, "id");
+    PikaStdDevice_GPIO_setId(self, id);
+}
+method_typedef(
+    PikaStdDevice_GPIO_setId,
+    "setId", "id"
+);
+
+void PikaStdDevice_GPIO_setModeMethod(PikaObj *self, Args *args){
+    char* mode = args_getStr(args, "mode");
+    PikaStdDevice_GPIO_setMode(self, mode);
+}
+method_typedef(
+    PikaStdDevice_GPIO_setMode,
+    "setMode", "mode"
+);
+
+void PikaStdDevice_GPIO_setPinMethod(PikaObj *self, Args *args){
+    char* pinName = args_getStr(args, "pinName");
+    PikaStdDevice_GPIO_setPin(self, pinName);
+}
+method_typedef(
+    PikaStdDevice_GPIO_setPin,
+    "setPin", "pinName"
+);
+
+void PikaStdDevice_GPIO_setPullMethod(PikaObj *self, Args *args){
+    char* pull = args_getStr(args, "pull");
+    PikaStdDevice_GPIO_setPull(self, pull);
+}
+method_typedef(
+    PikaStdDevice_GPIO_setPull,
+    "setPull", "pull"
+);
+
+class_def(PikaStdDevice_GPIO){
+    __BEFORE_MOETHOD_DEF
+    method_def(PikaStdDevice_GPIO_low, 193498391),
+    method_def(PikaStdDevice_GPIO_setMode, 203499702),
+    method_def(PikaStdDevice_GPIO_setPull, 203614318),
+    method_def(PikaStdDevice_GPIO_platformSetMode, 215449403),
+    method_def(PikaStdDevice_GPIO_getId, 260060562),
+    method_def(PikaStdDevice_GPIO_setId, 274291614),
+    method_def(PikaStdDevice_GPIO_disable, 314893497),
+    method_def(PikaStdDevice_GPIO_platformDisable, 326843198),
+    method_def(PikaStdDevice_GPIO_setPin, 461696568),
+    method_def(PikaStdDevice_GPIO_platformEnable, 835227025),
+    method_def(PikaStdDevice_GPIO___init__, 904762485),
+    method_def(PikaStdDevice_GPIO_platformLow, 1616275740),
+    method_def(PikaStdDevice_GPIO_platformHigh, 1797341162),
+    method_def(PikaStdDevice_GPIO_platformRead, 1797695974),
+    method_def(PikaStdDevice_GPIO_getMode, 1885753258),
+    method_def(PikaStdDevice_GPIO_enable, 2071294892),
+    method_def(PikaStdDevice_GPIO_high, 2090328901),
+    method_def(PikaStdDevice_GPIO_read, 2090683713),
+    method_def(PikaStdDevice_GPIO_getPin, 2139555500),
+};
+class_inhert(PikaStdDevice_GPIO, PikaStdDevice_BaseDev);
+
+PikaObj *New_PikaStdDevice_GPIO(Args *args){
+    PikaObj *self = New_PikaStdDevice_BaseDev(args);
+    obj_setClass(self, PikaStdDevice_GPIO);
+    return self;
+}
+
+Arg *PikaStdDevice_GPIO(PikaObj *self){
+    return obj_newObjInPackage(New_PikaStdDevice_GPIO);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKASTDDEVICE_DISABLE
+void PikaStdDevice_IIC___init__Method(PikaObj *self, Args *args){
+    PikaStdDevice_IIC___init__(self);
+}
+method_typedef(
+    PikaStdDevice_IIC___init__,
+    "__init__", ""
+);
+
+void PikaStdDevice_IIC_disableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_IIC_disable(self);
+}
+method_typedef(
+    PikaStdDevice_IIC_disable,
+    "disable", ""
+);
+
+void PikaStdDevice_IIC_enableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_IIC_enable(self);
+}
+method_typedef(
+    PikaStdDevice_IIC_enable,
+    "enable", ""
+);
+
+void PikaStdDevice_IIC_platformDisableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_IIC_platformDisable(self);
+}
+method_typedef(
+    PikaStdDevice_IIC_platformDisable,
+    "platformDisable", ""
+);
+
+void PikaStdDevice_IIC_platformEnableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_IIC_platformEnable(self);
+}
+method_typedef(
+    PikaStdDevice_IIC_platformEnable,
+    "platformEnable", ""
+);
+
+void PikaStdDevice_IIC_platformReadMethod(PikaObj *self, Args *args){
+    PikaStdDevice_IIC_platformRead(self);
+}
+method_typedef(
+    PikaStdDevice_IIC_platformRead,
+    "platformRead", ""
+);
+
+void PikaStdDevice_IIC_platformReadBytesMethod(PikaObj *self, Args *args){
+    PikaStdDevice_IIC_platformReadBytes(self);
+}
+method_typedef(
+    PikaStdDevice_IIC_platformReadBytes,
+    "platformReadBytes", ""
+);
+
+void PikaStdDevice_IIC_platformWriteMethod(PikaObj *self, Args *args){
+    PikaStdDevice_IIC_platformWrite(self);
+}
+method_typedef(
+    PikaStdDevice_IIC_platformWrite,
+    "platformWrite", ""
+);
+
+void PikaStdDevice_IIC_platformWriteBytesMethod(PikaObj *self, Args *args){
+    PikaStdDevice_IIC_platformWriteBytes(self);
+}
+method_typedef(
+    PikaStdDevice_IIC_platformWriteBytes,
+    "platformWriteBytes", ""
+);
+
+void PikaStdDevice_IIC_readMethod(PikaObj *self, Args *args){
+    int addr = args_getInt(args, "addr");
+    int length = args_getInt(args, "length");
+    char* res = PikaStdDevice_IIC_read(self, addr, length);
+    method_returnStr(args, res);
+}
+method_typedef(
+    PikaStdDevice_IIC_read,
+    "read", "addr,length"
+);
+
+void PikaStdDevice_IIC_readBytesMethod(PikaObj *self, Args *args){
+    int addr = args_getInt(args, "addr");
+    int length = args_getInt(args, "length");
+    Arg* res = PikaStdDevice_IIC_readBytes(self, addr, length);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_IIC_readBytes,
+    "readBytes", "addr,length"
+);
+
+void PikaStdDevice_IIC_setDeviceAddrMethod(PikaObj *self, Args *args){
+    int addr = args_getInt(args, "addr");
+    PikaStdDevice_IIC_setDeviceAddr(self, addr);
+}
+method_typedef(
+    PikaStdDevice_IIC_setDeviceAddr,
+    "setDeviceAddr", "addr"
+);
+
+void PikaStdDevice_IIC_setPinSCLMethod(PikaObj *self, Args *args){
+    char* pin = args_getStr(args, "pin");
+    PikaStdDevice_IIC_setPinSCL(self, pin);
+}
+method_typedef(
+    PikaStdDevice_IIC_setPinSCL,
+    "setPinSCL", "pin"
+);
+
+void PikaStdDevice_IIC_setPinSDAMethod(PikaObj *self, Args *args){
+    char* pin = args_getStr(args, "pin");
+    PikaStdDevice_IIC_setPinSDA(self, pin);
+}
+method_typedef(
+    PikaStdDevice_IIC_setPinSDA,
+    "setPinSDA", "pin"
+);
+
+void PikaStdDevice_IIC_writeMethod(PikaObj *self, Args *args){
+    int addr = args_getInt(args, "addr");
+    char* data = args_getStr(args, "data");
+    PikaStdDevice_IIC_write(self, addr, data);
+}
+method_typedef(
+    PikaStdDevice_IIC_write,
+    "write", "addr,data"
+);
+
+void PikaStdDevice_IIC_writeBytesMethod(PikaObj *self, Args *args){
+    int addr = args_getInt(args, "addr");
+    uint8_t* data = args_getBytes(args, "data");
+    int length = args_getInt(args, "length");
+    PikaStdDevice_IIC_writeBytes(self, addr, data, length);
+}
+method_typedef(
+    PikaStdDevice_IIC_writeBytes,
+    "writeBytes", "addr,data,length"
+);
+
+class_def(PikaStdDevice_IIC){
+    __BEFORE_MOETHOD_DEF
+    method_def(PikaStdDevice_IIC_write, 279491920),
+    method_def(PikaStdDevice_IIC_disable, 314893497),
+    method_def(PikaStdDevice_IIC_platformDisable, 326843198),
+    method_def(PikaStdDevice_IIC_setPinSCL, 530992442),
+    method_def(PikaStdDevice_IIC_setPinSDA, 530992464),
+    method_def(PikaStdDevice_IIC_readBytes, 545481704),
+    method_def(PikaStdDevice_IIC_platformReadBytes, 673804205),
+    method_def(PikaStdDevice_IIC_platformWriteBytes, 726970812),
+    method_def(PikaStdDevice_IIC_writeBytes, 787295575),
+    method_def(PikaStdDevice_IIC_platformEnable, 835227025),
+    method_def(PikaStdDevice_IIC___init__, 904762485),
+    method_def(PikaStdDevice_IIC_setDeviceAddr, 1103920220),
+    method_def(PikaStdDevice_IIC_platformWrite, 1348314773),
+    method_def(PikaStdDevice_IIC_platformRead, 1797695974),
+    method_def(PikaStdDevice_IIC_enable, 2071294892),
+    method_def(PikaStdDevice_IIC_read, 2090683713),
+};
+class_inhert(PikaStdDevice_IIC, PikaStdDevice_BaseDev);
+
+PikaObj *New_PikaStdDevice_IIC(Args *args){
+    PikaObj *self = New_PikaStdDevice_BaseDev(args);
+    obj_setClass(self, PikaStdDevice_IIC);
+    return self;
+}
+
+Arg *PikaStdDevice_IIC(PikaObj *self){
+    return obj_newObjInPackage(New_PikaStdDevice_IIC);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKASTDDEVICE_DISABLE
+void PikaStdDevice_PWM___init__Method(PikaObj *self, Args *args){
+    PikaStdDevice_PWM___init__(self);
+}
+method_typedef(
+    PikaStdDevice_PWM___init__,
+    "__init__", ""
+);
+
+void PikaStdDevice_PWM_disableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_PWM_disable(self);
+}
+method_typedef(
+    PikaStdDevice_PWM_disable,
+    "disable", ""
+);
+
+void PikaStdDevice_PWM_enableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_PWM_enable(self);
+}
+method_typedef(
+    PikaStdDevice_PWM_enable,
+    "enable", ""
+);
+
+void PikaStdDevice_PWM_getChannelMethod(PikaObj *self, Args *args){
+    int res = PikaStdDevice_PWM_getChannel(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    PikaStdDevice_PWM_getChannel,
+    "getChannel", ""
+);
+
+void PikaStdDevice_PWM_getDutyMethod(PikaObj *self, Args *args){
+    pika_float res = PikaStdDevice_PWM_getDuty(self);
+    method_returnFloat(args, res);
+}
+method_typedef(
+    PikaStdDevice_PWM_getDuty,
+    "getDuty", ""
+);
+
+void PikaStdDevice_PWM_getFrequencyMethod(PikaObj *self, Args *args){
+    int res = PikaStdDevice_PWM_getFrequency(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    PikaStdDevice_PWM_getFrequency,
+    "getFrequency", ""
+);
+
+void PikaStdDevice_PWM_getNameMethod(PikaObj *self, Args *args){
+    char* res = PikaStdDevice_PWM_getName(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    PikaStdDevice_PWM_getName,
+    "getName", ""
+);
+
+void PikaStdDevice_PWM_platformDisableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_PWM_platformDisable(self);
+}
+method_typedef(
+    PikaStdDevice_PWM_platformDisable,
+    "platformDisable", ""
+);
+
+void PikaStdDevice_PWM_platformEnableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_PWM_platformEnable(self);
+}
+method_typedef(
+    PikaStdDevice_PWM_platformEnable,
+    "platformEnable", ""
+);
+
+void PikaStdDevice_PWM_platformSetDutyMethod(PikaObj *self, Args *args){
+    PikaStdDevice_PWM_platformSetDuty(self);
+}
+method_typedef(
+    PikaStdDevice_PWM_platformSetDuty,
+    "platformSetDuty", ""
+);
+
+void PikaStdDevice_PWM_platformSetFrequencyMethod(PikaObj *self, Args *args){
+    PikaStdDevice_PWM_platformSetFrequency(self);
+}
+method_typedef(
+    PikaStdDevice_PWM_platformSetFrequency,
+    "platformSetFrequency", ""
+);
+
+void PikaStdDevice_PWM_setChannelMethod(PikaObj *self, Args *args){
+    int ch = args_getInt(args, "ch");
+    PikaStdDevice_PWM_setChannel(self, ch);
+}
+method_typedef(
+    PikaStdDevice_PWM_setChannel,
+    "setChannel", "ch"
+);
+
+void PikaStdDevice_PWM_setDutyMethod(PikaObj *self, Args *args){
+    pika_float duty = args_getFloat(args, "duty");
+    PikaStdDevice_PWM_setDuty(self, duty);
+}
+method_typedef(
+    PikaStdDevice_PWM_setDuty,
+    "setDuty", "duty"
+);
+
+void PikaStdDevice_PWM_setFreqMethod(PikaObj *self, Args *args){
+    int freq = args_getInt(args, "freq");
+    PikaStdDevice_PWM_setFreq(self, freq);
+}
+method_typedef(
+    PikaStdDevice_PWM_setFreq,
+    "setFreq", "freq"
+);
+
+void PikaStdDevice_PWM_setFrequencyMethod(PikaObj *self, Args *args){
+    int freq = args_getInt(args, "freq");
+    PikaStdDevice_PWM_setFrequency(self, freq);
+}
+method_typedef(
+    PikaStdDevice_PWM_setFrequency,
+    "setFrequency", "freq"
+);
+
+void PikaStdDevice_PWM_setNameMethod(PikaObj *self, Args *args){
+    char* name = args_getStr(args, "name");
+    PikaStdDevice_PWM_setName(self, name);
+}
+method_typedef(
+    PikaStdDevice_PWM_setName,
+    "setName", "name"
+);
+
+void PikaStdDevice_PWM_setPinMethod(PikaObj *self, Args *args){
+    char* pin = args_getStr(args, "pin");
+    PikaStdDevice_PWM_setPin(self, pin);
+}
+method_typedef(
+    PikaStdDevice_PWM_setPin,
+    "setPin", "pin"
+);
+
+class_def(PikaStdDevice_PWM){
+    __BEFORE_MOETHOD_DEF
+    method_def(PikaStdDevice_PWM_setDuty, 203183351),
+    method_def(PikaStdDevice_PWM_setFreq, 203251455),
+    method_def(PikaStdDevice_PWM_setName, 203520690),
+    method_def(PikaStdDevice_PWM_platformSetDuty, 215133052),
+    method_def(PikaStdDevice_PWM_disable, 314893497),
+    method_def(PikaStdDevice_PWM_platformDisable, 326843198),
+    method_def(PikaStdDevice_PWM_setPin, 461696568),
+    method_def(PikaStdDevice_PWM_setChannel, 680132682),
+    method_def(PikaStdDevice_PWM_platformEnable, 835227025),
+    method_def(PikaStdDevice_PWM___init__, 904762485),
+    method_def(PikaStdDevice_PWM_setFrequency, 1182403779),
+    method_def(PikaStdDevice_PWM_getDuty, 1885436907),
+    method_def(PikaStdDevice_PWM_getName, 1885774246),
+    method_def(PikaStdDevice_PWM_getChannel, 2013999806),
+    method_def(PikaStdDevice_PWM_platformSetFrequency, 2060729960),
+    method_def(PikaStdDevice_PWM_getFrequency, 2064755767),
+    method_def(PikaStdDevice_PWM_enable, 2071294892),
+};
+class_inhert(PikaStdDevice_PWM, PikaStdDevice_BaseDev);
+
+PikaObj *New_PikaStdDevice_PWM(Args *args){
+    PikaObj *self = New_PikaStdDevice_BaseDev(args);
+    obj_setClass(self, PikaStdDevice_PWM);
+    return self;
+}
+
+Arg *PikaStdDevice_PWM(PikaObj *self){
+    return obj_newObjInPackage(New_PikaStdDevice_PWM);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKASTDDEVICE_DISABLE
+void PikaStdDevice_SPI___init__Method(PikaObj *self, Args *args){
+    PikaStdDevice_SPI___init__(self);
+}
+method_typedef(
+    PikaStdDevice_SPI___init__,
+    "__init__", ""
+);
+
+void PikaStdDevice_SPI_disableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_SPI_disable(self);
+}
+method_typedef(
+    PikaStdDevice_SPI_disable,
+    "disable", ""
+);
+
+void PikaStdDevice_SPI_enableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_SPI_enable(self);
+}
+method_typedef(
+    PikaStdDevice_SPI_enable,
+    "enable", ""
+);
+
+void PikaStdDevice_SPI_platformDisableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_SPI_platformDisable(self);
+}
+method_typedef(
+    PikaStdDevice_SPI_platformDisable,
+    "platformDisable", ""
+);
+
+void PikaStdDevice_SPI_platformEnableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_SPI_platformEnable(self);
+}
+method_typedef(
+    PikaStdDevice_SPI_platformEnable,
+    "platformEnable", ""
+);
+
+void PikaStdDevice_SPI_platformReadMethod(PikaObj *self, Args *args){
+    PikaStdDevice_SPI_platformRead(self);
+}
+method_typedef(
+    PikaStdDevice_SPI_platformRead,
+    "platformRead", ""
+);
+
+void PikaStdDevice_SPI_platformReadBytesMethod(PikaObj *self, Args *args){
+    PikaStdDevice_SPI_platformReadBytes(self);
+}
+method_typedef(
+    PikaStdDevice_SPI_platformReadBytes,
+    "platformReadBytes", ""
+);
+
+void PikaStdDevice_SPI_platformWriteMethod(PikaObj *self, Args *args){
+    PikaStdDevice_SPI_platformWrite(self);
+}
+method_typedef(
+    PikaStdDevice_SPI_platformWrite,
+    "platformWrite", ""
+);
+
+void PikaStdDevice_SPI_platformWriteBytesMethod(PikaObj *self, Args *args){
+    PikaStdDevice_SPI_platformWriteBytes(self);
+}
+method_typedef(
+    PikaStdDevice_SPI_platformWriteBytes,
+    "platformWriteBytes", ""
+);
+
+void PikaStdDevice_SPI_readMethod(PikaObj *self, Args *args){
+    int length = args_getInt(args, "length");
+    char* res = PikaStdDevice_SPI_read(self, length);
+    method_returnStr(args, res);
+}
+method_typedef(
+    PikaStdDevice_SPI_read,
+    "read", "length"
+);
+
+void PikaStdDevice_SPI_readBytesMethod(PikaObj *self, Args *args){
+    int length = args_getInt(args, "length");
+    Arg* res = PikaStdDevice_SPI_readBytes(self, length);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_SPI_readBytes,
+    "readBytes", "length"
+);
+
+void PikaStdDevice_SPI_setBaudRateMethod(PikaObj *self, Args *args){
+    int baudRate = args_getInt(args, "baudRate");
+    PikaStdDevice_SPI_setBaudRate(self, baudRate);
+}
+method_typedef(
+    PikaStdDevice_SPI_setBaudRate,
+    "setBaudRate", "baudRate"
+);
+
+void PikaStdDevice_SPI_setIdMethod(PikaObj *self, Args *args){
+    int id = args_getInt(args, "id");
+    PikaStdDevice_SPI_setId(self, id);
+}
+method_typedef(
+    PikaStdDevice_SPI_setId,
+    "setId", "id"
+);
+
+void PikaStdDevice_SPI_setNameMethod(PikaObj *self, Args *args){
+    char* name = args_getStr(args, "name");
+    PikaStdDevice_SPI_setName(self, name);
+}
+method_typedef(
+    PikaStdDevice_SPI_setName,
+    "setName", "name"
+);
+
+void PikaStdDevice_SPI_setPhaseMethod(PikaObj *self, Args *args){
+    int phase = args_getInt(args, "phase");
+    PikaStdDevice_SPI_setPhase(self, phase);
+}
+method_typedef(
+    PikaStdDevice_SPI_setPhase,
+    "setPhase", "phase"
+);
+
+void PikaStdDevice_SPI_setPinMISOMethod(PikaObj *self, Args *args){
+    char* pin = args_getStr(args, "pin");
+    PikaStdDevice_SPI_setPinMISO(self, pin);
+}
+method_typedef(
+    PikaStdDevice_SPI_setPinMISO,
+    "setPinMISO", "pin"
+);
+
+void PikaStdDevice_SPI_setPinMOSIMethod(PikaObj *self, Args *args){
+    char* pin = args_getStr(args, "pin");
+    PikaStdDevice_SPI_setPinMOSI(self, pin);
+}
+method_typedef(
+    PikaStdDevice_SPI_setPinMOSI,
+    "setPinMOSI", "pin"
+);
+
+void PikaStdDevice_SPI_setPinSCKMethod(PikaObj *self, Args *args){
+    char* pin = args_getStr(args, "pin");
+    PikaStdDevice_SPI_setPinSCK(self, pin);
+}
+method_typedef(
+    PikaStdDevice_SPI_setPinSCK,
+    "setPinSCK", "pin"
+);
+
+void PikaStdDevice_SPI_setPolarityMethod(PikaObj *self, Args *args){
+    int polarity = args_getInt(args, "polarity");
+    PikaStdDevice_SPI_setPolarity(self, polarity);
+}
+method_typedef(
+    PikaStdDevice_SPI_setPolarity,
+    "setPolarity", "polarity"
+);
+
+void PikaStdDevice_SPI_writeMethod(PikaObj *self, Args *args){
+    char* data = args_getStr(args, "data");
+    PikaStdDevice_SPI_write(self, data);
+}
+method_typedef(
+    PikaStdDevice_SPI_write,
+    "write", "data"
+);
+
+void PikaStdDevice_SPI_writeBytesMethod(PikaObj *self, Args *args){
+    uint8_t* data = args_getBytes(args, "data");
+    int length = args_getInt(args, "length");
+    PikaStdDevice_SPI_writeBytes(self, data, length);
+}
+method_typedef(
+    PikaStdDevice_SPI_writeBytes,
+    "writeBytes", "data,length"
+);
+
+class_def(PikaStdDevice_SPI){
+    __BEFORE_MOETHOD_DEF
+    method_def(PikaStdDevice_SPI_setName, 203520690),
+    method_def(PikaStdDevice_SPI_setId, 274291614),
+    method_def(PikaStdDevice_SPI_setPhase, 276342722),
+    method_def(PikaStdDevice_SPI_write, 279491920),
+    method_def(PikaStdDevice_SPI_disable, 314893497),
+    method_def(PikaStdDevice_SPI_platformDisable, 326843198),
+    method_def(PikaStdDevice_SPI_setPinMISO, 342672624),
+    method_def(PikaStdDevice_SPI_setPinMOSI, 342679152),
+    method_def(PikaStdDevice_SPI_setPinSCK, 530992441),
+    method_def(PikaStdDevice_SPI_readBytes, 545481704),
+    method_def(PikaStdDevice_SPI_platformReadBytes, 673804205),
+    method_def(PikaStdDevice_SPI_platformWriteBytes, 726970812),
+    method_def(PikaStdDevice_SPI_writeBytes, 787295575),
+    method_def(PikaStdDevice_SPI_platformEnable, 835227025),
+    method_def(PikaStdDevice_SPI___init__, 904762485),
+    method_def(PikaStdDevice_SPI_platformWrite, 1348314773),
+    method_def(PikaStdDevice_SPI_setBaudRate, 1620269241),
+    method_def(PikaStdDevice_SPI_platformRead, 1797695974),
+    method_def(PikaStdDevice_SPI_setPolarity, 1824081573),
+    method_def(PikaStdDevice_SPI_enable, 2071294892),
+    method_def(PikaStdDevice_SPI_read, 2090683713),
+};
+class_inhert(PikaStdDevice_SPI, PikaStdDevice_BaseDev);
+
+PikaObj *New_PikaStdDevice_SPI(Args *args){
+    PikaObj *self = New_PikaStdDevice_BaseDev(args);
+    obj_setClass(self, PikaStdDevice_SPI);
+    return self;
+}
+
+Arg *PikaStdDevice_SPI(PikaObj *self){
+    return obj_newObjInPackage(New_PikaStdDevice_SPI);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKASTDDEVICE_DISABLE
+void PikaStdDevice_Time___init__Method(PikaObj *self, Args *args){
+    PikaStdDevice_Time___init__(self);
+}
+method_typedef(
+    PikaStdDevice_Time___init__,
+    "__init__", ""
+);
+
+void PikaStdDevice_Time_asctimeMethod(PikaObj *self, Args *args){
+    PikaStdDevice_Time_asctime(self);
+}
+method_typedef(
+    PikaStdDevice_Time_asctime,
+    "asctime", ""
+);
+
+void PikaStdDevice_Time_ctimeMethod(PikaObj *self, Args *args){
+    pika_float unix_time = args_getFloat(args, "unix_time");
+    PikaStdDevice_Time_ctime(self, unix_time);
+}
+method_typedef(
+    PikaStdDevice_Time_ctime,
+    "ctime", "unix_time"
+);
+
+void PikaStdDevice_Time_gmtimeMethod(PikaObj *self, Args *args){
+    pika_float unix_time = args_getFloat(args, "unix_time");
+    PikaStdDevice_Time_gmtime(self, unix_time);
+}
+method_typedef(
+    PikaStdDevice_Time_gmtime,
+    "gmtime", "unix_time"
+);
+
+void PikaStdDevice_Time_localtimeMethod(PikaObj *self, Args *args){
+    pika_float unix_time = args_getFloat(args, "unix_time");
+    PikaStdDevice_Time_localtime(self, unix_time);
+}
+method_typedef(
+    PikaStdDevice_Time_localtime,
+    "localtime", "unix_time"
+);
+
+void PikaStdDevice_Time_mktimeMethod(PikaObj *self, Args *args){
+    int res = PikaStdDevice_Time_mktime(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    PikaStdDevice_Time_mktime,
+    "mktime", ""
+);
+
+void PikaStdDevice_Time_platformGetTickMethod(PikaObj *self, Args *args){
+    PikaStdDevice_Time_platformGetTick(self);
+}
+method_typedef(
+    PikaStdDevice_Time_platformGetTick,
+    "platformGetTick", ""
+);
+
+void PikaStdDevice_Time_sleepMethod(PikaObj *self, Args *args){
+    pika_float s = args_getFloat(args, "s");
+    PikaStdDevice_Time_sleep(self, s);
+}
+method_typedef(
+    PikaStdDevice_Time_sleep,
+    "sleep", "s"
+);
+
+void PikaStdDevice_Time_sleep_msMethod(PikaObj *self, Args *args){
+    int ms = args_getInt(args, "ms");
+    PikaStdDevice_Time_sleep_ms(self, ms);
+}
+method_typedef(
+    PikaStdDevice_Time_sleep_ms,
+    "sleep_ms", "ms"
+);
+
+void PikaStdDevice_Time_sleep_sMethod(PikaObj *self, Args *args){
+    int s = args_getInt(args, "s");
+    PikaStdDevice_Time_sleep_s(self, s);
+}
+method_typedef(
+    PikaStdDevice_Time_sleep_s,
+    "sleep_s", "s"
+);
+
+void PikaStdDevice_Time_timeMethod(PikaObj *self, Args *args){
+    pika_float res = PikaStdDevice_Time_time(self);
+    method_returnFloat(args, res);
+}
+method_typedef(
+    PikaStdDevice_Time_time,
+    "time", ""
+);
+
+void PikaStdDevice_Time_time_nsMethod(PikaObj *self, Args *args){
+    int res = PikaStdDevice_Time_time_ns(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    PikaStdDevice_Time_time_ns,
+    "time_ns", ""
+);
+
+class_def(PikaStdDevice_Time){
+    __BEFORE_MOETHOD_DEF
+#if PIKA_STD_DEVICE_UNIX_TIME_ENABLE
+    method_def(PikaStdDevice_Time_gmtime, 1586568),
+#endif
+    method_def(PikaStdDevice_Time_sleep_ms, 164842493),
+#if PIKA_STD_DEVICE_UNIX_TIME_ENABLE
+    method_def(PikaStdDevice_Time_mktime, 234027084),
+#endif
+#if PIKA_STD_DEVICE_UNIX_TIME_ENABLE
+    method_def(PikaStdDevice_Time_ctime, 255845143),
+#endif
+    method_def(PikaStdDevice_Time_sleep, 274527774),
+    method_def(PikaStdDevice_Time_sleep_s, 460522064),
+    method_def(PikaStdDevice_Time___init__, 904762485),
+#if PIKA_STD_DEVICE_UNIX_TIME_ENABLE
+    method_def(PikaStdDevice_Time_localtime, 907356095),
+#endif
+#if PIKA_STD_DEVICE_UNIX_TIME_ENABLE
+    method_def(PikaStdDevice_Time_asctime, 1108526539),
+#endif
+#if PIKA_STD_DEVICE_UNIX_TIME_ENABLE
+    method_def(PikaStdDevice_Time_time_ns, 1644053204),
+#endif
+#if PIKA_STD_DEVICE_UNIX_TIME_ENABLE
+    method_def(PikaStdDevice_Time_platformGetTick, 1897947957),
+#endif
+#if PIKA_STD_DEVICE_UNIX_TIME_ENABLE
+    method_def(PikaStdDevice_Time_time, 2090760340),
+#endif
+};
+class_inhert(PikaStdDevice_Time, PikaStdDevice_BaseDev);
+
+PikaObj *New_PikaStdDevice_Time(Args *args){
+    PikaObj *self = New_PikaStdDevice_BaseDev(args);
+    obj_setClass(self, PikaStdDevice_Time);
+    return self;
+}
+
+Arg *PikaStdDevice_Time(PikaObj *self){
+    return obj_newObjInPackage(New_PikaStdDevice_Time);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKASTDDEVICE_DISABLE
+void PikaStdDevice_UART___init__Method(PikaObj *self, Args *args){
+    PikaStdDevice_UART___init__(self);
+}
+method_typedef(
+    PikaStdDevice_UART___init__,
+    "__init__", ""
+);
+
+void PikaStdDevice_UART_disableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_UART_disable(self);
+}
+method_typedef(
+    PikaStdDevice_UART_disable,
+    "disable", ""
+);
+
+void PikaStdDevice_UART_enableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_UART_enable(self);
+}
+method_typedef(
+    PikaStdDevice_UART_enable,
+    "enable", ""
+);
+
+void PikaStdDevice_UART_platformDisableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_UART_platformDisable(self);
+}
+method_typedef(
+    PikaStdDevice_UART_platformDisable,
+    "platformDisable", ""
+);
+
+void PikaStdDevice_UART_platformEnableMethod(PikaObj *self, Args *args){
+    PikaStdDevice_UART_platformEnable(self);
+}
+method_typedef(
+    PikaStdDevice_UART_platformEnable,
+    "platformEnable", ""
+);
+
+void PikaStdDevice_UART_platformReadMethod(PikaObj *self, Args *args){
+    PikaStdDevice_UART_platformRead(self);
+}
+method_typedef(
+    PikaStdDevice_UART_platformRead,
+    "platformRead", ""
+);
+
+void PikaStdDevice_UART_platformReadBytesMethod(PikaObj *self, Args *args){
+    PikaStdDevice_UART_platformReadBytes(self);
+}
+method_typedef(
+    PikaStdDevice_UART_platformReadBytes,
+    "platformReadBytes", ""
+);
+
+void PikaStdDevice_UART_platformWriteMethod(PikaObj *self, Args *args){
+    PikaStdDevice_UART_platformWrite(self);
+}
+method_typedef(
+    PikaStdDevice_UART_platformWrite,
+    "platformWrite", ""
+);
+
+void PikaStdDevice_UART_platformWriteBytesMethod(PikaObj *self, Args *args){
+    PikaStdDevice_UART_platformWriteBytes(self);
+}
+method_typedef(
+    PikaStdDevice_UART_platformWriteBytes,
+    "platformWriteBytes", ""
+);
+
+void PikaStdDevice_UART_readMethod(PikaObj *self, Args *args){
+    int length = args_getInt(args, "length");
+    char* res = PikaStdDevice_UART_read(self, length);
+    method_returnStr(args, res);
+}
+method_typedef(
+    PikaStdDevice_UART_read,
+    "read", "length"
+);
+
+void PikaStdDevice_UART_readBytesMethod(PikaObj *self, Args *args){
+    int length = args_getInt(args, "length");
+    Arg* res = PikaStdDevice_UART_readBytes(self, length);
+    method_returnArg(args, res);
+}
+method_typedef(
+    PikaStdDevice_UART_readBytes,
+    "readBytes", "length"
+);
+
+void PikaStdDevice_UART_setBaudRateMethod(PikaObj *self, Args *args){
+    int baudRate = args_getInt(args, "baudRate");
+    PikaStdDevice_UART_setBaudRate(self, baudRate);
+}
+method_typedef(
+    PikaStdDevice_UART_setBaudRate,
+    "setBaudRate", "baudRate"
+);
+
+void PikaStdDevice_UART_setIdMethod(PikaObj *self, Args *args){
+    int id = args_getInt(args, "id");
+    PikaStdDevice_UART_setId(self, id);
+}
+method_typedef(
+    PikaStdDevice_UART_setId,
+    "setId", "id"
+);
+
+void PikaStdDevice_UART_writeMethod(PikaObj *self, Args *args){
+    char* data = args_getStr(args, "data");
+    PikaStdDevice_UART_write(self, data);
+}
+method_typedef(
+    PikaStdDevice_UART_write,
+    "write", "data"
+);
+
+void PikaStdDevice_UART_writeBytesMethod(PikaObj *self, Args *args){
+    uint8_t* data = args_getBytes(args, "data");
+    int length = args_getInt(args, "length");
+    PikaStdDevice_UART_writeBytes(self, data, length);
+}
+method_typedef(
+    PikaStdDevice_UART_writeBytes,
+    "writeBytes", "data,length"
+);
+
+class_def(PikaStdDevice_UART){
+    __BEFORE_MOETHOD_DEF
+    method_def(PikaStdDevice_UART_setId, 274291614),
+    method_def(PikaStdDevice_UART_write, 279491920),
+    method_def(PikaStdDevice_UART_disable, 314893497),
+    method_def(PikaStdDevice_UART_platformDisable, 326843198),
+    method_def(PikaStdDevice_UART_readBytes, 545481704),
+    method_def(PikaStdDevice_UART_platformReadBytes, 673804205),
+    method_def(PikaStdDevice_UART_platformWriteBytes, 726970812),
+    method_def(PikaStdDevice_UART_writeBytes, 787295575),
+    method_def(PikaStdDevice_UART_platformEnable, 835227025),
+    method_def(PikaStdDevice_UART___init__, 904762485),
+    method_def(PikaStdDevice_UART_platformWrite, 1348314773),
+    method_def(PikaStdDevice_UART_setBaudRate, 1620269241),
+    method_def(PikaStdDevice_UART_platformRead, 1797695974),
+    method_def(PikaStdDevice_UART_enable, 2071294892),
+    method_def(PikaStdDevice_UART_read, 2090683713),
+};
+class_inhert(PikaStdDevice_UART, PikaStdDevice_BaseDev);
+
+PikaObj *New_PikaStdDevice_UART(Args *args){
+    PikaObj *self = New_PikaStdDevice_BaseDev(args);
+    obj_setClass(self, PikaStdDevice_UART);
+    return self;
+}
+
+Arg *PikaStdDevice_UART(PikaObj *self){
+    return obj_newObjInPackage(New_PikaStdDevice_UART);
+}
+#endif
+
 #ifndef PIKA_MODULE_PIKASTDLIB_DISABLE
 void PikaStdLib_MemCheckerMethod(PikaObj *self, Args *args){
     Arg* res = PikaStdLib_MemChecker(self);
@@ -1862,6 +3413,356 @@ PikaObj *New_PikaStdTask_Task(Args *args){
 
 Arg *PikaStdTask_Task(PikaObj *self){
     return obj_newObjInPackage(New_PikaStdTask_Task);
+}
+#endif
+
+#ifndef PIKA_MODULE_STM32F4_DISABLE
+void STM32F4_ADCMethod(PikaObj *self, Args *args){
+    Arg* res = STM32F4_ADC(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    STM32F4_ADC,
+    "ADC", ""
+);
+
+void STM32F4_GPIOMethod(PikaObj *self, Args *args){
+    Arg* res = STM32F4_GPIO(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    STM32F4_GPIO,
+    "GPIO", ""
+);
+
+void STM32F4_IICMethod(PikaObj *self, Args *args){
+    Arg* res = STM32F4_IIC(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    STM32F4_IIC,
+    "IIC", ""
+);
+
+void STM32F4_PWMMethod(PikaObj *self, Args *args){
+    Arg* res = STM32F4_PWM(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    STM32F4_PWM,
+    "PWM", ""
+);
+
+void STM32F4_TimeMethod(PikaObj *self, Args *args){
+    Arg* res = STM32F4_Time(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    STM32F4_Time,
+    "Time", ""
+);
+
+void STM32F4_UARTMethod(PikaObj *self, Args *args){
+    Arg* res = STM32F4_UART(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    STM32F4_UART,
+    "UART", ""
+);
+
+class_def(STM32F4){
+    __BEFORE_MOETHOD_DEF
+    constructor_def(STM32F4_ADC, 193450093),
+    constructor_def(STM32F4_IIC, 193458970),
+    constructor_def(STM32F4_PWM, 193467065),
+    constructor_def(STM32F4_GPIO, 2089114740),
+    constructor_def(STM32F4_UART, 2089601825),
+    constructor_def(STM32F4_Time, 2089610356),
+};
+class_inhert(STM32F4, TinyObj);
+
+PikaObj *New_STM32F4(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, STM32F4);
+    return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_STM32F4_DISABLE
+void STM32F4_ADC_platformEnableMethod(PikaObj *self, Args *args){
+    STM32F4_ADC_platformEnable(self);
+}
+method_typedef(
+    STM32F4_ADC_platformEnable,
+    "platformEnable", ""
+);
+
+void STM32F4_ADC_platformReadMethod(PikaObj *self, Args *args){
+    STM32F4_ADC_platformRead(self);
+}
+method_typedef(
+    STM32F4_ADC_platformRead,
+    "platformRead", ""
+);
+
+class_def(STM32F4_ADC){
+    __BEFORE_MOETHOD_DEF
+    method_def(STM32F4_ADC_platformEnable, 835227025),
+    method_def(STM32F4_ADC_platformRead, 1797695974),
+};
+class_inhert(STM32F4_ADC, PikaStdDevice_ADC);
+
+PikaObj *New_STM32F4_ADC(Args *args){
+    PikaObj *self = New_PikaStdDevice_ADC(args);
+    obj_setClass(self, STM32F4_ADC);
+    return self;
+}
+
+Arg *STM32F4_ADC(PikaObj *self){
+    return obj_newObjInPackage(New_STM32F4_ADC);
+}
+#endif
+
+#ifndef PIKA_MODULE_STM32F4_DISABLE
+void STM32F4_GPIO_platformDisableMethod(PikaObj *self, Args *args){
+    STM32F4_GPIO_platformDisable(self);
+}
+method_typedef(
+    STM32F4_GPIO_platformDisable,
+    "platformDisable", ""
+);
+
+void STM32F4_GPIO_platformEnableMethod(PikaObj *self, Args *args){
+    STM32F4_GPIO_platformEnable(self);
+}
+method_typedef(
+    STM32F4_GPIO_platformEnable,
+    "platformEnable", ""
+);
+
+void STM32F4_GPIO_platformHighMethod(PikaObj *self, Args *args){
+    STM32F4_GPIO_platformHigh(self);
+}
+method_typedef(
+    STM32F4_GPIO_platformHigh,
+    "platformHigh", ""
+);
+
+void STM32F4_GPIO_platformLowMethod(PikaObj *self, Args *args){
+    STM32F4_GPIO_platformLow(self);
+}
+method_typedef(
+    STM32F4_GPIO_platformLow,
+    "platformLow", ""
+);
+
+void STM32F4_GPIO_platformReadMethod(PikaObj *self, Args *args){
+    STM32F4_GPIO_platformRead(self);
+}
+method_typedef(
+    STM32F4_GPIO_platformRead,
+    "platformRead", ""
+);
+
+void STM32F4_GPIO_platformSetModeMethod(PikaObj *self, Args *args){
+    STM32F4_GPIO_platformSetMode(self);
+}
+method_typedef(
+    STM32F4_GPIO_platformSetMode,
+    "platformSetMode", ""
+);
+
+class_def(STM32F4_GPIO){
+    __BEFORE_MOETHOD_DEF
+    method_def(STM32F4_GPIO_platformSetMode, 215449403),
+    method_def(STM32F4_GPIO_platformDisable, 326843198),
+    method_def(STM32F4_GPIO_platformEnable, 835227025),
+    method_def(STM32F4_GPIO_platformLow, 1616275740),
+    method_def(STM32F4_GPIO_platformHigh, 1797341162),
+    method_def(STM32F4_GPIO_platformRead, 1797695974),
+};
+class_inhert(STM32F4_GPIO, PikaStdDevice_GPIO);
+
+PikaObj *New_STM32F4_GPIO(Args *args){
+    PikaObj *self = New_PikaStdDevice_GPIO(args);
+    obj_setClass(self, STM32F4_GPIO);
+    return self;
+}
+
+Arg *STM32F4_GPIO(PikaObj *self){
+    return obj_newObjInPackage(New_STM32F4_GPIO);
+}
+#endif
+
+#ifndef PIKA_MODULE_STM32F4_DISABLE
+void STM32F4_IIC_platformEnableMethod(PikaObj *self, Args *args){
+    STM32F4_IIC_platformEnable(self);
+}
+method_typedef(
+    STM32F4_IIC_platformEnable,
+    "platformEnable", ""
+);
+
+void STM32F4_IIC_platformReadMethod(PikaObj *self, Args *args){
+    STM32F4_IIC_platformRead(self);
+}
+method_typedef(
+    STM32F4_IIC_platformRead,
+    "platformRead", ""
+);
+
+void STM32F4_IIC_platformWriteMethod(PikaObj *self, Args *args){
+    STM32F4_IIC_platformWrite(self);
+}
+method_typedef(
+    STM32F4_IIC_platformWrite,
+    "platformWrite", ""
+);
+
+class_def(STM32F4_IIC){
+    __BEFORE_MOETHOD_DEF
+    method_def(STM32F4_IIC_platformEnable, 835227025),
+    method_def(STM32F4_IIC_platformWrite, 1348314773),
+    method_def(STM32F4_IIC_platformRead, 1797695974),
+};
+class_inhert(STM32F4_IIC, PikaStdDevice_IIC);
+
+PikaObj *New_STM32F4_IIC(Args *args){
+    PikaObj *self = New_PikaStdDevice_IIC(args);
+    obj_newObj(self, "SCL", "STM32F4_GPIO", New_STM32F4_GPIO);
+    obj_newObj(self, "SDA", "STM32F4_GPIO", New_STM32F4_GPIO);
+    obj_setClass(self, STM32F4_IIC);
+    return self;
+}
+
+Arg *STM32F4_IIC(PikaObj *self){
+    return obj_newObjInPackage(New_STM32F4_IIC);
+}
+#endif
+
+#ifndef PIKA_MODULE_STM32F4_DISABLE
+void STM32F4_PWM_platformEnableMethod(PikaObj *self, Args *args){
+    STM32F4_PWM_platformEnable(self);
+}
+method_typedef(
+    STM32F4_PWM_platformEnable,
+    "platformEnable", ""
+);
+
+void STM32F4_PWM_platformSetDutyMethod(PikaObj *self, Args *args){
+    STM32F4_PWM_platformSetDuty(self);
+}
+method_typedef(
+    STM32F4_PWM_platformSetDuty,
+    "platformSetDuty", ""
+);
+
+void STM32F4_PWM_platformSetFrequencyMethod(PikaObj *self, Args *args){
+    STM32F4_PWM_platformSetFrequency(self);
+}
+method_typedef(
+    STM32F4_PWM_platformSetFrequency,
+    "platformSetFrequency", ""
+);
+
+class_def(STM32F4_PWM){
+    __BEFORE_MOETHOD_DEF
+    method_def(STM32F4_PWM_platformSetDuty, 215133052),
+    method_def(STM32F4_PWM_platformEnable, 835227025),
+    method_def(STM32F4_PWM_platformSetFrequency, 2060729960),
+};
+class_inhert(STM32F4_PWM, PikaStdDevice_PWM);
+
+PikaObj *New_STM32F4_PWM(Args *args){
+    PikaObj *self = New_PikaStdDevice_PWM(args);
+    obj_setClass(self, STM32F4_PWM);
+    return self;
+}
+
+Arg *STM32F4_PWM(PikaObj *self){
+    return obj_newObjInPackage(New_STM32F4_PWM);
+}
+#endif
+
+#ifndef PIKA_MODULE_STM32F4_DISABLE
+void STM32F4_Time_sleep_msMethod(PikaObj *self, Args *args){
+    int ms = args_getInt(args, "ms");
+    STM32F4_Time_sleep_ms(self, ms);
+}
+method_typedef(
+    STM32F4_Time_sleep_ms,
+    "sleep_ms", "ms"
+);
+
+void STM32F4_Time_sleep_sMethod(PikaObj *self, Args *args){
+    int s = args_getInt(args, "s");
+    STM32F4_Time_sleep_s(self, s);
+}
+method_typedef(
+    STM32F4_Time_sleep_s,
+    "sleep_s", "s"
+);
+
+class_def(STM32F4_Time){
+    __BEFORE_MOETHOD_DEF
+    method_def(STM32F4_Time_sleep_ms, 164842493),
+    method_def(STM32F4_Time_sleep_s, 460522064),
+};
+class_inhert(STM32F4_Time, PikaStdDevice_Time);
+
+PikaObj *New_STM32F4_Time(Args *args){
+    PikaObj *self = New_PikaStdDevice_Time(args);
+    obj_setClass(self, STM32F4_Time);
+    return self;
+}
+
+Arg *STM32F4_Time(PikaObj *self){
+    return obj_newObjInPackage(New_STM32F4_Time);
+}
+#endif
+
+#ifndef PIKA_MODULE_STM32F4_DISABLE
+void STM32F4_UART_platformEnableMethod(PikaObj *self, Args *args){
+    STM32F4_UART_platformEnable(self);
+}
+method_typedef(
+    STM32F4_UART_platformEnable,
+    "platformEnable", ""
+);
+
+void STM32F4_UART_platformReadMethod(PikaObj *self, Args *args){
+    STM32F4_UART_platformRead(self);
+}
+method_typedef(
+    STM32F4_UART_platformRead,
+    "platformRead", ""
+);
+
+void STM32F4_UART_platformWriteMethod(PikaObj *self, Args *args){
+    STM32F4_UART_platformWrite(self);
+}
+method_typedef(
+    STM32F4_UART_platformWrite,
+    "platformWrite", ""
+);
+
+class_def(STM32F4_UART){
+    __BEFORE_MOETHOD_DEF
+    method_def(STM32F4_UART_platformEnable, 835227025),
+    method_def(STM32F4_UART_platformWrite, 1348314773),
+    method_def(STM32F4_UART_platformRead, 1797695974),
+};
+class_inhert(STM32F4_UART, PikaStdDevice_UART);
+
+PikaObj *New_STM32F4_UART(Args *args){
+    PikaObj *self = New_PikaStdDevice_UART(args);
+    obj_setClass(self, STM32F4_UART);
+    return self;
+}
+
+Arg *STM32F4_UART(PikaObj *self){
+    return obj_newObjInPackage(New_STM32F4_UART);
 }
 #endif
 

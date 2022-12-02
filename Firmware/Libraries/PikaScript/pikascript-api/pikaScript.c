@@ -17,7 +17,9 @@ volatile PikaObj *__pikaMain;
 PikaObj *pikaScriptInit(void){
     __platform_printf("======[pikascript packages installed]======\r\n");
     pks_printVersion();
+    __platform_printf("PikaStdDevice==v2.0.0\r\n");
     __platform_printf("PikaStdLib==v1.11.7\r\n");
+    __platform_printf("STM32F4==v0.1.2\r\n");
     __platform_printf("===========================================\r\n");
     PikaObj* pikaMain = newRootObj("pikaMain", New_PikaMain);
     __pikaMain = pikaMain;
@@ -25,8 +27,8 @@ PikaObj *pikaScriptInit(void){
     obj_linkLibrary(pikaMain, pikaModules_py_a);
 #if PIKA_INIT_STRING_ENABLE
     obj_run(pikaMain,
-            "import PikaStdLib\n"
-            "print('hello PikaScript!')\n"
+            "import PikaStdLib as std\n"
+            "import STM32F4 as mcu\n"
             "\n");
 #else 
     obj_runModule((PikaObj*)pikaMain, "main");
