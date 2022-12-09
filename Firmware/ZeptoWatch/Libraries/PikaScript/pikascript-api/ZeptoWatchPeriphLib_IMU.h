@@ -18,5 +18,6 @@
 PikaObj *New_ZeptoWatchPeriphLib_IMU(Args *args);
 
 int ZeptoWatchPeriphLib_IMU_getTemperature(PikaObj *self);
+void ZeptoWatchPeriphLib_IMU_initialize(PikaObj *self);
 
 #endif

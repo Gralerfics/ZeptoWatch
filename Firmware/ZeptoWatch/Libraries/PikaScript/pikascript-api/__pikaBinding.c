@@ -3445,9 +3445,18 @@ method_typedef(
     "getTemperature", ""
 );
 
+void ZeptoWatchPeriphLib_IMU_initializeMethod(PikaObj *self, Args *args){
+    ZeptoWatchPeriphLib_IMU_initialize(self);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_IMU_initialize,
+    "initialize", ""
+);
+
 class_def(ZeptoWatchPeriphLib_IMU){
     __BEFORE_MOETHOD_DEF
     method_def(ZeptoWatchPeriphLib_IMU_getTemperature, 572860947),
+    method_def(ZeptoWatchPeriphLib_IMU_initialize, 803587735),
 };
 class_inhert(ZeptoWatchPeriphLib_IMU, TinyObj);
 

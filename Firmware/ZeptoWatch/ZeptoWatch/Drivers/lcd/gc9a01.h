@@ -9,7 +9,7 @@
  * LCD_DC  -> PC5
  * LCD_SPI -> SPI1: SCL -> PA5
  *                  SDA -> PA7
- *                  CS  -> GND (!)
+ *                  CS  -> GND
  */
 
 #define __HAL_RCC_LCD_RST_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE()

@@ -117,11 +117,11 @@ uint8_t CST816_I2C_ReadByte(void);
 
 /* 触摸屏初始化相关函数 */
 void CST816_GPIO_Init(void);
-//void CST816_Reset(void);
 
 /* 触摸屏操作函数 */
 void CST816_Get_Axis(void);
 uint8_t CST816_Get_ChipID(void);
+uint8_t CST816_Is_OnConnection(void);
 
 /* 触摸屏读写函数 */
 void CST816_I2C_WriteReg(uint8_t addr, uint8_t dat);

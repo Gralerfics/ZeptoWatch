@@ -138,7 +138,7 @@ void MX_FREERTOS_Init(void) {
 	systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
 	/* definition and creation of systemDetecting */
-	osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1536);
+	osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 2048);
 	systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
 	/* USER CODE BEGIN RTOS_THREADS */

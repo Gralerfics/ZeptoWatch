@@ -1,23 +1,14 @@
 #include "cmsis_os.h"
 
 #include "stdio.h"
-#include "usart.h"
-#include "battery.h"
-#include "bt11.h"
-#include "ui.h"
 
-#include "m24512.h"
-#include "fatfs.h"
-
-#include "tim.h"
 #include "fatfs.h"
 
 #include "lvgl.h"
-#include "lv_port_disp.h"
-#include "lv_port_indev.h"
 #include "pikaScript.h"
 
 #include "ui.h"
+#include "m24512.h"
 
 #ifdef __cplusplus /* 为了在 .cpp 中覆写 .c 中的 __weak 函数需要在 extern "C" 中声明, 方能被 .c 文件索引到. */
 extern "C" {
@@ -35,19 +26,50 @@ void WaitFor3Seconds() {
 	osDelay(1000);
 }
 
-void MountFS() {
-	FRESULT retUSER;
-	FATFS USERFatFS;
-	char Path[4] = "0:/";
+void ClearAll() {
+	lv_label_set_text(ui_Screen1_Label1, "Clear.");
+	printf("Clear.");
+	uint8_t wwbuf[1024] = {0};
+	ROM_Write_Bytes(wwbuf, 0x0000, 1024);
+	lv_label_set_text(ui_Screen1_Label1, "Cleared.");
+	printf("Cleared.");
+	osDelay(1000);
+}
 
+void MakeFS() {
+	BYTE ReadBuffer[2048];
+
+	retUSER = f_mount(&USERFatFS, "0:", 1);
+	lv_label_set_text(ui_Screen1_Label1, "Mounted.");
+	printf("Mounted.");
+	osDelay(200);
+	if (retUSER == FR_NO_FILESYSTEM) {
+		lv_label_set_text(ui_Screen1_Label1, "No FS. Make FS.");
+		printf("No FS. Make FS.");
+		retUSER = f_mkfs("0:", FM_FAT, 512, ReadBuffer, 2048);
+		if (retUSER == FR_OK) {
+			lv_label_set_text(ui_Screen1_Label1, "FS Made.");
+			printf("FS Made.");
+			retUSER = f_mount(NULL, "0:", 1);
+			retUSER = f_mount(&USERFatFS, "0:", 1);
+		} else {
+			char txt[2];
+			sprintf(txt, "Make FS: %d", retUSER);
+			lv_label_set_text(ui_Screen1_Label1, txt);
+			while (1) { osDelay(1); }
+		}
+	}
+}
+
+void MountFS() {
 	lv_label_set_text(ui_Screen1_Label1, "Ready.");
 	printf("Ready.");
 	osDelay(500);
 
-	retUSER = f_mount(&USERFatFS, Path, 1);
+	retUSER = f_mount(&USERFatFS, "0:", 1);
 	if (retUSER != FR_OK) {
 		char txt[2];
-		sprintf(txt, "Mounts: %d", retUSER);
+		sprintf(txt, "Mount: %d", retUSER);
 		lv_label_set_text(ui_Screen1_Label1, txt);
 		while (1) { osDelay(1); }
 	} else {
@@ -58,21 +80,20 @@ void MountFS() {
 }
 
 void WriteProgram() {
-	FRESULT retUSER;
-	FATFS USERFatFS;
 	UINT fnum;
 	BYTE WriteBuffer[] = "import PikaStdLib as std\n"
 						 "import ZeptoWatchStdLib as zws\n"
 						 "import ZeptoWatchPeriphLib as zwp\n"
 						 "\n"
+						 "zwp.IMU.initialize()\n"
 						 "\n"
-						 "i = 10\n"
+						 "i = 5\n"
 						 "j = 1\n"
 						 "while 1 == 1:\n"
 						 "    zws.Display.setBrightness(i)\n"
-						 "    if i >= 90:\n"
+						 "    if i >= 95:\n"
 						 "        j = -1\n"
-						 "    if i <= 10:\n"
+						 "    if i <= 5:\n"
 						 "        j = 1\n"
 						 "    i = i + j\n"
 						 "\n"
@@ -81,7 +102,7 @@ void WriteProgram() {
 						 "\n"
 						 "    zws.System.delayMs(30)\n";
 
-	retUSER = f_open(&USERFile, "main.py", FA_CREATE_ALWAYS | FA_WRITE);
+	retUSER = f_open(&USERFile, "0:main.py", FA_CREATE_ALWAYS | FA_WRITE);
 	if (retUSER == FR_OK) {
 		retUSER = f_write(&USERFile, WriteBuffer, sizeof(WriteBuffer), &fnum);
 		if (retUSER == FR_OK) {
@@ -104,12 +125,14 @@ void WriteProgram() {
 }
 
 void ExecuteProgram() {
-	FRESULT retUSER;
-	FATFS USERFatFS;
 	BYTE ReadBuffer[1024];
 	UINT fnum;
-	char Path[4] = "0:/";
-	retUSER = f_open(&USERFile, "main.py",FA_OPEN_EXISTING | FA_READ);
+
+	lv_label_set_text(ui_Screen1_Label1, "Open Start.");
+	osDelay(200);
+	retUSER = f_open(&USERFile, "0:main.py",FA_OPEN_EXISTING | FA_READ);
+	lv_label_set_text(ui_Screen1_Label1, "Open End.");
+	osDelay(200);
 	if (retUSER == FR_OK) {
 		retUSER = f_read(&USERFile, ReadBuffer, sizeof(ReadBuffer), &fnum);
 		if (retUSER == FR_OK) {
@@ -136,15 +159,10 @@ void ExecuteProgram() {
 }
 
 void StartSystemDetecting(void const * argument) {
-//  /* 清除引导扇区 */
-//	ROM_Init();
-//	lv_label_set_text(ui_Screen1_Label1, "Clear.");
-//	uint8_t wwbuf[1024] = {0};
-//	ROM_Write_Bytes(wwbuf, 0x0000, 1024);
-//	lv_label_set_text(ui_Screen1_Label1, "Cleared.");
-//	osDelay(1000);
-
-	WaitFor3Seconds();
+//	WaitFor3Seconds();
+//	ClearAll();
+//	MakeFS();
+//	WaitFor3Seconds();
 	MountFS();
 //	WriteProgram();
 	WaitFor3Seconds();
