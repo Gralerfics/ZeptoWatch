@@ -1,7 +1,6 @@
 #include "cmsis_os.h"
 
 #include "lvgl.h"
-#include "ui.h"
 
 #ifdef __cplusplus
 extern "C" {

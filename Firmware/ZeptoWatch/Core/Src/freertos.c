@@ -25,11 +25,15 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "tim.h"
+
 #include "lvgl.h"
 #include "lv_port_disp.h"
 #include "lv_port_indev.h"
-#include "tim.h"
+
 #include "ui.h"
+#include "brightness.h"
+#include "m24512.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -90,14 +94,22 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
   */
 void MX_FREERTOS_Init(void) {
 	/* USER CODE BEGIN Init */
-	/* init code for USB_DEVICE */
 	MX_USB_DEVICE_Init();
-	/* init code for Lvgl */
+
+	Brightness_SetTIMHandle(&htim3);
+	Brightness_SetTIMChannel(TIM_CHANNEL_1);
+	Brightness_Start();
+	Brightness_SetValue(0);
+
 	lv_init();
 	lv_port_disp_init();
 	lv_port_indev_init();
 	ui_init();
-	HAL_TIM_Base_Start_IT(&htim2); // Lvgl Heart Beat Interrupt
+	HAL_TIM_Base_Start_IT(&htim2);
+
+	Brightness_SetValue(70);
+
+	ROM_Init();
 	/* USER CODE END Init */
 
 	/* USER CODE BEGIN RTOS_MUTEX */
@@ -122,11 +134,11 @@ void MX_FREERTOS_Init(void) {
 	defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
 	/* definition and creation of systemUI */
-	osThreadDef(systemUI, StartSystemUI, osPriorityNormal, 0, 1024);
+	osThreadDef(systemUI, StartSystemUI, osPriorityNormal, 0, 512);
 	systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
 	/* definition and creation of systemDetecting */
-	osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 256);
+	osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1536);
 	systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
 	/* USER CODE BEGIN RTOS_THREADS */

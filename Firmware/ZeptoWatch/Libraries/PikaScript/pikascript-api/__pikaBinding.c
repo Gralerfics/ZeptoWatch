@@ -19,6 +19,8 @@
 #include "PikaMain.h"
 #include "PikaStdLib_SysObj.h"
 #include "PikaStdLib.h"
+#include "ZeptoWatchPeriphLib.h"
+#include "ZeptoWatchStdLib.h"
 #include "PikaStdData.h"
 #include "TinyObj.h"
 #include "PikaStdData_ByteArray.h"
@@ -74,6 +76,16 @@
 #include "PikaStdTask_Task.h"
 #include "PikaStdLib_SysObj.h"
 #include "PikaStdData_List.h"
+#include "ZeptoWatchPeriphLib.h"
+#include "TinyObj.h"
+#include "ZeptoWatchPeriphLib_IMU.h"
+#include "TinyObj.h"
+#include "ZeptoWatchStdLib.h"
+#include "TinyObj.h"
+#include "ZeptoWatchStdLib_Display.h"
+#include "TinyObj.h"
+#include "ZeptoWatchStdLib_System.h"
+#include "TinyObj.h"
 
 #ifndef PIKA_MODULE_PIKADEBUG_DISABLE
 void PikaDebug_DebugerMethod(PikaObj *self, Args *args){
@@ -142,6 +154,8 @@ class_inhert(PikaMain, PikaStdLib_SysObj);
 PikaObj *New_PikaMain(Args *args){
     PikaObj *self = New_PikaStdLib_SysObj(args);
     obj_newObj(self, "PikaStdLib", "PikaStdLib", New_PikaStdLib);
+    obj_newObj(self, "ZeptoWatchPeriphLib", "ZeptoWatchPeriphLib", New_ZeptoWatchPeriphLib);
+    obj_newObj(self, "ZeptoWatchStdLib", "ZeptoWatchStdLib", New_ZeptoWatchStdLib);
     obj_setClass(self, PikaMain);
     return self;
 }
@@ -3395,6 +3409,153 @@ PikaObj *New_PikaStdTask_Task(Args *args){
 
 Arg *PikaStdTask_Task(PikaObj *self){
     return obj_newObjInPackage(New_PikaStdTask_Task);
+}
+#endif
+
+#ifndef PIKA_MODULE_ZEPTOWATCHPERIPHLIB_DISABLE
+void ZeptoWatchPeriphLib_IMUMethod(PikaObj *self, Args *args){
+    Arg* res = ZeptoWatchPeriphLib_IMU(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_IMU,
+    "IMU", ""
+);
+
+class_def(ZeptoWatchPeriphLib){
+    __BEFORE_MOETHOD_DEF
+    constructor_def(ZeptoWatchPeriphLib_IMU, 193459120),
+};
+class_inhert(ZeptoWatchPeriphLib, TinyObj);
+
+PikaObj *New_ZeptoWatchPeriphLib(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchPeriphLib);
+    return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_ZEPTOWATCHPERIPHLIB_DISABLE
+void ZeptoWatchPeriphLib_IMU_getTemperatureMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchPeriphLib_IMU_getTemperature(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_IMU_getTemperature,
+    "getTemperature", ""
+);
+
+class_def(ZeptoWatchPeriphLib_IMU){
+    __BEFORE_MOETHOD_DEF
+    method_def(ZeptoWatchPeriphLib_IMU_getTemperature, 572860947),
+};
+class_inhert(ZeptoWatchPeriphLib_IMU, TinyObj);
+
+PikaObj *New_ZeptoWatchPeriphLib_IMU(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchPeriphLib_IMU);
+    return self;
+}
+
+Arg *ZeptoWatchPeriphLib_IMU(PikaObj *self){
+    return obj_newObjInPackage(New_ZeptoWatchPeriphLib_IMU);
+}
+#endif
+
+#ifndef PIKA_MODULE_ZEPTOWATCHSTDLIB_DISABLE
+void ZeptoWatchStdLib_DisplayMethod(PikaObj *self, Args *args){
+    Arg* res = ZeptoWatchStdLib_Display(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Display,
+    "Display", ""
+);
+
+void ZeptoWatchStdLib_SystemMethod(PikaObj *self, Args *args){
+    Arg* res = ZeptoWatchStdLib_System(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_System,
+    "System", ""
+);
+
+class_def(ZeptoWatchStdLib){
+    __BEFORE_MOETHOD_DEF
+    constructor_def(ZeptoWatchStdLib_System, 1380569194),
+    constructor_def(ZeptoWatchStdLib_Display, 1938141051),
+};
+class_inhert(ZeptoWatchStdLib, TinyObj);
+
+PikaObj *New_ZeptoWatchStdLib(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchStdLib);
+    return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_ZEPTOWATCHSTDLIB_DISABLE
+void ZeptoWatchStdLib_Display_getBrightnessMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchStdLib_Display_getBrightness(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Display_getBrightness,
+    "getBrightness", ""
+);
+
+void ZeptoWatchStdLib_Display_setBrightnessMethod(PikaObj *self, Args *args){
+    int val = args_getInt(args, "val");
+    ZeptoWatchStdLib_Display_setBrightness(self, val);
+}
+method_typedef(
+    ZeptoWatchStdLib_Display_setBrightness,
+    "setBrightness", "val"
+);
+
+class_def(ZeptoWatchStdLib_Display){
+    __BEFORE_MOETHOD_DEF
+    method_def(ZeptoWatchStdLib_Display_setBrightness, 395230250),
+    method_def(ZeptoWatchStdLib_Display_getBrightness, 1595558430),
+};
+class_inhert(ZeptoWatchStdLib_Display, TinyObj);
+
+PikaObj *New_ZeptoWatchStdLib_Display(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchStdLib_Display);
+    return self;
+}
+
+Arg *ZeptoWatchStdLib_Display(PikaObj *self){
+    return obj_newObjInPackage(New_ZeptoWatchStdLib_Display);
+}
+#endif
+
+#ifndef PIKA_MODULE_ZEPTOWATCHSTDLIB_DISABLE
+void ZeptoWatchStdLib_System_delayMsMethod(PikaObj *self, Args *args){
+    int time = args_getInt(args, "time");
+    ZeptoWatchStdLib_System_delayMs(self, time);
+}
+method_typedef(
+    ZeptoWatchStdLib_System_delayMs,
+    "delayMs", "time"
+);
+
+class_def(ZeptoWatchStdLib_System){
+    __BEFORE_MOETHOD_DEF
+    method_def(ZeptoWatchStdLib_System_delayMs, 150074516),
+};
+class_inhert(ZeptoWatchStdLib_System, TinyObj);
+
+PikaObj *New_ZeptoWatchStdLib_System(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchStdLib_System);
+    return self;
+}
+
+Arg *ZeptoWatchStdLib_System(PikaObj *self){
+    return obj_newObjInPackage(New_ZeptoWatchStdLib_System);
 }
 #endif
 

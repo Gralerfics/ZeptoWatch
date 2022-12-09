@@ -8,7 +8,6 @@
 ///////////////////// VARIABLES ////////////////////
 lv_obj_t * ui_Screen1;
 lv_obj_t * ui_Screen1_Label1;
-lv_obj_t * ui_Screen1_Label2;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
 #if LV_COLOR_DEPTH != 16
@@ -32,15 +31,9 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_width(ui_Screen1_Label1, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Screen1_Label1, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_Screen1_Label1, -1);
-    lv_obj_set_y(ui_Screen1_Label1, -96);
+//    lv_obj_set_y(ui_Screen1_Label1, -96);
     lv_obj_set_align(ui_Screen1_Label1, LV_ALIGN_CENTER);
-
-    ui_Screen1_Label2 = lv_label_create(ui_Screen1);
-    lv_obj_set_width(ui_Screen1_Label2, 145);
-    lv_obj_set_height(ui_Screen1_Label2, 145);
-    lv_obj_set_align(ui_Screen1_Label2, LV_ALIGN_CENTER);
-    lv_obj_set_style_text_font(ui_Screen1_Label2, &lv_font_montserrat_8, LV_PART_MAIN | LV_STATE_DEFAULT);
-
+	lv_obj_set_style_text_font(ui_Screen1_Label1, &lv_font_montserrat_8, LV_PART_MAIN | LV_STATE_DEFAULT);
 }
 
 void ui_init(void)

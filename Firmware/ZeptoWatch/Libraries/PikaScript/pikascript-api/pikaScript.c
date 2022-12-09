@@ -27,6 +27,8 @@ PikaObj *pikaScriptInit(void){
 #if PIKA_INIT_STRING_ENABLE
     obj_run(pikaMain,
             "import PikaStdLib as std\n"
+            "import ZeptoWatchStdLib as zws\n"
+            "import ZeptoWatchPeriphLib as zwp\n"
             "\n");
 #else 
     obj_runModule((PikaObj*)pikaMain, "main");

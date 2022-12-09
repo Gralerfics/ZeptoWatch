@@ -2,10 +2,6 @@
 
 #include "delay.h"
 
-uint8_t rx_buffer[100];
-volatile uint8_t rx_len = 0;
-volatile uint8_t recv_end_flag = 0;
-
 void BT11_Init() {
 	GPIO_InitTypeDef GPIO_InitStructure = {0};
 	__HAL_RCC_BT_RST_CLK_ENABLE();
