@@ -78,6 +78,8 @@
 #include "PikaStdData_List.h"
 #include "ZeptoWatchPeriphLib.h"
 #include "TinyObj.h"
+#include "ZeptoWatchPeriphLib_Battery.h"
+#include "TinyObj.h"
 #include "ZeptoWatchPeriphLib_IMU.h"
 #include "TinyObj.h"
 #include "ZeptoWatchStdLib.h"
@@ -3413,6 +3415,15 @@ Arg *PikaStdTask_Task(PikaObj *self){
 #endif
 
 #ifndef PIKA_MODULE_ZEPTOWATCHPERIPHLIB_DISABLE
+void ZeptoWatchPeriphLib_BatteryMethod(PikaObj *self, Args *args){
+    Arg* res = ZeptoWatchPeriphLib_Battery(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_Battery,
+    "Battery", ""
+);
+
 void ZeptoWatchPeriphLib_IMUMethod(PikaObj *self, Args *args){
     Arg* res = ZeptoWatchPeriphLib_IMU(self);
     method_returnArg(args, res);
@@ -3425,6 +3436,7 @@ method_typedef(
 class_def(ZeptoWatchPeriphLib){
     __BEFORE_MOETHOD_DEF
     constructor_def(ZeptoWatchPeriphLib_IMU, 193459120),
+    constructor_def(ZeptoWatchPeriphLib_Battery, 1190928224),
 };
 class_inhert(ZeptoWatchPeriphLib, TinyObj);
 
@@ -3436,6 +3448,61 @@ PikaObj *New_ZeptoWatchPeriphLib(Args *args){
 #endif
 
 #ifndef PIKA_MODULE_ZEPTOWATCHPERIPHLIB_DISABLE
+void ZeptoWatchPeriphLib_Battery_getRawDataMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchPeriphLib_Battery_getRawData(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_Battery_getRawData,
+    "getRawData", ""
+);
+
+void ZeptoWatchPeriphLib_Battery_isChargingMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchPeriphLib_Battery_isCharging(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_Battery_isCharging,
+    "isCharging", ""
+);
+
+class_def(ZeptoWatchPeriphLib_Battery){
+    __BEFORE_MOETHOD_DEF
+    method_def(ZeptoWatchPeriphLib_Battery_isCharging, 928720196),
+    method_def(ZeptoWatchPeriphLib_Battery_getRawData, 1809285993),
+};
+class_inhert(ZeptoWatchPeriphLib_Battery, TinyObj);
+
+PikaObj *New_ZeptoWatchPeriphLib_Battery(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchPeriphLib_Battery);
+    return self;
+}
+
+Arg *ZeptoWatchPeriphLib_Battery(PikaObj *self){
+    return obj_newObjInPackage(New_ZeptoWatchPeriphLib_Battery);
+}
+#endif
+
+#ifndef PIKA_MODULE_ZEPTOWATCHPERIPHLIB_DISABLE
+void ZeptoWatchPeriphLib_IMU_getAccelerometerMethod(PikaObj *self, Args *args){
+    PikaObj* res = ZeptoWatchPeriphLib_IMU_getAccelerometer(self);
+    method_returnObj(args, res);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_IMU_getAccelerometer,
+    "getAccelerometer", ""
+);
+
+void ZeptoWatchPeriphLib_IMU_getGyroscopeMethod(PikaObj *self, Args *args){
+    PikaObj* res = ZeptoWatchPeriphLib_IMU_getGyroscope(self);
+    method_returnObj(args, res);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_IMU_getGyroscope,
+    "getGyroscope", ""
+);
+
 void ZeptoWatchPeriphLib_IMU_getTemperatureMethod(PikaObj *self, Args *args){
     int res = ZeptoWatchPeriphLib_IMU_getTemperature(self);
     method_returnInt(args, res);
@@ -3457,6 +3524,8 @@ class_def(ZeptoWatchPeriphLib_IMU){
     __BEFORE_MOETHOD_DEF
     method_def(ZeptoWatchPeriphLib_IMU_getTemperature, 572860947),
     method_def(ZeptoWatchPeriphLib_IMU_initialize, 803587735),
+    method_def(ZeptoWatchPeriphLib_IMU_getGyroscope, 1228959744),
+    method_def(ZeptoWatchPeriphLib_IMU_getAccelerometer, 1484531744),
 };
 class_inhert(ZeptoWatchPeriphLib_IMU, TinyObj);
 

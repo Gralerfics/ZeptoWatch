@@ -17,6 +17,8 @@
 
 PikaObj *New_ZeptoWatchPeriphLib_IMU(Args *args);
 
+PikaObj* ZeptoWatchPeriphLib_IMU_getAccelerometer(PikaObj *self);
+PikaObj* ZeptoWatchPeriphLib_IMU_getGyroscope(PikaObj *self);
 int ZeptoWatchPeriphLib_IMU_getTemperature(PikaObj *self);
 void ZeptoWatchPeriphLib_IMU_initialize(PikaObj *self);
 

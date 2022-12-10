@@ -9,15 +9,15 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __ZeptoWatchPeriphLib__H
-#define __ZeptoWatchPeriphLib__H
+#ifndef __ZeptoWatchPeriphLib_Battery__H
+#define __ZeptoWatchPeriphLib_Battery__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_ZeptoWatchPeriphLib(Args *args);
+PikaObj *New_ZeptoWatchPeriphLib_Battery(Args *args);
 
-Arg* ZeptoWatchPeriphLib_Battery(PikaObj *self);
-Arg* ZeptoWatchPeriphLib_IMU(PikaObj *self);
+int ZeptoWatchPeriphLib_Battery_getRawData(PikaObj *self);
+int ZeptoWatchPeriphLib_Battery_isCharging(PikaObj *self);
 
 #endif
