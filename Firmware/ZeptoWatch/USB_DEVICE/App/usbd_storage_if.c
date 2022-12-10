@@ -63,8 +63,8 @@
   */
 
 #define STORAGE_LUN_NBR                  1
-#define STORAGE_BLK_NBR                  ROM_BLK_NBR
-#define STORAGE_BLK_SIZ                  ROM_BLK_SIZ
+#define STORAGE_BLK_NBR                  0x10000
+#define STORAGE_BLK_SIZ                  0x200
 
 /* USER CODE BEGIN PRIVATE_DEFINES */
 
@@ -157,16 +157,16 @@ static int8_t STORAGE_GetMaxLun_FS(void);
   */
 
 USBD_StorageTypeDef USBD_Storage_Interface_fops_FS =
-		{
-				STORAGE_Init_FS,
-				STORAGE_GetCapacity_FS,
-				STORAGE_IsReady_FS,
-				STORAGE_IsWriteProtected_FS,
-				STORAGE_Read_FS,
-				STORAGE_Write_FS,
-				STORAGE_GetMaxLun_FS,
-				(int8_t *)STORAGE_Inquirydata_FS
-		};
+{
+  STORAGE_Init_FS,
+  STORAGE_GetCapacity_FS,
+  STORAGE_IsReady_FS,
+  STORAGE_IsWriteProtected_FS,
+  STORAGE_Read_FS,
+  STORAGE_Write_FS,
+  STORAGE_GetMaxLun_FS,
+  (int8_t *)STORAGE_Inquirydata_FS
+};
 
 /* Private functions ---------------------------------------------------------*/
 /**
@@ -176,12 +176,12 @@ USBD_StorageTypeDef USBD_Storage_Interface_fops_FS =
   */
 int8_t STORAGE_Init_FS(uint8_t lun)
 {
-	/* USER CODE BEGIN 2 */
+  /* USER CODE BEGIN 2 */
 	UNUSED(lun);
 
 	ROM_Init();
 	return (USBD_OK);
-	/* USER CODE END 2 */
+  /* USER CODE END 2 */
 }
 
 /**
@@ -193,13 +193,13 @@ int8_t STORAGE_Init_FS(uint8_t lun)
   */
 int8_t STORAGE_GetCapacity_FS(uint8_t lun, uint32_t *block_num, uint16_t *block_size)
 {
-	/* USER CODE BEGIN 3 */
+  /* USER CODE BEGIN 3 */
 	UNUSED(lun);
 
 	*block_num  = STORAGE_BLK_NBR;
 	*block_size = STORAGE_BLK_SIZ;
 	return (USBD_OK);
-	/* USER CODE END 3 */
+  /* USER CODE END 3 */
 }
 
 /**
@@ -209,7 +209,7 @@ int8_t STORAGE_GetCapacity_FS(uint8_t lun, uint32_t *block_num, uint16_t *block_
   */
 int8_t STORAGE_IsReady_FS(uint8_t lun)
 {
-	/* USER CODE BEGIN 4 */
+  /* USER CODE BEGIN 4 */
 	UNUSED(lun);
 
 	if (ROM_IsReady()) {
@@ -217,7 +217,7 @@ int8_t STORAGE_IsReady_FS(uint8_t lun)
 	} else {
 		return (USBD_FAIL);
 	}
-	/* USER CODE END 4 */
+  /* USER CODE END 4 */
 }
 
 /**
@@ -227,11 +227,11 @@ int8_t STORAGE_IsReady_FS(uint8_t lun)
   */
 int8_t STORAGE_IsWriteProtected_FS(uint8_t lun)
 {
-	/* USER CODE BEGIN 5 */
+  /* USER CODE BEGIN 5 */
 	UNUSED(lun);
 
 	return (USBD_OK);
-	/* USER CODE END 5 */
+  /* USER CODE END 5 */
 }
 
 /**
@@ -244,7 +244,7 @@ int8_t STORAGE_IsWriteProtected_FS(uint8_t lun)
   */
 int8_t STORAGE_Read_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len)
 {
-	/* USER CODE BEGIN 6 */
+  /* USER CODE BEGIN 6 */
 //	UNUSED(lun);
 //	UNUSED(buf);
 //	UNUSED(blk_addr);
@@ -256,7 +256,7 @@ int8_t STORAGE_Read_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t bl
 	ROM_SetReady(1);
 
 	return (USBD_OK);
-	/* USER CODE END 6 */
+  /* USER CODE END 6 */
 }
 
 /**
@@ -269,7 +269,7 @@ int8_t STORAGE_Read_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t bl
   */
 int8_t STORAGE_Write_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len)
 {
-	/* USER CODE BEGIN 7 */
+  /* USER CODE BEGIN 7 */
 //	UNUSED(lun);
 //	UNUSED(buf);
 //	UNUSED(blk_addr);
@@ -281,7 +281,7 @@ int8_t STORAGE_Write_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t b
 	ROM_SetReady(1);
 
 	return (USBD_OK);
-	/* USER CODE END 7 */
+  /* USER CODE END 7 */
 }
 
 /**
@@ -291,9 +291,9 @@ int8_t STORAGE_Write_FS(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t b
   */
 int8_t STORAGE_GetMaxLun_FS(void)
 {
-	/* USER CODE BEGIN 8 */
+  /* USER CODE BEGIN 8 */
 	return (STORAGE_LUN_NBR - 1);
-	/* USER CODE END 8 */
+  /* USER CODE END 8 */
 }
 
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_IMPLEMENTATION */

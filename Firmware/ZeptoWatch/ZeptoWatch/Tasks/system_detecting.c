@@ -5,7 +5,6 @@
 #include "fatfs.h"
 
 #include "lvgl.h"
-#include "pikaScript.h"
 #include "PikaVM.h"
 
 #include "ui.h"
@@ -14,8 +13,6 @@
 #ifdef __cplusplus /* 为了在 .cpp 中覆写 .c 中的 __weak 函数需要在 extern "C" 中声明, 方能被 .c 文件索引到. */
 extern "C" {
 #endif
-
-extern PikaObj *MainPikaObj;
 
 void WaitFor3Seconds() {
 	osDelay(1000);
@@ -125,42 +122,6 @@ void WriteProgram() {
 	f_close(&USERFile);
 }
 
-void ExecuteProgram(char *fileName) {
-	BYTE ReadBuffer[1024];
-	UINT fnum;
-	char filePath[20];
-	sprintf(filePath, "0:%s", fileName);
-
-	lv_label_set_text(ui_Screen1_Label1, "Open Start.");
-	osDelay(200);
-	retUSER = f_open(&USERFile, filePath,FA_OPEN_EXISTING | FA_READ);
-	lv_label_set_text(ui_Screen1_Label1, "Open End.");
-	osDelay(200);
-	if (retUSER == FR_OK) {
-		retUSER = f_read(&USERFile, ReadBuffer, sizeof(ReadBuffer), &fnum);
-		if (retUSER == FR_OK) {
-			lv_label_set_text(ui_Screen1_Label1, (char *) ReadBuffer);
-			printf((char *) ReadBuffer);
-		} else {
-			char txt[2];
-			sprintf(txt, "Read File: %d", retUSER);
-			lv_label_set_text(ui_Screen1_Label1, txt);
-			while (1) { osDelay(1); }
-		}
-	} else {
-		char txt[2];
-		sprintf(txt, "Open File: %d", retUSER);
-		lv_label_set_text(ui_Screen1_Label1, txt);
-		while (1) { osDelay(1); }
-	}
-	osDelay(500);
-	f_close(&USERFile);
-
-	obj_run(MainPikaObj, (char *) ReadBuffer);
-	lv_label_set_text(ui_Screen1_Label1, "Executed.");
-	printf("Executed.");
-}
-
 static int btn1ClickedFlag = 0, btn2ClickedFlag = 0;
 
 void btn1Clicked(lv_event_t * e) {
@@ -216,17 +177,22 @@ void StartSystemDetecting(void const * argument) {
 	lv_roller_set_options(ui_Screen1_Roller1, names, LV_ROLLER_MODE_NORMAL);
 
 	while (1) {
+		extern char RunningApplicationName[20];
+		extern int RunningApplicationExisted;
+
 		if (btn1ClickedFlag) {
 			char name[20] = {0};
 			lv_roller_get_selected_str(ui_Screen1_Roller1, name, 20);
 			lv_label_set_text(ui_Screen1_Label1, name);
 
-			ExecuteProgram(name);
+			sprintf(RunningApplicationName, "%s", name);
+			RunningApplicationExisted = 1;
 
 			btn1ClickedFlag = 0;
 		}
 
 		if (btn2ClickedFlag) {
+			RunningApplicationExisted = 0;
 			pks_vm_exit();
 
 			lv_label_set_text(ui_Screen1_Label1, "PKS_VM_EXIT().");

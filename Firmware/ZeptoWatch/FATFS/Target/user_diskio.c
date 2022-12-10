@@ -15,7 +15,7 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
+ /* USER CODE END Header */
 
 #ifdef USE_OBSOLETE_USER_CODE_SECTION_0
 /*
@@ -51,24 +51,24 @@ DSTATUS USER_initialize (BYTE pdrv);
 DSTATUS USER_status (BYTE pdrv);
 DRESULT USER_read (BYTE pdrv, BYTE *buff, DWORD sector, UINT count);
 #if _USE_WRITE == 1
-DRESULT USER_write (BYTE pdrv, const BYTE *buff, DWORD sector, UINT count);
+  DRESULT USER_write (BYTE pdrv, const BYTE *buff, DWORD sector, UINT count);
 #endif /* _USE_WRITE == 1 */
 #if _USE_IOCTL == 1
-DRESULT USER_ioctl (BYTE pdrv, BYTE cmd, void *buff);
+  DRESULT USER_ioctl (BYTE pdrv, BYTE cmd, void *buff);
 #endif /* _USE_IOCTL == 1 */
 
 Diskio_drvTypeDef  USER_Driver =
-		{
-				USER_initialize,
-				USER_status,
-				USER_read,
+{
+  USER_initialize,
+  USER_status,
+  USER_read,
 #if  _USE_WRITE
-				USER_write,
+  USER_write,
 #endif  /* _USE_WRITE == 1 */
 #if  _USE_IOCTL == 1
-				USER_ioctl,
+  USER_ioctl,
 #endif /* _USE_IOCTL == 1 */
-		};
+};
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -78,15 +78,15 @@ Diskio_drvTypeDef  USER_Driver =
   * @retval DSTATUS: Operation status
   */
 DSTATUS USER_initialize (
-		BYTE pdrv           /* Physical drive number to identify the drive */
+	BYTE pdrv           /* Physical drive nmuber to identify the drive */
 )
 {
-	/* USER CODE BEGIN INIT */
+  /* USER CODE BEGIN INIT */
 //    Stat = STA_NOINIT;
 	ROM_Init();
 	Stat = 0x00;
 	return Stat;
-	/* USER CODE END INIT */
+  /* USER CODE END INIT */
 }
 
 /**
@@ -95,15 +95,15 @@ DSTATUS USER_initialize (
   * @retval DSTATUS: Operation status
   */
 DSTATUS USER_status (
-		BYTE pdrv       /* Physical drive number to identify the drive */
+	BYTE pdrv       /* Physical drive number to identify the drive */
 )
 {
-	/* USER CODE BEGIN STATUS */
+  /* USER CODE BEGIN STATUS */
 //    Stat = STA_NOINIT;
 	ROM_Init();
 	Stat = 0x00;
 	return Stat;
-	/* USER CODE END STATUS */
+  /* USER CODE END STATUS */
 }
 
 /**
@@ -115,20 +115,20 @@ DSTATUS USER_status (
   * @retval DRESULT: Operation result
   */
 DRESULT USER_read (
-		BYTE pdrv,      /* Physical drive nmuber to identify the drive */
-		BYTE *buff,     /* Data buffer to store read data */
-		DWORD sector,   /* Sector address in LBA */
-		UINT count      /* Number of sectors to read */
+	BYTE pdrv,      /* Physical drive nmuber to identify the drive */
+	BYTE *buff,     /* Data buffer to store read data */
+	DWORD sector,   /* Sector address in LBA */
+	UINT count      /* Number of sectors to read */
 )
 {
-	/* USER CODE BEGIN READ */
+  /* USER CODE BEGIN READ */
 	while (ROM_IsReady() == 0);
 	ROM_SetReady(0);
 	ROM_Read_Bytes(buff, sector * ROM_BLK_SIZ, count * ROM_BLK_SIZ);
 	ROM_SetReady(1);
 
 	return RES_OK;
-	/* USER CODE END READ */
+  /* USER CODE END READ */
 }
 
 /**
@@ -141,20 +141,20 @@ DRESULT USER_read (
   */
 #if _USE_WRITE == 1
 DRESULT USER_write (
-		BYTE pdrv,          /* Physical drive nmuber to identify the drive */
-		const BYTE *buff,   /* Data to be written */
-		DWORD sector,       /* Sector address in LBA */
-		UINT count          /* Number of sectors to write */
+	BYTE pdrv,          /* Physical drive nmuber to identify the drive */
+	const BYTE *buff,   /* Data to be written */
+	DWORD sector,       /* Sector address in LBA */
+	UINT count          /* Number of sectors to write */
 )
 {
-	/* USER CODE BEGIN WRITE */
+  /* USER CODE BEGIN WRITE */
 	while (ROM_IsReady() == 0);
 	ROM_SetReady(0);
 	ROM_Write_Bytes(buff, sector * ROM_BLK_SIZ, count * ROM_BLK_SIZ);
 	ROM_SetReady(1);
 
 	return RES_OK;
-	/* USER CODE END WRITE */
+  /* USER CODE END WRITE */
 }
 #endif /* _USE_WRITE == 1 */
 
@@ -167,12 +167,12 @@ DRESULT USER_write (
   */
 #if _USE_IOCTL == 1
 DRESULT USER_ioctl (
-		BYTE pdrv,      /* Physical drive nmuber (0..) */
-		BYTE cmd,       /* Control code */
-		void *buff      /* Buffer to send/receive control data */
+	BYTE pdrv,      /* Physical drive nmuber (0..) */
+	BYTE cmd,       /* Control code */
+	void *buff      /* Buffer to send/receive control data */
 )
 {
-	/* USER CODE BEGIN IOCTL */
+  /* USER CODE BEGIN IOCTL */
 	DRESULT res = RES_OK;
 
 	switch(cmd) {
@@ -197,7 +197,7 @@ DRESULT USER_ioctl (
 	}
 
 	return res;
-	/* USER CODE END IOCTL */
+  /* USER CODE END IOCTL */
 }
 #endif /* _USE_IOCTL == 1 */
 

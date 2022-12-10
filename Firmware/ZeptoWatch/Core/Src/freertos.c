@@ -58,6 +58,7 @@
 osThreadId defaultTaskHandle;
 osThreadId systemUIHandle;
 osThreadId systemDetectingHandle;
+osThreadId applicationExecHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -67,6 +68,7 @@ osThreadId systemDetectingHandle;
 void StartDefaultTask(void const * argument);
 void StartSystemUI(void const * argument);
 void StartSystemDetecting(void const * argument);
+void StartApplicationExecuting(void const * argument);
 
 extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -93,7 +95,7 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
   * @retval None
   */
 void MX_FREERTOS_Init(void) {
-	/* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
 	MX_USB_DEVICE_Init();
 
 	Brightness_SetTIMHandle(&htim3);
@@ -110,40 +112,44 @@ void MX_FREERTOS_Init(void) {
 	Brightness_SetValue(70);
 
 	ROM_Init();
-	/* USER CODE END Init */
+  /* USER CODE END Init */
 
-	/* USER CODE BEGIN RTOS_MUTEX */
+  /* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
-	/* USER CODE END RTOS_MUTEX */
+  /* USER CODE END RTOS_MUTEX */
 
-	/* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
 	/* add semaphores, ... */
-	/* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-	/* USER CODE BEGIN RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
 	/* start timers, add new ones, ... */
-	/* USER CODE END RTOS_TIMERS */
+  /* USER CODE END RTOS_TIMERS */
 
-	/* USER CODE BEGIN RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
-	/* USER CODE END RTOS_QUEUES */
+  /* USER CODE END RTOS_QUEUES */
 
-	/* Create the thread(s) */
-	/* definition and creation of defaultTask */
-	osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 128);
-	defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  /* Create the thread(s) */
+  /* definition and creation of defaultTask */
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 128);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
-	/* definition and creation of systemUI */
-	osThreadDef(systemUI, StartSystemUI, osPriorityNormal, 0, 512);
-	systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
+  /* definition and creation of systemUI */
+  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 1024);
+  systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
-	/* definition and creation of systemDetecting */
-	osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 2048);
-	systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
+  /* definition and creation of systemDetecting */
+  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1024);
+  systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
-	/* USER CODE BEGIN RTOS_THREADS */
+  /* definition and creation of applicationExec */
+  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 1024);
+  applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
+
+  /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-	/* USER CODE END RTOS_THREADS */
+  /* USER CODE END RTOS_THREADS */
 
 }
 
@@ -156,13 +162,15 @@ void MX_FREERTOS_Init(void) {
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void const * argument)
 {
-	/* USER CODE BEGIN StartDefaultTask */
+  /* init code for USB_DEVICE */
+  MX_USB_DEVICE_Init();
+  /* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
 	for(;;)
 	{
 		osDelay(1);
 	}
-	/* USER CODE END StartDefaultTask */
+  /* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_StartSystemUI */
@@ -174,13 +182,13 @@ void StartDefaultTask(void const * argument)
 /* USER CODE END Header_StartSystemUI */
 __weak void StartSystemUI(void const * argument)
 {
-	/* USER CODE BEGIN StartSystemUI */
+  /* USER CODE BEGIN StartSystemUI */
 	/* Infinite loop */
 	for(;;)
 	{
 		osDelay(1);
 	}
-	/* USER CODE END StartSystemUI */
+  /* USER CODE END StartSystemUI */
 }
 
 /* USER CODE BEGIN Header_StartSystemDetecting */
@@ -192,13 +200,31 @@ __weak void StartSystemUI(void const * argument)
 /* USER CODE END Header_StartSystemDetecting */
 __weak void StartSystemDetecting(void const * argument)
 {
-	/* USER CODE BEGIN StartSystemDetecting */
+  /* USER CODE BEGIN StartSystemDetecting */
 	/* Infinite loop */
 	for(;;)
 	{
 		osDelay(1);
 	}
-	/* USER CODE END StartSystemDetecting */
+  /* USER CODE END StartSystemDetecting */
+}
+
+/* USER CODE BEGIN Header_StartApplicationExecuting */
+/**
+* @brief Function implementing the applicationExec thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartApplicationExecuting */
+__weak void StartApplicationExecuting(void const * argument)
+{
+  /* USER CODE BEGIN StartApplicationExecuting */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartApplicationExecuting */
 }
 
 /* Private application code --------------------------------------------------*/
