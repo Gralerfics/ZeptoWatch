@@ -6,6 +6,7 @@
 
 #include "lvgl.h"
 #include "pikaScript.h"
+#include "PikaVM.h"
 
 #include "ui.h"
 #include "m24512.h"
@@ -124,13 +125,15 @@ void WriteProgram() {
 	f_close(&USERFile);
 }
 
-void ExecuteProgram() {
+void ExecuteProgram(char *fileName) {
 	BYTE ReadBuffer[1024];
 	UINT fnum;
+	char filePath[20];
+	sprintf(filePath, "0:%s", fileName);
 
 	lv_label_set_text(ui_Screen1_Label1, "Open Start.");
 	osDelay(200);
-	retUSER = f_open(&USERFile, "0:main.py",FA_OPEN_EXISTING | FA_READ);
+	retUSER = f_open(&USERFile, filePath,FA_OPEN_EXISTING | FA_READ);
 	lv_label_set_text(ui_Screen1_Label1, "Open End.");
 	osDelay(200);
 	if (retUSER == FR_OK) {
@@ -158,18 +161,80 @@ void ExecuteProgram() {
 	printf("Executed.");
 }
 
+static int btn1ClickedFlag = 0, btn2ClickedFlag = 0;
+
+void btn1Clicked(lv_event_t * e) {
+	btn1ClickedFlag = 1;
+}
+
+void btn2Clicked(lv_event_t * e) {
+	btn2ClickedFlag = 1;
+}
+
 void StartSystemDetecting(void const * argument) {
 //	WaitFor3Seconds();
 //	ClearAll();
 //	MakeFS();
 //	WaitFor3Seconds();
-	MountFS();
+//	MountFS();
 //	WriteProgram();
-	WaitFor3Seconds();
-	ExecuteProgram();
+//	WaitFor3Seconds();
+//	ExecuteProgram("main.py");
+
+//	WaitFor3Seconds();
+	MountFS();
+
+	DIR dir;
+	FILINFO fileInfo;
+	char names[200] = {0};
+	int first_file = 1;
+	lv_label_set_text(ui_Screen1_Label1, "Scanning ...");
+	lv_label_set_text(ui_Screen1_Label1, "Scanning ... Open Dir.");
+	retUSER = f_opendir(&dir, "0:");
+	if (retUSER == FR_OK) {
+		for (;;) {
+			retUSER = f_readdir(&dir, &fileInfo);
+			if (retUSER != FR_OK || fileInfo.fname[0] == 0) break;
+			if (!(fileInfo.fattrib & AM_DIR)) {
+				if (first_file) {
+					sprintf(names, "%s", fileInfo.fname);
+					first_file = 0;
+				} else {
+					sprintf(names, "%s\n%s", names, fileInfo.fname);
+				}
+			}
+		}
+	} else {
+		char txt[2];
+		sprintf(txt, "Open Dir: %d", retUSER);
+		lv_label_set_text(ui_Screen1_Label1, txt);
+		while (1) { osDelay(1); }
+	}
+	f_closedir(&dir);
+	lv_label_set_text(ui_Screen1_Label1, "Over.");
+
+	lv_roller_set_options(ui_Screen1_Roller1, names, LV_ROLLER_MODE_NORMAL);
 
 	while (1) {
-		osDelay(5);
+		if (btn1ClickedFlag) {
+			char name[20] = {0};
+			lv_roller_get_selected_str(ui_Screen1_Roller1, name, 20);
+			lv_label_set_text(ui_Screen1_Label1, name);
+
+			ExecuteProgram(name);
+
+			btn1ClickedFlag = 0;
+		}
+
+		if (btn2ClickedFlag) {
+			pks_vm_exit();
+
+			lv_label_set_text(ui_Screen1_Label1, "PKS_VM_EXIT().");
+
+			btn2ClickedFlag = 0;
+		}
+
+		osDelay(10);
 	}
 }
 
