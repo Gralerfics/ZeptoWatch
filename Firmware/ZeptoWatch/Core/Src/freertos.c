@@ -67,7 +67,6 @@ osThreadId systemDetectingHandle;
 void StartDefaultTask(void const * argument);
 void StartSystemUI(void const * argument);
 void StartSystemDetecting(void const * argument);
-void StartSystemDetecting(void const * argument);
 
 extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
