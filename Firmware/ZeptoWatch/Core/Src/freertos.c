@@ -34,6 +34,7 @@
 
 #include "brightness.h"
 #include "fshelper.h"
+#include "mpu6050.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -114,6 +115,8 @@ void MX_FREERTOS_Init(void) {
 	ROM_Init();
 	// File System Initialization
 	FS_Mount();
+	// IMU Initialization
+	MPU_Initialize();
 
 	/* USER CODE END Init */
 

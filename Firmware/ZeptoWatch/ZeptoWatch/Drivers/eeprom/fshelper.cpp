@@ -9,7 +9,6 @@ void FS_Mount() {
 	} else {
 		Debug_Printf("Mounted.\n");
 	}
-	osDelay(100);
 }
 
 void FS_ScanFolder(const char *path, char *names) {
@@ -43,10 +42,9 @@ void FS_ScanFolder(const char *path, char *names) {
 
 void FS_ClearAll() {
 	Debug_Printf("Clear.\n");
-	uint8_t wwbuf[1024] = {0};
-	ROM_Write_Bytes(wwbuf, 0x0000, 1024);
+	uint8_t buf[1024] = {0};
+	ROM_Write_Bytes(buf, 0x0000, 1024);
 	Debug_Printf("Cleared.\n");
-	osDelay(1000);
 }
 
 void FS_Make() {
@@ -101,6 +99,5 @@ void FS_WriteFile() {
 	} else {
 		Debug_Printf("Open File: %d\n", retUSER);
 	}
-	osDelay(500);
 	f_close(&USERFile);
 }

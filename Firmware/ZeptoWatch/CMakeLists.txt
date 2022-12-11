@@ -82,6 +82,7 @@ include_directories(
         ZeptoWatch/Drivers/rtc
         ZeptoWatch/Drivers/system
         ZeptoWatch/Drivers/vibrator
+        ZeptoWatch/Ports
         ZeptoWatch/Tasks
         ZeptoWatch/UI
         ZeptoWatch/Utils

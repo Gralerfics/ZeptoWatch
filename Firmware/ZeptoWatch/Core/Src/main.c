@@ -66,20 +66,7 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-//int fputc(int ch, FILE *f) {
-//	uint8_t c = ch;
-//	HAL_UART_Transmit(&huart2, &c, 1, 1);
-//	return ch;
-//}
-//
-//char __platform_getchar(void) {
-//	uint8_t ch;
-//	while (1) {
-//		if (HAL_OK == HAL_UART_Receive(&huart2, &ch, 1, 0)){
-//			return ch;
-//		}
-//	}
-//}
+
 /* USER CODE END 0 */
 
 /**

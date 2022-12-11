@@ -6,46 +6,32 @@ extern "C" {
 
 #include "common.h"
 
-#include "applications.h"
-
 #include "lvgl.h"
 #include "ui.h"
+
 #include "fshelper.h"
 
-static int btn1ClickedFlag = 0, btn2ClickedFlag = 0;
-
-void btn1Clicked(lv_event_t * e) {
-	btn1ClickedFlag = 1;
-}
-
-void btn2Clicked(lv_event_t * e) {
-	btn2ClickedFlag = 1;
-}
+#include "mpu6050.h"
 
 void StartSystemDetecting(void const * argument) {
 	char names[300] = {0};
 	FS_ScanFolder("0:", names);
+	lv_roller_set_options(ui_roller, names, LV_ROLLER_MODE_NORMAL);
 
-	lv_roller_set_options(ui_Screen1_Roller1, names, LV_ROLLER_MODE_NORMAL);
+	lv_chart_set_type(ui_chart, LV_CHART_TYPE_LINE);
+	lv_chart_set_range(ui_chart, LV_CHART_AXIS_PRIMARY_Y, -16500, 16500);
+	lv_chart_set_range(ui_chart, LV_CHART_AXIS_SECONDARY_Y, -16500, 16500);
+	lv_chart_set_point_count(ui_chart, 30);
+	lv_chart_series_t *series_1 = lv_chart_add_series(ui_chart, lv_palette_main(LV_PALETTE_RED), LV_CHART_AXIS_PRIMARY_Y);
+	lv_chart_series_t *series_2 = lv_chart_add_series(ui_chart, lv_palette_main(LV_PALETTE_GREEN), LV_CHART_AXIS_SECONDARY_Y);
 
 	while (1) {
-		if (btn1ClickedFlag) {
-			char filepath[30] = {0}, filename[30] = {0};
-			lv_roller_get_selected_str(ui_Screen1_Roller1, filename, 30);
-			sprintf(filepath, "0:%s", filename);
+		short ax, ay, az;
+		MPU_Get_Accelerometer(&ax, &ay, &az);
+		lv_chart_set_next_value(ui_chart, series_1, ax);
+		lv_chart_set_next_value(ui_chart, series_2, ay);
 
-			Applications_ActivateApplication(filepath);
-
-			btn1ClickedFlag = 0;
-		}
-
-		if (btn2ClickedFlag) {
-			Applications_HaltApplication();
-
-			btn2ClickedFlag = 0;
-		}
-
-		osDelay(3);
+		osDelay(20);
 	}
 }
 

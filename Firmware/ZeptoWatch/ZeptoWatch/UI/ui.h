@@ -12,15 +12,16 @@ extern "C" {
 
 #include "lvgl/lvgl.h"
 
-extern lv_obj_t * ui_Screen1;
-extern lv_obj_t * ui_Screen1_Label1;
-extern lv_obj_t * ui_Screen1_Roller1;
-void ui_event_Screen1_Button1(lv_event_t * e);
-extern lv_obj_t * ui_Screen1_Button1;
-extern lv_obj_t * ui_Screen2;
-void ui_event_Screen2_Button2(lv_event_t * e);
-extern lv_obj_t * ui_Screen2_Button2;
-extern lv_obj_t * ui_Screen2_Label1;
+extern lv_obj_t * ui_Main;
+extern lv_obj_t * ui_info;
+extern lv_obj_t * ui_roller;
+void ui_event_exeBtn(lv_event_t * e);
+extern lv_obj_t * ui_exeBtn;
+extern lv_obj_t * ui_chart;
+extern lv_obj_t * ui_Application;
+void ui_event_backBtn(lv_event_t * e);
+extern lv_obj_t * ui_backBtn;
+extern lv_obj_t * ui_applabel;
 
 void btn1Clicked(lv_event_t * e);
 void btn2Clicked(lv_event_t * e);

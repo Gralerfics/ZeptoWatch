@@ -6,19 +6,47 @@ extern "C" {
 
 #include "common.h"
 
-#include "lvgl.h"
+#include "applications.h"
 
+#include "lvgl.h"
+#include "ui.h"
+
+void StartSystemUI(void const * argument) {
+	extern int btn1ClickedFlag, btn2ClickedFlag;
+
+	for (;;) {
+		/* Lvgl 任务处理 */
+		lv_task_handler();
+
+		/* 事件处理 */
+		if (btn1ClickedFlag) {
+			char filepath[30] = {0}, filename[30] = {0};
+			lv_roller_get_selected_str(ui_roller, filename, 30);
+			sprintf(filepath, "0:%s", filename);
+			Applications_ActivateApplication(filepath);
+			btn1ClickedFlag = 0;
+		}
+		if (btn2ClickedFlag) {
+			Applications_HaltApplication();
+			btn2ClickedFlag = 0;
+		}
+
+		/* 延时 */
+		osDelay(1);
+	}
+}
+
+#ifdef __cplusplus
+}
+#endif
+
+/* 屏幕安回去之后的复位 */
 //#include "lv_port_disp.h"
 //#include "lv_port_indev.h"
 //#include "cst816.h"
-
-void StartSystemUI(void const * argument) {
-	uint8_t cnt = 0, cst_connected = 1;
-	for (;;) {
-		/* Lvgl 事件处理 */
-		lv_task_handler();
-
-		/* 屏幕安回去之后的复位 */
+//  ...
+//	uint8_t cnt = 0, cst_connected = 1;
+//  ...
 //		cnt += 1;
 //		if (cnt == 255) {
 //			if (CST816_Is_OnConnection() != 0) {
@@ -33,12 +61,4 @@ void StartSystemUI(void const * argument) {
 //			}
 //			cnt = 0;
 //		}
-
-		/* 延时 */
-		osDelay(1);
-	}
-}
-
-#ifdef __cplusplus
-}
-#endif
+//  ...
