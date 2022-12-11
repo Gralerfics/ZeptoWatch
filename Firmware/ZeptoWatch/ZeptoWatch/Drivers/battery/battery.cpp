@@ -20,6 +20,11 @@ void Battery_StartSampling() {
 	HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
 }
 
+void Battery_StopSampling() {
+	HAL_ADC_Stop_DMA(&hadc1);
+	HAL_TIM_PWM_Stop(&htim5, TIM_CHANNEL_1);
+}
+
 int Battery_IsCharging() {
 	return HAL_GPIO_ReadPin(BAT_CHRG_R_GPIO_Port, BAT_CHRG_R_Pin) == GPIO_PIN_RESET;
 }

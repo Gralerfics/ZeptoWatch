@@ -18,6 +18,7 @@ extern "C" {
 
 void Battery_Init();
 void Battery_StartSampling();
+void Battery_StopSampling();
 
 int Battery_IsCharging();
 uint16_t Battery_GetADCData();
