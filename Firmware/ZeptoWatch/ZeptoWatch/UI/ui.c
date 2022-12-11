@@ -99,7 +99,7 @@ void ui_Screen2_screen_init(void)
     lv_obj_set_width(ui_Screen2_Label1, 145);
     lv_obj_set_height(ui_Screen2_Label1, 145);
     lv_obj_set_align(ui_Screen2_Label1, LV_ALIGN_CENTER);
-    lv_obj_set_style_text_font(ui_Screen2_Label1, &lv_font_montserrat_8, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Screen2_Label1, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_add_event_cb(ui_Screen2_Button2, ui_event_Screen2_Button2, LV_EVENT_ALL, NULL);
 

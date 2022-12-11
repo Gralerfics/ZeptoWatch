@@ -25,15 +25,15 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "tim.h"
+#include "common.h"
 
 #include "lvgl.h"
 #include "lv_port_disp.h"
 #include "lv_port_indev.h"
-
 #include "ui.h"
+
 #include "brightness.h"
-#include "m24512.h"
+#include "fshelper.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,61 +95,65 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
   * @retval None
   */
 void MX_FREERTOS_Init(void) {
-  /* USER CODE BEGIN Init */
-	MX_USB_DEVICE_Init();
+	/* USER CODE BEGIN Init */
 
+	// USB Initialization
+	MX_USB_DEVICE_Init();
+	// Screen Brightness Initialization - Dark
 	Brightness_SetTIMHandle(&htim3);
 	Brightness_SetTIMChannel(TIM_CHANNEL_1);
 	Brightness_Start();
 	Brightness_SetValue(0);
-
+	// Lvgl Initialization
 	lv_init();
 	lv_port_disp_init();
 	lv_port_indev_init();
 	ui_init();
 	HAL_TIM_Base_Start_IT(&htim2);
-
+	// Screen Brightness Initialization - Light Up
 	Brightness_SetValue(70);
-
+	// EEPROM and File System Initialization
 	ROM_Init();
-  /* USER CODE END Init */
+	FS_Mount();
 
-  /* USER CODE BEGIN RTOS_MUTEX */
+	/* USER CODE END Init */
+
+	/* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
+	/* USER CODE END RTOS_MUTEX */
 
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
+	/* USER CODE BEGIN RTOS_SEMAPHORES */
 	/* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
+	/* USER CODE END RTOS_SEMAPHORES */
 
-  /* USER CODE BEGIN RTOS_TIMERS */
+	/* USER CODE BEGIN RTOS_TIMERS */
 	/* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
+	/* USER CODE END RTOS_TIMERS */
 
-  /* USER CODE BEGIN RTOS_QUEUES */
+	/* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
+	/* USER CODE END RTOS_QUEUES */
 
-  /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+	/* Create the thread(s) */
+	/* definition and creation of defaultTask */
+	osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 128);
+	defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
-  /* definition and creation of systemUI */
-  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 1024);
-  systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
+	/* definition and creation of systemUI */
+	osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 1024);
+	systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
-  /* definition and creation of systemDetecting */
-  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1024);
-  systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
+	/* definition and creation of systemDetecting */
+	osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1024);
+	systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
-  /* definition and creation of applicationExec */
-  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 1024);
-  applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
+	/* definition and creation of applicationExec */
+	osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 1024);
+	applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
 
-  /* USER CODE BEGIN RTOS_THREADS */
+	/* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-  /* USER CODE END RTOS_THREADS */
+	/* USER CODE END RTOS_THREADS */
 
 }
 
@@ -162,15 +166,15 @@ void MX_FREERTOS_Init(void) {
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void const * argument)
 {
-  /* init code for USB_DEVICE */
-  MX_USB_DEVICE_Init();
-  /* USER CODE BEGIN StartDefaultTask */
+	/* init code for USB_DEVICE */
+	MX_USB_DEVICE_Init();
+	/* USER CODE BEGIN StartDefaultTask */
 	/* Infinite loop */
 	for(;;)
 	{
 		osDelay(1);
 	}
-  /* USER CODE END StartDefaultTask */
+	/* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_StartSystemUI */
@@ -182,13 +186,13 @@ void StartDefaultTask(void const * argument)
 /* USER CODE END Header_StartSystemUI */
 __weak void StartSystemUI(void const * argument)
 {
-  /* USER CODE BEGIN StartSystemUI */
+	/* USER CODE BEGIN StartSystemUI */
 	/* Infinite loop */
 	for(;;)
 	{
 		osDelay(1);
 	}
-  /* USER CODE END StartSystemUI */
+	/* USER CODE END StartSystemUI */
 }
 
 /* USER CODE BEGIN Header_StartSystemDetecting */
@@ -200,13 +204,13 @@ __weak void StartSystemUI(void const * argument)
 /* USER CODE END Header_StartSystemDetecting */
 __weak void StartSystemDetecting(void const * argument)
 {
-  /* USER CODE BEGIN StartSystemDetecting */
+	/* USER CODE BEGIN StartSystemDetecting */
 	/* Infinite loop */
 	for(;;)
 	{
 		osDelay(1);
 	}
-  /* USER CODE END StartSystemDetecting */
+	/* USER CODE END StartSystemDetecting */
 }
 
 /* USER CODE BEGIN Header_StartApplicationExecuting */
@@ -218,13 +222,13 @@ __weak void StartSystemDetecting(void const * argument)
 /* USER CODE END Header_StartApplicationExecuting */
 __weak void StartApplicationExecuting(void const * argument)
 {
-  /* USER CODE BEGIN StartApplicationExecuting */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END StartApplicationExecuting */
+	/* USER CODE BEGIN StartApplicationExecuting */
+	/* Infinite loop */
+	for(;;)
+	{
+		osDelay(1);
+	}
+	/* USER CODE END StartApplicationExecuting */
 }
 
 /* Private application code --------------------------------------------------*/

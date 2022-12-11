@@ -78,6 +78,7 @@ include_directories(
         ZeptoWatch/Drivers/eeprom
         ZeptoWatch/Drivers/imu
         ZeptoWatch/Drivers/lcd
+        ZeptoWatch/Drivers/microphone
         ZeptoWatch/Drivers/pwrkey
         ZeptoWatch/Drivers/rtc
         ZeptoWatch/Drivers/system

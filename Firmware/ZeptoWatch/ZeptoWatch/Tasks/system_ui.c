@@ -1,5 +1,9 @@
 #include "cmsis_os.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "stdio.h"
 
 #include "lvgl.h"
@@ -8,10 +12,6 @@
 #include "lv_port_disp.h"
 
 #include "ui.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 void StartSystemUI(void const * argument) {
 //	uint8_t cnt = 0, cst_lost = 0;

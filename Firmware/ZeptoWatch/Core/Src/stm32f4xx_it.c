@@ -182,9 +182,9 @@ void EXTI0_IRQHandler(void)
 	/* USER CODE END EXTI0_IRQn 0 */
 	HAL_GPIO_EXTI_IRQHandler(KEY_INT_Pin);
 	/* USER CODE BEGIN EXTI0_IRQn 1 */
-	Delay_ms(15);
+	Delay_ms(50);
 	GPIO_PinState tmpState = HAL_GPIO_ReadPin(KEY_INT_GPIO_Port, KEY_INT_Pin);
-	Delay_ms(30);
+	Delay_ms(50);
 	if (HAL_GPIO_ReadPin(KEY_INT_GPIO_Port, KEY_INT_Pin) == tmpState) {
 		if (tmpState == GPIO_PIN_RESET) {
 			// Falling -> Released
@@ -192,6 +192,7 @@ void EXTI0_IRQHandler(void)
 			if (Power_GetState() == 2) {
 				// Long Pressed
 				// TODO: Shuting down UI.
+				Delay_ms(1000);
 				HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
 				HAL_PWR_EnterSTANDBYMode();
 			} else {
@@ -212,7 +213,7 @@ void EXTI0_IRQHandler(void)
 			HAL_TIM_Base_Start_IT(&htim6);
 		}
 	}
-	Delay_ms(40);
+	Delay_ms(200);
 	/* USER CODE END EXTI0_IRQn 1 */
 }
 

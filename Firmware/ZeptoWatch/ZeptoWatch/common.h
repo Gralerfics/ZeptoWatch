@@ -7,6 +7,13 @@ extern "C" {
 
 #include "stm32f4xx_hal.h"
 
+#include "tim.h"
+#include "fatfs.h"
+
+#include "stdio.h"
+
+#include "debugging.h"
+
 #ifdef __cplusplus
 }
 #endif
