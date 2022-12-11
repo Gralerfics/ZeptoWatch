@@ -23,7 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "delay.h"
-#include "powerkey.h"
+#include "power.h"
 #include "brightness.h"
 #include "stdio.h"
 /* USER CODE END Includes */
@@ -192,7 +192,7 @@ void EXTI0_IRQHandler(void)
 			if (Power_GetState() == 2) {
 				// Long Pressed
 				// TODO: Shuting down UI.
-				Delay_ms(1000);
+				Delay_ms(200);
 				HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
 				HAL_PWR_EnterSTANDBYMode();
 			} else {

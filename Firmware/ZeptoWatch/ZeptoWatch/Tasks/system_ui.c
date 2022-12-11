@@ -4,35 +4,33 @@
 extern "C" {
 #endif
 
-#include "stdio.h"
+#include "common.h"
 
 #include "lvgl.h"
+#include "lv_port_disp.h"
+#include "lv_port_indev.h"
 
 #include "cst816.h"
-#include "lv_port_disp.h"
-
-#include "ui.h"
 
 void StartSystemUI(void const * argument) {
-//	uint8_t cnt = 0, cst_lost = 0;
+	uint8_t cnt = 0, cst_connected = 1;
 	for (;;) {
 		lv_task_handler();
 
-//		cnt += 1;
-//		if (cnt == 255) {
-//			lv_label_set_text(ui_Screen1_Label1, cst_lost == 0 ? "Online" : "Lost");
-//			printf("%d\n", (int) CST816_Is_OnConnection());
-//
-//			if (CST816_Is_OnConnection()) {
-//				if (cst_lost == 1) {
-//					lv_port_disp_init();
-//					cst_lost = 0;
-//				}
-//			} else {
-//				cst_lost = 1;
-//			}
-//			cnt = 0;
-//		}
+		cnt += 1;
+		if (cnt == 255) {
+			if (CST816_Is_OnConnection() != 0) {
+				if (cst_connected == 0) {
+					lv_init();
+					lv_port_disp_init();
+					lv_port_indev_init();
+					cst_connected = 1;
+				}
+			} else {
+				cst_connected = 0;
+			}
+			cnt = 0;
+		}
 
 		osDelay(1);
 	}

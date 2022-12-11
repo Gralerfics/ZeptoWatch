@@ -79,7 +79,6 @@ include_directories(
         ZeptoWatch/Drivers/imu
         ZeptoWatch/Drivers/lcd
         ZeptoWatch/Drivers/microphone
-        ZeptoWatch/Drivers/pwrkey
         ZeptoWatch/Drivers/rtc
         ZeptoWatch/Drivers/system
         ZeptoWatch/Drivers/vibrator
@@ -100,7 +99,7 @@ file(GLOB_RECURSE SOURCES
         "startup/*.*"
         "USB_DEVICE/*.*"
         "ZeptoWatch/*.*"
-)
+        )
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F405RGTx_FLASH.ld)
 

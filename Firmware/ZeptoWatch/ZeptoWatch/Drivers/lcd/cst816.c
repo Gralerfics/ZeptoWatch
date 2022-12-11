@@ -408,5 +408,5 @@ void CST816_Config_LpScanTH(uint8_t TH) {
 *********************************************************************************************************
 */
 uint8_t CST816_Is_OnConnection(void) {
-	return (CST816_Get_ChipID() != 255);
+	return CST816_Get_ChipID() != 255 ? 1 : 0;
 }
