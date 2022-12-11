@@ -35,6 +35,7 @@
 #include "brightness.h"
 #include "fshelper.h"
 #include "mpu6050.h"
+#include "msm261s.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -117,6 +118,8 @@ void MX_FREERTOS_Init(void) {
 	FS_Mount();
 	// IMU Initialization
 	MPU_Initialize();
+	// Microphone Initialization
+	Microphone_StartSampling();
 
 	/* USER CODE END Init */
 
@@ -142,15 +145,15 @@ void MX_FREERTOS_Init(void) {
 	defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
 	/* definition and creation of systemUI */
-	osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 512);
+	osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 800);
 	systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
 	/* definition and creation of systemDetecting */
-	osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1024);
+	osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1200);
 	systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
 	/* definition and creation of applicationExec */
-	osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 1536);
+	osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 1200);
 	applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
 
 	/* USER CODE BEGIN RTOS_THREADS */
