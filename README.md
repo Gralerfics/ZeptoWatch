@@ -12,6 +12,12 @@ A smart watch based on STM32F405RGT6.
 
 - Firmware for ZeptoWatch (developing).
 
+  - Drivers for peripherals on board.
+  - USB Mass Storage Class.
+  - FatFs on EEPROM.
+  - Applying [PikaScript](https://github.com/pikasTech/pikascript) as a built-in interpreter.
+  - ......
+
 <div align="center">
     <img src="Documents/imgs/IMG_20221211_184247.jpg" height="400">
 </div>
