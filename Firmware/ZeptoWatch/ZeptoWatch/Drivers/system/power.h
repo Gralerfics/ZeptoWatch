@@ -1,5 +1,5 @@
-#ifndef __PWRKEY_H
-#define __PWRKEY_H
+#ifndef __POWER_H
+#define __POWER_H
 
 #ifdef __cplusplus
 extern "C" {
