@@ -61,6 +61,7 @@ void Error_Handler(void);
 #define BAT_ADC_GPIO_Port GPIOC
 #define KEY_INT_Pin GPIO_PIN_0
 #define KEY_INT_GPIO_Port GPIOA
+#define KEY_INT_EXTI_IRQn EXTI0_IRQn
 #define BT_RST_Pin GPIO_PIN_1
 #define BT_RST_GPIO_Port GPIOA
 #define LCD_SCL_Pin GPIO_PIN_5

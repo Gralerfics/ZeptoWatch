@@ -149,7 +149,6 @@ void StartSystemDetecting(void const * argument) {
 	FILINFO fileInfo;
 	char names[200] = {0};
 	int first_file = 1;
-	lv_label_set_text(ui_Screen1_Label1, "Scanning ...");
 	lv_label_set_text(ui_Screen1_Label1, "Scanning ... Open Dir.");
 	retUSER = f_opendir(&dir, "0:");
 	if (retUSER == FR_OK) {

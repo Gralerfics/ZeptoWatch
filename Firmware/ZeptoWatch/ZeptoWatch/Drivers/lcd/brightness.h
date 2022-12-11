@@ -14,6 +14,9 @@ void Brightness_Start();
 void Brightness_SetValue(uint8_t val);
 uint8_t Brightness_GetValue();
 
+void Brightness_GoDark() ;
+void Brightness_LightUp();
+
 #ifdef __cplusplus
 }
 #endif

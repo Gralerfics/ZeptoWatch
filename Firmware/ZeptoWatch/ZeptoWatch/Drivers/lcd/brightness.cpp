@@ -1,7 +1,10 @@
 #include "brightness.h"
 
+#include "delay.h"
+
 TIM_HandleTypeDef *Brightness_TIMHandle;
 uint32_t Brightness_TIMChannel;
+int Brightness_LastValue = 0;
 
 void Brightness_SetTIMHandle(TIM_HandleTypeDef *htim) {
 	Brightness_TIMHandle = htim;
@@ -18,7 +21,7 @@ void Brightness_Start() {
 }
 
 void Brightness_SetValue(uint8_t val) {
-	if (val >= 0 && val <= 100) {
+	if (val >= 0 && val <= 100 && Brightness_TIMHandle != nullptr && IS_TIM_CCX_INSTANCE(Brightness_TIMHandle -> Instance, Brightness_TIMChannel)) {
 		__HAL_TIM_SET_COMPARE(Brightness_TIMHandle, Brightness_TIMChannel, val);
 	}
 }
@@ -29,4 +32,22 @@ uint8_t Brightness_GetValue() {
 	} else {
 		return 255;
 	}
+}
+
+void Brightness_GoDark() {
+	Brightness_LastValue = Brightness_GetValue();
+	for (int i = 0; i < 50; i ++) {
+		Brightness_SetValue(Brightness_LastValue - Brightness_LastValue * i / 50);
+		Delay_ms(8);
+	}
+	Brightness_SetValue(0);
+}
+
+void Brightness_LightUp() {
+	for (int i = 0; i < 50; i ++) {
+		Brightness_SetValue(Brightness_LastValue * i / 50);
+		Delay_ms(8);
+	}
+	Brightness_SetValue(Brightness_LastValue);
+	Brightness_LastValue = 0;
 }
