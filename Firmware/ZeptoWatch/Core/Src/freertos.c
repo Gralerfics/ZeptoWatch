@@ -100,9 +100,7 @@ void MX_FREERTOS_Init(void) {
 	// USB Initialization
 	MX_USB_DEVICE_Init();
 	// Screen Brightness Initialization - Dark
-	Brightness_SetTIMHandle(&htim3);
-	Brightness_SetTIMChannel(TIM_CHANNEL_1);
-	Brightness_Start();
+	Brightness_Start(&htim3, TIM_CHANNEL_1);
 	Brightness_SetValue(0);
 	// Lvgl Initialization
 	lv_init();
@@ -111,9 +109,10 @@ void MX_FREERTOS_Init(void) {
 	ui_init();
 	HAL_TIM_Base_Start_IT(&htim2);
 	// Screen Brightness Initialization - Light Up
-	Brightness_SetValue(70);
-	// EEPROM and File System Initialization
+	Brightness_SetValue(50);
+	// EEPROM Initialization
 	ROM_Init();
+	// File System Initialization
 	FS_Mount();
 
 	/* USER CODE END Init */
@@ -140,7 +139,7 @@ void MX_FREERTOS_Init(void) {
 	defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
 	/* definition and creation of systemUI */
-	osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 1024);
+	osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 512);
 	systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
 	/* definition and creation of systemDetecting */
@@ -148,7 +147,7 @@ void MX_FREERTOS_Init(void) {
 	systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
 	/* definition and creation of applicationExec */
-	osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 1024);
+	osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 1536);
 	applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
 
 	/* USER CODE BEGIN RTOS_THREADS */

@@ -9,7 +9,7 @@ void FS_Mount() {
 	} else {
 		Debug_Printf("Mounted.\n");
 	}
-	osDelay(500);
+	osDelay(100);
 }
 
 void FS_ScanFolder(const char *path, char *names) {

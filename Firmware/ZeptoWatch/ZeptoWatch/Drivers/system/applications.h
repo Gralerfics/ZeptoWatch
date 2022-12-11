@@ -7,11 +7,11 @@ extern "C" {
 
 #include "common.h"
 
-int Applications_IsRunningApplicationExisted();
-char* Applications_GetRunningApplicationPath();
+int Applications_IsRunning();
+char* Applications_GetApplicationPath();
 
 void Applications_ActivateApplication(const char *filepath);
-void Applications_HaltCurrentApplication();
+void Applications_HaltApplication();
 
 void Application_ExecuteFromFS(const char *filepath);
 

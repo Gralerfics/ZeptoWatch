@@ -10,8 +10,8 @@ extern "C" {
 
 void StartApplicationExecuting(void const * argument) {
 	for (;;) {
-		if (Applications_IsRunningApplicationExisted()) {
-			Application_ExecuteFromFS(Applications_GetRunningApplicationPath());
+		if (Applications_IsRunning()) {
+			Application_ExecuteFromFS(Applications_GetApplicationPath());
 		}
 		osDelay(10);
 	}

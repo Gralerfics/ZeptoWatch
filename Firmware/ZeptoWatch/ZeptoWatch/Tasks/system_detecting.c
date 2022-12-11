@@ -40,12 +40,12 @@ void StartSystemDetecting(void const * argument) {
 		}
 
 		if (btn2ClickedFlag) {
-			Applications_HaltCurrentApplication();
+			Applications_HaltApplication();
 
 			btn2ClickedFlag = 0;
 		}
 
-		osDelay(10);
+		osDelay(3);
 	}
 }
 
