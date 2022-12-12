@@ -82,7 +82,13 @@
 #include "TinyObj.h"
 #include "ZeptoWatchPeriphLib_IMU.h"
 #include "TinyObj.h"
+#include "ZeptoWatchPeriphLib_Microphone.h"
+#include "TinyObj.h"
+#include "ZeptoWatchPeriphLib_Vibrator.h"
+#include "TinyObj.h"
 #include "ZeptoWatchStdLib.h"
+#include "TinyObj.h"
+#include "ZeptoWatchStdLib_Clock.h"
 #include "TinyObj.h"
 #include "ZeptoWatchStdLib_Display.h"
 #include "TinyObj.h"
@@ -3433,10 +3439,30 @@ method_typedef(
     "IMU", ""
 );
 
+void ZeptoWatchPeriphLib_MicrophoneMethod(PikaObj *self, Args *args){
+    Arg* res = ZeptoWatchPeriphLib_Microphone(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_Microphone,
+    "Microphone", ""
+);
+
+void ZeptoWatchPeriphLib_VibratorMethod(PikaObj *self, Args *args){
+    Arg* res = ZeptoWatchPeriphLib_Vibrator(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_Vibrator,
+    "Vibrator", ""
+);
+
 class_def(ZeptoWatchPeriphLib){
     __BEFORE_MOETHOD_DEF
     constructor_def(ZeptoWatchPeriphLib_IMU, 193459120),
     constructor_def(ZeptoWatchPeriphLib_Battery, 1190928224),
+    constructor_def(ZeptoWatchPeriphLib_Vibrator, 1498635470),
+    constructor_def(ZeptoWatchPeriphLib_Microphone, 1675396345),
 };
 class_inhert(ZeptoWatchPeriphLib, TinyObj);
 
@@ -3540,7 +3566,98 @@ Arg *ZeptoWatchPeriphLib_IMU(PikaObj *self){
 }
 #endif
 
+#ifndef PIKA_MODULE_ZEPTOWATCHPERIPHLIB_DISABLE
+void ZeptoWatchPeriphLib_Microphone_getRawDataMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchPeriphLib_Microphone_getRawData(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_Microphone_getRawData,
+    "getRawData", ""
+);
+
+void ZeptoWatchPeriphLib_Microphone_startSamplingMethod(PikaObj *self, Args *args){
+    ZeptoWatchPeriphLib_Microphone_startSampling(self);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_Microphone_startSampling,
+    "startSampling", ""
+);
+
+void ZeptoWatchPeriphLib_Microphone_stopSamplingMethod(PikaObj *self, Args *args){
+    ZeptoWatchPeriphLib_Microphone_stopSampling(self);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_Microphone_stopSampling,
+    "stopSampling", ""
+);
+
+class_def(ZeptoWatchPeriphLib_Microphone){
+    __BEFORE_MOETHOD_DEF
+    method_def(ZeptoWatchPeriphLib_Microphone_startSampling, 717128206),
+    method_def(ZeptoWatchPeriphLib_Microphone_stopSampling, 1167149958),
+    method_def(ZeptoWatchPeriphLib_Microphone_getRawData, 1809285993),
+};
+class_inhert(ZeptoWatchPeriphLib_Microphone, TinyObj);
+
+PikaObj *New_ZeptoWatchPeriphLib_Microphone(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchPeriphLib_Microphone);
+    return self;
+}
+
+Arg *ZeptoWatchPeriphLib_Microphone(PikaObj *self){
+    return obj_newObjInPackage(New_ZeptoWatchPeriphLib_Microphone);
+}
+#endif
+
+#ifndef PIKA_MODULE_ZEPTOWATCHPERIPHLIB_DISABLE
+void ZeptoWatchPeriphLib_Vibrator_stopMethod(PikaObj *self, Args *args){
+    ZeptoWatchPeriphLib_Vibrator_stop(self);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_Vibrator_stop,
+    "stop", ""
+);
+
+void ZeptoWatchPeriphLib_Vibrator_vibrateMethod(PikaObj *self, Args *args){
+    int ms = args_getInt(args, "ms");
+    int pulse = args_getInt(args, "pulse");
+    ZeptoWatchPeriphLib_Vibrator_vibrate(self, ms, pulse);
+}
+method_typedef(
+    ZeptoWatchPeriphLib_Vibrator_vibrate,
+    "vibrate", "ms,pulse"
+);
+
+class_def(ZeptoWatchPeriphLib_Vibrator){
+    __BEFORE_MOETHOD_DEF
+    method_def(ZeptoWatchPeriphLib_Vibrator_vibrate, 2066929906),
+    method_def(ZeptoWatchPeriphLib_Vibrator_stop, 2090736459),
+};
+class_inhert(ZeptoWatchPeriphLib_Vibrator, TinyObj);
+
+PikaObj *New_ZeptoWatchPeriphLib_Vibrator(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchPeriphLib_Vibrator);
+    return self;
+}
+
+Arg *ZeptoWatchPeriphLib_Vibrator(PikaObj *self){
+    return obj_newObjInPackage(New_ZeptoWatchPeriphLib_Vibrator);
+}
+#endif
+
 #ifndef PIKA_MODULE_ZEPTOWATCHSTDLIB_DISABLE
+void ZeptoWatchStdLib_ClockMethod(PikaObj *self, Args *args){
+    Arg* res = ZeptoWatchStdLib_Clock(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock,
+    "Clock", ""
+);
+
 void ZeptoWatchStdLib_DisplayMethod(PikaObj *self, Args *args){
     Arg* res = ZeptoWatchStdLib_Display(self);
     method_returnArg(args, res);
@@ -3561,6 +3678,7 @@ method_typedef(
 
 class_def(ZeptoWatchStdLib){
     __BEFORE_MOETHOD_DEF
+    constructor_def(ZeptoWatchStdLib_Clock, 217614385),
     constructor_def(ZeptoWatchStdLib_System, 1380569194),
     constructor_def(ZeptoWatchStdLib_Display, 1938141051),
 };
@@ -3570,6 +3688,93 @@ PikaObj *New_ZeptoWatchStdLib(Args *args){
     PikaObj *self = New_TinyObj(args);
     obj_setClass(self, ZeptoWatchStdLib);
     return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_ZEPTOWATCHSTDLIB_DISABLE
+void ZeptoWatchStdLib_Clock_getDayMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchStdLib_Clock_getDay(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_getDay,
+    "getDay", ""
+);
+
+void ZeptoWatchStdLib_Clock_getHoursMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchStdLib_Clock_getHours(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_getHours,
+    "getHours", ""
+);
+
+void ZeptoWatchStdLib_Clock_getMinutesMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchStdLib_Clock_getMinutes(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_getMinutes,
+    "getMinutes", ""
+);
+
+void ZeptoWatchStdLib_Clock_getMonthMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchStdLib_Clock_getMonth(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_getMonth,
+    "getMonth", ""
+);
+
+void ZeptoWatchStdLib_Clock_getSecondsMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchStdLib_Clock_getSeconds(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_getSeconds,
+    "getSeconds", ""
+);
+
+void ZeptoWatchStdLib_Clock_getWeekDayMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchStdLib_Clock_getWeekDay(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_getWeekDay,
+    "getWeekDay", ""
+);
+
+void ZeptoWatchStdLib_Clock_getYearMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchStdLib_Clock_getYear(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_getYear,
+    "getYear", ""
+);
+
+class_def(ZeptoWatchStdLib_Clock){
+    __BEFORE_MOETHOD_DEF
+    method_def(ZeptoWatchStdLib_Clock_getSeconds, 1087652404),
+    method_def(ZeptoWatchStdLib_Clock_getYear, 1886173526),
+    method_def(ZeptoWatchStdLib_Clock_getWeekDay, 1960739247),
+    method_def(ZeptoWatchStdLib_Clock_getHours, 2094404822),
+    method_def(ZeptoWatchStdLib_Clock_getMinutes, 2098588074),
+    method_def(ZeptoWatchStdLib_Clock_getMonth, 2100326859),
+    method_def(ZeptoWatchStdLib_Clock_getDay, 2139542179),
+};
+class_inhert(ZeptoWatchStdLib_Clock, TinyObj);
+
+PikaObj *New_ZeptoWatchStdLib_Clock(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchStdLib_Clock);
+    return self;
+}
+
+Arg *ZeptoWatchStdLib_Clock(PikaObj *self){
+    return obj_newObjInPackage(New_ZeptoWatchStdLib_Clock);
 }
 #endif
 

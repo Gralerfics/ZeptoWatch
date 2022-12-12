@@ -19,5 +19,7 @@ PikaObj *New_ZeptoWatchPeriphLib(Args *args);
 
 Arg* ZeptoWatchPeriphLib_Battery(PikaObj *self);
 Arg* ZeptoWatchPeriphLib_IMU(PikaObj *self);
+Arg* ZeptoWatchPeriphLib_Microphone(PikaObj *self);
+Arg* ZeptoWatchPeriphLib_Vibrator(PikaObj *self);
 
 #endif

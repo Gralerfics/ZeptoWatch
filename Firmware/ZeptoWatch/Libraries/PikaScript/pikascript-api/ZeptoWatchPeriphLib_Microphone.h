@@ -9,16 +9,16 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __ZeptoWatchStdLib__H
-#define __ZeptoWatchStdLib__H
+#ifndef __ZeptoWatchPeriphLib_Microphone__H
+#define __ZeptoWatchPeriphLib_Microphone__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_ZeptoWatchStdLib(Args *args);
+PikaObj *New_ZeptoWatchPeriphLib_Microphone(Args *args);
 
-Arg* ZeptoWatchStdLib_Clock(PikaObj *self);
-Arg* ZeptoWatchStdLib_Display(PikaObj *self);
-Arg* ZeptoWatchStdLib_System(PikaObj *self);
+int ZeptoWatchPeriphLib_Microphone_getRawData(PikaObj *self);
+void ZeptoWatchPeriphLib_Microphone_startSampling(PikaObj *self);
+void ZeptoWatchPeriphLib_Microphone_stopSampling(PikaObj *self);
 
 #endif

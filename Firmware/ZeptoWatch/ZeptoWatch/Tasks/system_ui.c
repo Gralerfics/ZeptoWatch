@@ -23,6 +23,7 @@ void StartSystemUI(void const * argument) {
 			char filepath[30] = {0}, filename[30] = {0};
 			lv_roller_get_selected_str(ui_roller, filename, 30);
 			sprintf(filepath, "0:%s", filename);
+			lv_label_set_text(ui_applabel, filepath);
 			Applications_ActivateApplication(filepath);
 			btn1ClickedFlag = 0;
 		}

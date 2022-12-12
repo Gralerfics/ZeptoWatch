@@ -9,16 +9,15 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __ZeptoWatchStdLib__H
-#define __ZeptoWatchStdLib__H
+#ifndef __ZeptoWatchPeriphLib_Vibrator__H
+#define __ZeptoWatchPeriphLib_Vibrator__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_ZeptoWatchStdLib(Args *args);
+PikaObj *New_ZeptoWatchPeriphLib_Vibrator(Args *args);
 
-Arg* ZeptoWatchStdLib_Clock(PikaObj *self);
-Arg* ZeptoWatchStdLib_Display(PikaObj *self);
-Arg* ZeptoWatchStdLib_System(PikaObj *self);
+void ZeptoWatchPeriphLib_Vibrator_stop(PikaObj *self);
+void ZeptoWatchPeriphLib_Vibrator_vibrate(PikaObj *self, int ms, int pulse);
 
 #endif

@@ -13,6 +13,7 @@ extern "C" {
 
 #include "mpu6050.h"
 #include "msm261s.h"
+#include "vibrator.h"
 
 lv_chart_series_t *series = NULL;
 
@@ -21,23 +22,24 @@ void StartSystemDetecting(void const * argument) {
 	FS_ScanFolder("0:", names);
 	lv_roller_set_options(ui_roller, names, LV_ROLLER_MODE_NORMAL);
 
-//	lv_chart_set_type(ui_chart, LV_CHART_TYPE_LINE);
-//	lv_chart_set_point_count(ui_chart, 30);
-//	lv_chart_set_range(ui_chart, LV_CHART_AXIS_PRIMARY_Y, -16500, 16500);
-//	lv_chart_set_range(ui_chart, LV_CHART_AXIS_SECONDARY_Y, -16500, 16500);
-//	lv_chart_series_t *series_1 = lv_chart_add_series(ui_chart, lv_palette_main(LV_PALETTE_RED), LV_CHART_AXIS_PRIMARY_Y);
-//	lv_chart_series_t *series_2 = lv_chart_add_series(ui_chart, lv_palette_main(LV_PALETTE_GREEN), LV_CHART_AXIS_SECONDARY_Y);
-
 	lv_chart_set_type(ui_chart, LV_CHART_TYPE_LINE);
-	lv_chart_set_point_count(ui_chart, 8192);
-	lv_chart_set_range(ui_chart, LV_CHART_AXIS_PRIMARY_Y, -32768, 32767);
-	series = lv_chart_add_series(ui_chart, lv_palette_main(LV_PALETTE_RED), LV_CHART_AXIS_PRIMARY_Y);
+	lv_chart_set_point_count(ui_chart, 30);
+	lv_chart_set_range(ui_chart, LV_CHART_AXIS_PRIMARY_Y, -16500, 16500);
+	lv_chart_set_range(ui_chart, LV_CHART_AXIS_SECONDARY_Y, -16500, 16500);
+	lv_chart_series_t *series_1 = lv_chart_add_series(ui_chart, lv_palette_main(LV_PALETTE_RED), LV_CHART_AXIS_PRIMARY_Y);
+	lv_chart_series_t *series_2 = lv_chart_add_series(ui_chart, lv_palette_main(LV_PALETTE_GREEN), LV_CHART_AXIS_SECONDARY_Y);
 
+//	lv_chart_set_type(ui_chart, LV_CHART_TYPE_LINE);
+//	lv_chart_set_point_count(ui_chart, 4096);
+//	lv_chart_set_range(ui_chart, LV_CHART_AXIS_PRIMARY_Y, -32768, 32767);
+//	series = lv_chart_add_series(ui_chart, lv_palette_main(LV_PALETTE_RED), LV_CHART_AXIS_PRIMARY_Y);
+
+	int cnt = 0;
 	while (1) {
-//		short ax, ay, az;
-//		MPU_Get_Accelerometer(&ax, &ay, &az);
-//		lv_chart_set_next_value(ui_chart, series_1, ax);
-//		lv_chart_set_next_value(ui_chart, series_2, ay);
+		short ax, ay, az;
+		MPU_Get_Accelerometer(&ax, &ay, &az);
+		lv_chart_set_next_value(ui_chart, series_1, ax);
+		lv_chart_set_next_value(ui_chart, series_2, ay);
 
 //		int data = Microphone_GetSampleData();
 //		lv_chart_set_next_value(ui_chart, series, data / 10);

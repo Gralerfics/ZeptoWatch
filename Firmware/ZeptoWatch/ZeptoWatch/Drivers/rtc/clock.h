@@ -12,7 +12,15 @@ extern RTC_DateTypeDef RTC_Date;
 extern RTC_TimeTypeDef RTC_Time;
 
 void RTC_Update();
-uint8_t RTC_GetHour12();
+
+uint8_t RTC_GetHours();
+uint8_t RTC_GetMinutes();
+uint8_t RTC_GetSeconds();
+
+uint8_t RTC_GetYear();
+uint8_t RTC_GetMonth();
+uint8_t RTC_GetDay();
+uint8_t RTC_GetWeekDay();
 
 #ifdef __cplusplus
 }

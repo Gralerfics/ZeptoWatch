@@ -22,10 +22,9 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "delay.h"
-#include "power.h"
-#include "brightness.h"
 #include "stdio.h"
+#include "power.h"
+#include "vibrator.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -65,7 +64,7 @@ extern DMA_HandleTypeDef hdma_spi3_rx;
 extern RTC_HandleTypeDef hrtc;
 extern DMA_HandleTypeDef hdma_spi1_tx;
 extern TIM_HandleTypeDef htim2;
-extern TIM_HandleTypeDef htim6;
+extern TIM_HandleTypeDef htim7;
 extern DMA_HandleTypeDef hdma_usart2_tx;
 extern DMA_HandleTypeDef hdma_usart2_rx;
 extern TIM_HandleTypeDef htim1;
@@ -182,38 +181,7 @@ void EXTI0_IRQHandler(void)
 	/* USER CODE END EXTI0_IRQn 0 */
 	HAL_GPIO_EXTI_IRQHandler(KEY_INT_Pin);
 	/* USER CODE BEGIN EXTI0_IRQn 1 */
-	Delay_ms(50);
-	GPIO_PinState tmpState = HAL_GPIO_ReadPin(KEY_INT_GPIO_Port, KEY_INT_Pin);
-	Delay_ms(50);
-	if (HAL_GPIO_ReadPin(KEY_INT_GPIO_Port, KEY_INT_Pin) == tmpState) {
-		if (tmpState == GPIO_PIN_RESET) {
-			// Falling -> Released
-			HAL_TIM_Base_Stop_IT(&htim6);
-			if (Power_GetState() == 2) {
-				// Long Pressed
-				// TODO: Shuting down UI.
-				Delay_ms(200);
-				HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
-				HAL_PWR_EnterSTANDBYMode();
-			} else {
-				// Short Pressed
-				if (Power_GetState() == 0) {
-					Power_SetState(1);
-					Brightness_GoDark();
-//					while (Power_GetState() == 1) HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
-				} else {
-					Power_SetState(0);
-					Brightness_LightUp();
-				}
-			}
-		} else {
-			// Rising -> Pressed
-			__HAL_TIM_SET_COUNTER(&htim6, 0);
-			__HAL_TIM_CLEAR_IT(&htim6, TIM_IT_UPDATE); // Clear flag to avoid the immediate trigger.
-			HAL_TIM_Base_Start_IT(&htim6);
-		}
-	}
-	Delay_ms(200);
+	Power_InterruptHandler_Key();
 	/* USER CODE END EXTI0_IRQn 1 */
 }
 
@@ -302,18 +270,17 @@ void RTC_Alarm_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles TIM6 global interrupt, DAC1 and DAC2 underrun error interrupts.
+  * @brief This function handles TIM7 global interrupt.
   */
-void TIM6_DAC_IRQHandler(void)
+void TIM7_IRQHandler(void)
 {
-	/* USER CODE BEGIN TIM6_DAC_IRQn 0 */
+	/* USER CODE BEGIN TIM7_IRQn 0 */
 
-	/* USER CODE END TIM6_DAC_IRQn 0 */
-	HAL_TIM_IRQHandler(&htim6);
-	/* USER CODE BEGIN TIM6_DAC_IRQn 1 */
-	HAL_TIM_Base_Stop_IT(&htim6);
-	Power_SetState(2);
-	/* USER CODE END TIM6_DAC_IRQn 1 */
+	/* USER CODE END TIM7_IRQn 0 */
+	HAL_TIM_IRQHandler(&htim7);
+	/* USER CODE BEGIN TIM7_IRQn 1 */
+	Power_InterruptHandler_Tim();
+	/* USER CODE END TIM7_IRQn 1 */
 }
 
 /**
