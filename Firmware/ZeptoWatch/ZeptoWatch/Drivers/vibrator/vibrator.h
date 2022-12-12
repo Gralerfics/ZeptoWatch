@@ -7,7 +7,10 @@ extern "C" {
 
 #include "common.h"
 
+void Vibrator_Initialize(TIM_HandleTypeDef *htim_p, uint32_t channel);
+void Vibrator_Assert(int ms, int pulse);
 
+void Vibrator_Stop();
 
 #ifdef __cplusplus
 }
