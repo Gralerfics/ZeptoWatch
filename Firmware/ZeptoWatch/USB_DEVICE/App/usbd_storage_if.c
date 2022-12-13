@@ -105,9 +105,9 @@ const int8_t STORAGE_Inquirydata_FS[] = {/* 36 */
 		0x00,
 		0x00,
 		0x00,
-		'W', 'Z', 'Y', ' ', ' ', ' ', ' ', ' ', /* Manufacturer : 8 bytes */
-		'Z', 'W', 'a', 't', 'c', 'h', ' ', ' ', /* Product      : 16 Bytes */
-		' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+		' ', ' ', ' ', '  ', ' ', ' ', ' ', ' ', /* Manufacturer : 8 bytes */
+		'Z', 'e', 'p', 't', 'o', 'W', 'a', 't', /* Product      : 16 Bytes */
+		'c', 'h', ' ', ' ', ' ', ' ', ' ', ' ',
 		'0', '.', '3' ,'0'                      /* Version      : 4 Bytes */
 };
 /* USER CODE END INQUIRY_DATA_FS */

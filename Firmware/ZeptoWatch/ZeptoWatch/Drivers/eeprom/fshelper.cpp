@@ -2,6 +2,8 @@
 
 #include "fatfs.h"
 
+BYTE ReadBuffer[FSHELPER_READBUFFER_SIZE] __attribute__((section(".ccmram")));
+
 void FS_Mount() {
 	retUSER = f_mount(&USERFatFS, "0:", 1);
 	if (retUSER != FR_OK) {
@@ -50,10 +52,9 @@ void FS_ClearAll() {
 void FS_Make() {
 	FS_Mount();
 
-	BYTE ReadBuffer[2048];
 	if (retUSER == FR_NO_FILESYSTEM) {
 		Debug_Printf("No FS. Making FS.\n");
-		retUSER = f_mkfs("0:", FM_FAT, 512, ReadBuffer, 2048);
+		retUSER = f_mkfs("0:", FM_FAT, 512, ReadBuffer, 8192);
 		if (retUSER == FR_OK) {
 			Debug_Printf("FS Made.\n");
 			retUSER = f_mount(NULL, "0:", 1);

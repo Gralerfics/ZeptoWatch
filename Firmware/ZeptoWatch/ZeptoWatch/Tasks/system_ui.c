@@ -11,26 +11,38 @@ extern "C" {
 #include "lvgl.h"
 #include "ui.h"
 
+#include "battery.h"
+#include "brightness.h"
+#include "power.h"
+
 void StartSystemUI(void const * argument) {
-	extern int btn1ClickedFlag, btn2ClickedFlag;
+//	extern int btn1ClickedFlag, btn2ClickedFlag;
 
 	for (;;) {
-		/* Lvgl 任务处理 */
-		lv_task_handler();
+		/* 状态更新 */
+		if (Power_GetState() == 0) {
+			int brightnessSliderValue = lv_slider_get_value(ui_dropdownBrightnessSlider);
+			Brightness_SetValue(brightnessSliderValue * brightnessSliderValue * 99 / 10000 + 1);
+
+			lv_slider_set_value(ui_dropdownBatterySlider, Battery_GetPowerPercentage(), LV_ANIM_OFF);
+		}
 
 		/* 事件处理 */
-		if (btn1ClickedFlag) {
-			char filepath[30] = {0}, filename[30] = {0};
-			lv_roller_get_selected_str(ui_roller, filename, 30);
-			sprintf(filepath, "0:%s", filename);
-			lv_label_set_text(ui_applabel, filepath);
-			Applications_ActivateApplication(filepath);
-			btn1ClickedFlag = 0;
-		}
-		if (btn2ClickedFlag) {
-			Applications_HaltApplication();
-			btn2ClickedFlag = 0;
-		}
+//		if (btn1ClickedFlag) {
+//			char filepath[30] = {0}, filename[30] = {0};
+//			lv_roller_get_selected_str(ui_roller, filename, 30);
+//			sprintf(filepath, "0:%s", filename);
+//			lv_label_set_text(ui_applabel, filepath);
+//			Applications_ActivateApplication(filepath);
+//			btn1ClickedFlag = 0;
+//		}
+//		if (btn2ClickedFlag) {
+//			Applications_HaltApplication();
+//			btn2ClickedFlag = 0;
+//		}
+
+		/* Lvgl 任务处理 */
+		lv_task_handler();
 
 		/* 延时 */
 		osDelay(1);

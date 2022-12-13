@@ -9,6 +9,10 @@ extern "C" {
 
 #include "m24512.h"
 
+#define FSHELPER_READBUFFER_SIZE 8192
+
+extern BYTE ReadBuffer[FSHELPER_READBUFFER_SIZE];
+
 void FS_Mount();
 void FS_ScanFolder(const char *path, char* names);
 

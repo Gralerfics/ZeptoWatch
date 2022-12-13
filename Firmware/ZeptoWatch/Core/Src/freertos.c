@@ -32,6 +32,8 @@
 #include "lv_port_indev.h"
 #include "ui.h"
 
+#include "retarget.h"
+#include "pikaScript.h"
 #include "brightness.h"
 #include "fshelper.h"
 #include "mpu6050.h"
@@ -57,7 +59,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-
+PikaObj *MainPikaObj;
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId systemUIHandle;
@@ -103,6 +105,10 @@ void MX_FREERTOS_Init(void) {
 
 	// USB Initialization
 	MX_USB_DEVICE_Init();
+	// Retarget printf
+	RetargetInit(&huart2);
+	// PikaScript Root Object Initialization
+	MainPikaObj = pikaScriptInit();
 	// Power Key Initialization
 	Power_SetState(0);
 	Power_SetTIMHandle(&htim7);
@@ -152,15 +158,15 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of systemUI */
-  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 512);
+  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 1536);
   systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
   /* definition and creation of systemDetecting */
-  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1024);
+  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1536);
   systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
   /* definition and creation of applicationExec */
-  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 2048);
+  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 1024);
   applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */

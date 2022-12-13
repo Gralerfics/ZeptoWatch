@@ -1,35 +1,35 @@
 class System:
-    def delayMs(self, time: int):
-        pass
+    @staticmethod
+    def delayMs(self, time: int): ...
 
 
 class Display:
-    def setBrightness(self, val: int):
-        pass
+    @staticmethod
+    def setBrightness(self, val: int): ...
 
-    def getBrightness(self) -> int:
-        pass
+    @staticmethod
+    def getBrightness(self) -> int: ...
 
 
 class Clock:
-    def getHours(self) -> int:
-        pass
+    @staticmethod
+    def getHours(self) -> int: ...
 
-    def getMinutes(self) -> int:
-        pass
+    @staticmethod
+    def getMinutes(self) -> int: ...
 
-    def getSeconds(self) -> int:
-        pass
+    @staticmethod
+    def getSeconds(self) -> int: ...
 
-    def getYear(self) -> int:
-        pass
+    @staticmethod
+    def getYear(self) -> int: ...
 
-    def getMonth(self) -> int:
-        pass
+    @staticmethod
+    def getMonth(self) -> int: ...
 
-    def getDay(self) -> int:
-        pass
+    @staticmethod
+    def getDay(self) -> int: ...
 
-    def getWeekDay(self) -> int:
-        pass
+    @staticmethod
+    def getWeekDay(self) -> int: ...
 

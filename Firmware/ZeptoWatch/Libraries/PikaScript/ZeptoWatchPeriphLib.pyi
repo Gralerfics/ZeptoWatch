@@ -1,40 +1,40 @@
 class IMU:
-    def initialize(self):
-        pass
+    @staticmethod
+    def initialize(self): ...
 
-    def getTemperature(self) -> int:
-        pass
+    @staticmethod
+    def getTemperature(self) -> int: ...
 
-    def getGyroscope(self) -> list:
-        pass
+    @staticmethod
+    def getGyroscope(self) -> list: ...
 
-    def getAccelerometer(self) -> list:
-        pass
+    @staticmethod
+    def getAccelerometer(self) -> list: ...
 
 
 class Battery:
-    def isCharging(self) -> int:
-        pass
+    @staticmethod
+    def isCharging(self) -> int: ...
 
-    def getRawData(self) -> int:
-        pass
+    @staticmethod
+    def getRawData(self) -> int: ...
 
 
 class Microphone:
-    def startSampling(self):
-        pass
+    @staticmethod
+    def startSampling(self): ...
 
-    def stopSampling(self):
-        pass
+    @staticmethod
+    def stopSampling(self): ...
 
-    def getRawData(self) -> int:
-        pass
+    @staticmethod
+    def getRawData(self) -> int: ...
 
 
 class Vibrator:
-    def vibrate(self, ms: int, pulse: int):
-        pass
+    @staticmethod
+    def vibrate(self, ms: int, pulse: int): ...
 
-    def stop(self):
-        pass
+    @staticmethod
+    def stop(self): ...
 

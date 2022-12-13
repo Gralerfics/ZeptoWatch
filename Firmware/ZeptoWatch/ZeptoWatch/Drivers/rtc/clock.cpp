@@ -1,5 +1,7 @@
 #include "clock.h"
 
+//RTC_DateTypeDef RTC_Date __attribute__((section(".ccmram"))) = {0};
+//RTC_TimeTypeDef RTC_Time __attribute__((section(".ccmram"))) = {0};
 RTC_DateTypeDef RTC_Date = {0};
 RTC_TimeTypeDef RTC_Time = {0};
 

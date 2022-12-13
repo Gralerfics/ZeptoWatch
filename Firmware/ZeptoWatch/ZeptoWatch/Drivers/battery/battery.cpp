@@ -3,7 +3,7 @@
 #include "adc.h"
 #include "tim.h"
 
-uint16_t Battery_ADC_Data[BAT_FILTERING_PARAM];
+uint16_t Battery_ADC_Data[BAT_FILTERING_PARAM] __attribute__((section(".ccmram")));
 
 void Battery_Init() {
 	GPIO_InitTypeDef GPIO_InitStructure = {0};

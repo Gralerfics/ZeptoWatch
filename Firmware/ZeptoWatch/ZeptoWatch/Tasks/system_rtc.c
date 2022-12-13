@@ -4,6 +4,13 @@
 extern "C" {
 #endif
 
+#include "common.h"
+
+#include "lvgl.h"
+#include "ui.h"
+
+char timeLabel[16] = {0};
+
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *mHrtc) {
 	RTC_Update();
 
@@ -19,6 +26,11 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *mHrtc) {
 	if (HAL_RTC_SetAlarm_IT(mHrtc, &sAlarm, RTC_FORMAT_BIN) != HAL_OK) {
 		Error_Handler();
 	}
+
+	// Change the label
+	int rtcHours = RTC_GetHours(), rtcMinutes = RTC_GetMinutes(), rtcSeconds = RTC_GetSeconds();
+	sprintf(timeLabel, "%s%d : %s%d : %s%d", rtcHours < 10 ? "0" : "", rtcHours, rtcMinutes < 10 ? "0" : "", rtcMinutes, rtcSeconds < 10 ? "0" : "", rtcSeconds);
+	lv_label_set_text(ui_dropdownTimeLabel, timeLabel);
 
 	// Move the arrows
 //	uint16_t cSecAngle = RTC_LVGL_GetSecondRotation();

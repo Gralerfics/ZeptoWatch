@@ -32,8 +32,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "retarget.h"
-#include "pikaScript.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,7 +53,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-PikaObj *MainPikaObj;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -85,8 +84,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-	RetargetInit(&huart2);
-	MainPikaObj = pikaScriptInit();
+
   /* USER CODE END Init */
 
   /* Configure the system clock */

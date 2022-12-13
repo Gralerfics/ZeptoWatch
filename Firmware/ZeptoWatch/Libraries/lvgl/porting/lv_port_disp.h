@@ -12,7 +12,7 @@ extern "C" {
  **********************/
 #define MY_DISP_HOR_RES 240
 #define MY_DISP_VER_RES 240
-#define BUFFER_ROWS 20
+#define BUFFER_ROWS 30
 #define SINGLE_BUFFERING
 #define DIRECT_SWAP_MODE
 

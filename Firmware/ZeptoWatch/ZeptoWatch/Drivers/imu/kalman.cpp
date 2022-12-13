@@ -21,7 +21,7 @@ static short gz_err;
 static const float Q_angle=0.001f;  		//角度过程噪声协方差
 static const float Q_gyro=0.003f;				//角速度过程噪声协方差
 static const float R_angle=0.5f;				//预测模型噪声协方差
-static const float dt=0.005f;	          //kalman滤波器采样时间
+static const float dt = 0.005f;	          //kalman滤波器采样时间
 static const char  C_0 = 1;
 
 //初始化卡尔曼滤波器参数

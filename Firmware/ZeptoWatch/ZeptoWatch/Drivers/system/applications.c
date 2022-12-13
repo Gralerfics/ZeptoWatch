@@ -3,6 +3,8 @@
 #include "pikaScript.h"
 #include "PikaVM.h"
 
+#include "fshelper.h"
+
 extern PikaObj *MainPikaObj;
 
 int Application_RunningExisted = 0;
@@ -36,7 +38,6 @@ void Applications_HaltApplication() {
 }
 
 void Application_ExecuteFromFS(const char *filepath) {
-	BYTE ReadBuffer[2048];
 	UINT fnum;
 	retUSER = f_open(&USERFile, filepath,FA_OPEN_EXISTING | FA_READ);
 	if (retUSER == FR_OK) {
