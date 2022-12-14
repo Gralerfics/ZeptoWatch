@@ -21,8 +21,6 @@ void StartSystemDetecting(void const * argument) {
 	char names[300] = {0};
 	FS_ScanFolder("0:", names);
 
-
-
 //	lv_roller_set_options(ui_roller, names, LV_ROLLER_MODE_NORMAL);
 
 //	lv_chart_set_type(ui_chart, LV_CHART_TYPE_LINE);

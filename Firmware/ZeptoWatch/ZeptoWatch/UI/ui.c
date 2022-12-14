@@ -13,7 +13,7 @@ void ui_event_Home(lv_event_t * e);
 lv_obj_t * ui_Home;
 lv_obj_t * ui_secPtr;
 lv_obj_t * ui_minPtr;
-lv_obj_t * ui_hourptr;
+lv_obj_t * ui_hourPtr;
 lv_obj_t * ui_ptrDot;
 lv_obj_t * ui_clockDot12;
 lv_obj_t * ui_clockDot6;
@@ -27,6 +27,7 @@ lv_obj_t * ui_dropdownBrightnessSlider;
 void ui_event_dropdownBtn(lv_event_t * e);
 lv_obj_t * ui_dropdownBtn;
 lv_obj_t * ui_Applications;
+lv_obj_t * ui_Applications_Label1;
 lv_obj_t * ui_Appfield;
 lv_obj_t * ui_Shutdown;
 lv_obj_t * ui_shutdownLabel;
@@ -112,7 +113,6 @@ void ui_Home_screen_init(void)
     lv_obj_set_align(ui_secPtr, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_secPtr, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_secPtr, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_angle(ui_secPtr, 325);
 
     ui_minPtr = lv_img_create(ui_Home);
     lv_img_set_src(ui_minPtr, &ui_img_clock_min_png);
@@ -121,16 +121,14 @@ void ui_Home_screen_init(void)
     lv_obj_set_align(ui_minPtr, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_minPtr, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_minPtr, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_angle(ui_minPtr, 3100);
 
-    ui_hourptr = lv_img_create(ui_Home);
-    lv_img_set_src(ui_hourptr, &ui_img_clock_hour_png);
-    lv_obj_set_width(ui_hourptr, LV_SIZE_CONTENT);   /// 8
-    lv_obj_set_height(ui_hourptr, LV_SIZE_CONTENT);    /// 88
-    lv_obj_set_align(ui_hourptr, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_hourptr, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_clear_flag(ui_hourptr, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_angle(ui_hourptr, 700);
+    ui_hourPtr = lv_img_create(ui_Home);
+    lv_img_set_src(ui_hourPtr, &ui_img_clock_hour_png);
+    lv_obj_set_width(ui_hourPtr, LV_SIZE_CONTENT);   /// 8
+    lv_obj_set_height(ui_hourPtr, LV_SIZE_CONTENT);    /// 88
+    lv_obj_set_align(ui_hourPtr, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_hourPtr, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_clear_flag(ui_hourPtr, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
     ui_ptrDot = lv_obj_create(ui_Home);
     lv_obj_set_width(ui_ptrDot, 8);
@@ -201,6 +199,8 @@ void ui_Dropdown_screen_init(void)
     ui_dropdownPanel = lv_obj_create(ui_Dropdown);
     lv_obj_set_width(ui_dropdownPanel, 240);
     lv_obj_set_height(ui_dropdownPanel, 240);
+    lv_obj_set_x(ui_dropdownPanel, 0);
+    lv_obj_set_y(ui_dropdownPanel, -1);
     lv_obj_set_align(ui_dropdownPanel, LV_ALIGN_CENTER);
     lv_obj_clear_flag(ui_dropdownPanel, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_radius(ui_dropdownPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -214,7 +214,7 @@ void ui_Dropdown_screen_init(void)
     lv_obj_set_x(ui_dropdownTimeLabel, 0);
     lv_obj_set_y(ui_dropdownTimeLabel, 26);
     lv_obj_set_align(ui_dropdownTimeLabel, LV_ALIGN_TOP_MID);
-    lv_label_set_text(ui_dropdownTimeLabel, "00 : 00");
+    lv_label_set_text(ui_dropdownTimeLabel, "00 : 00 : 00");
 
     ui_dropdownBatterySlider = lv_slider_create(ui_dropdownPanel);
     lv_slider_set_value(ui_dropdownBatterySlider, 75, LV_ANIM_OFF);
@@ -229,7 +229,10 @@ void ui_Dropdown_screen_init(void)
     lv_obj_set_style_radius(ui_dropdownBatterySlider, 6, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_dropdownBatterySlider, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_dropdownBatterySlider, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_img_src(ui_dropdownBatterySlider, &ui_img_electric_png, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_dropdownBatterySlider, &ui_img_battery_png, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_opa(ui_dropdownBatterySlider, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor(ui_dropdownBatterySlider, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor_opa(ui_dropdownBatterySlider, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(ui_dropdownBatterySlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(ui_dropdownBatterySlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_top(ui_dropdownBatterySlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -238,12 +241,15 @@ void ui_Dropdown_screen_init(void)
     lv_obj_set_style_radius(ui_dropdownBatterySlider, 1, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_dropdownBatterySlider, lv_color_hex(0xFFFFFF), LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_dropdownBatterySlider, 220, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_dropdownBatterySlider, &ui_img_battery_png, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor(ui_dropdownBatterySlider, lv_color_hex(0x101418), LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor_opa(ui_dropdownBatterySlider, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
 
     lv_obj_set_style_bg_color(ui_dropdownBatterySlider, lv_color_hex(0xFFFFFF), LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_dropdownBatterySlider, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
 
     ui_dropdownBrightnessSlider = lv_slider_create(ui_dropdownPanel);
-    lv_slider_set_value(ui_dropdownBrightnessSlider, 75, LV_ANIM_OFF);
+    lv_slider_set_value(ui_dropdownBrightnessSlider, 60, LV_ANIM_OFF);
     if(lv_slider_get_mode(ui_dropdownBrightnessSlider) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(
             ui_dropdownBrightnessSlider, 0, LV_ANIM_OFF);
     lv_obj_set_width(ui_dropdownBrightnessSlider, 60);
@@ -254,6 +260,9 @@ void ui_Dropdown_screen_init(void)
     lv_obj_set_style_radius(ui_dropdownBrightnessSlider, 6, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_dropdownBrightnessSlider, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_dropdownBrightnessSlider, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_dropdownBrightnessSlider, &ui_img_brightness_png, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor(ui_dropdownBrightnessSlider, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor_opa(ui_dropdownBrightnessSlider, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(ui_dropdownBrightnessSlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(ui_dropdownBrightnessSlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_top(ui_dropdownBrightnessSlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -262,6 +271,7 @@ void ui_Dropdown_screen_init(void)
     lv_obj_set_style_radius(ui_dropdownBrightnessSlider, 1, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_dropdownBrightnessSlider, lv_color_hex(0xFFFFFF), LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_dropdownBrightnessSlider, 220, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_dropdownBrightnessSlider, &ui_img_brightness_png, LV_PART_INDICATOR | LV_STATE_DEFAULT);
 
     lv_obj_set_style_bg_color(ui_dropdownBrightnessSlider, lv_color_hex(0xFFFFFF), LV_PART_KNOB | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_dropdownBrightnessSlider, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
@@ -289,6 +299,14 @@ void ui_Applications_screen_init(void)
     ui_Applications = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_Applications, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_radius(ui_Applications, 120, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_Applications_Label1 = lv_label_create(ui_Applications);
+    lv_obj_set_width(ui_Applications_Label1, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_Applications_Label1, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_Applications_Label1, 0);
+    lv_obj_set_y(ui_Applications_Label1, -75);
+    lv_obj_set_align(ui_Applications_Label1, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_Applications_Label1, "Applications");
 
 }
 void ui_Appfield_screen_init(void)
@@ -322,6 +340,9 @@ void ui_Shutdown_screen_init(void)
     lv_obj_set_style_radius(ui_shutdownConfirmBtn, 50, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_shutdownConfirmBtn, lv_color_hex(0xFF4545), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_shutdownConfirmBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_shutdownConfirmBtn, &ui_img_power_png, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor(ui_shutdownConfirmBtn, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor_opa(ui_shutdownConfirmBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_shutdownBackBtn = lv_btn_create(ui_Shutdown);
     lv_obj_set_width(ui_shutdownBackBtn, 50);

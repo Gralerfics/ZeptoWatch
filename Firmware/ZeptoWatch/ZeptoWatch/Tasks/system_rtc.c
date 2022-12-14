@@ -1,23 +1,20 @@
-#include "clock.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #include "common.h"
 
-#include "lvgl.h"
-#include "ui.h"
+#include "ui_helpers_user.h"
 
-char timeLabel[16] = {0};
+#include "clock.h"
 
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *mHrtc) {
 	RTC_Update();
+	uint8_t rtcHours = RTC_GetHours(), rtcMinutes = RTC_GetMinutes(), rtcSeconds = RTC_GetSeconds();
 
 	// Restart Alarm
 	RTC_AlarmTypeDef sAlarm = {0};
-	sAlarm.AlarmTime.Seconds = RTC_Time.Seconds + 1;
-	if (sAlarm.AlarmTime.Seconds > 59) sAlarm.AlarmTime.Seconds = 0;
+	sAlarm.AlarmTime.Seconds = (rtcSeconds + 1) % 60;
 	sAlarm.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
 	sAlarm.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
 	sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY | RTC_ALARMMASK_HOURS | RTC_ALARMMASK_MINUTES;
@@ -27,20 +24,16 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *mHrtc) {
 		Error_Handler();
 	}
 
-	// Change the label
-	int rtcHours = RTC_GetHours(), rtcMinutes = RTC_GetMinutes(), rtcSeconds = RTC_GetSeconds();
-	sprintf(timeLabel, "%s%d : %s%d : %s%d", rtcHours < 10 ? "0" : "", rtcHours, rtcMinutes < 10 ? "0" : "", rtcMinutes, rtcSeconds < 10 ? "0" : "", rtcSeconds);
-	lv_label_set_text(ui_dropdownTimeLabel, timeLabel);
+	uint16_t secPtrAngle = (uint16_t) (60 * (uint32_t) rtcSeconds);
+	uint16_t minPtrAngle = (uint16_t) (60 * (uint32_t) rtcMinutes + (uint32_t) rtcSeconds);
+	uint16_t hourPtrAngle = (uint16_t) (300 * (uint32_t) rtcHours + 5 * (uint32_t) rtcMinutes + (uint32_t) rtcSeconds / 12);
+	UI_Animate_PtrTicking(ui_secPtr, secPtrAngle - 60, secPtrAngle, 100, 0);
+	lv_img_set_angle(ui_minPtr, minPtrAngle);
+	lv_img_set_angle(ui_hourPtr, hourPtrAngle);
 
-	// Move the arrows
-//	uint16_t cSecAngle = RTC_LVGL_GetSecondRotation();
-//	uint16_t cMinAngle = RTC_LVGL_GetMinuteRotation();
-//	uint16_t cHourAngle = RTC_LVGL_GetHourRotation();
-//	Step_Animation(ui_Sec,  cSecAngle - 60, cSecAngle);
-//	if (RTC_Time.Seconds == 0) {
-//		Step_Animation(ui_Min,  cMinAngle - 60, cMinAngle);
-//	}
-//	lv_img_set_angle(ui_Hour, cHourAngle);
+	char timeLabel[16] = {0};
+	sprintf(timeLabel, "%d%d : %d%d : %d%d", rtcHours / 10, rtcHours % 10, rtcMinutes / 10, rtcMinutes % 10, rtcSeconds / 10, rtcSeconds % 10);
+	lv_label_set_text(ui_dropdownTimeLabel, timeLabel);
 }
 
 #ifdef __cplusplus

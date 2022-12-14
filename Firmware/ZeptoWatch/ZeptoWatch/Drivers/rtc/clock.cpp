@@ -1,13 +1,17 @@
 #include "clock.h"
 
-//RTC_DateTypeDef RTC_Date __attribute__((section(".ccmram"))) = {0};
-//RTC_TimeTypeDef RTC_Time __attribute__((section(".ccmram"))) = {0};
 RTC_DateTypeDef RTC_Date = {0};
 RTC_TimeTypeDef RTC_Time = {0};
 
+int RTC_IsValid() {
+	return !(RTC_Time.Hours >= 24 || RTC_Time.Minutes >= 60);
+}
+
 void RTC_Update() {
-	HAL_RTC_GetTime(&hrtc, &RTC_Time, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &RTC_Date, RTC_FORMAT_BIN);
+	do {
+		HAL_RTC_GetTime(&hrtc, &RTC_Time, RTC_FORMAT_BIN);
+		HAL_RTC_GetDate(&hrtc, &RTC_Date, RTC_FORMAT_BIN);
+	} while(!RTC_IsValid());
 }
 
 uint8_t RTC_GetHours() {
@@ -27,7 +31,7 @@ uint8_t RTC_GetYear() {
 }
 
 uint8_t RTC_GetMonth() {
-	return RTC_Date.Month - (RTC_Date.Month > 9 ? 6 : 0);
+	return RTC_Date.Month - (RTC_Date.Month > 9 ? 6 : 0); // Maybe to be modified.
 }
 
 uint8_t RTC_GetDay() {

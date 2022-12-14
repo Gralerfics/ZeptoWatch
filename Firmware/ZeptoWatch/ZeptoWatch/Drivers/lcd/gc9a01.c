@@ -281,6 +281,4 @@ void GC9A01_Init(void) {
 	HAL_Delay(120);
 	GC9A01_SPI_SendCommand(0x29);
 	HAL_Delay(20);
-
-	// 打开背光 ...
 }

@@ -16,8 +16,14 @@ void Brightness_Start(TIM_HandleTypeDef *htim, uint32_t channel) {
 }
 
 void Brightness_SetValue(uint8_t val) {
-	Brightness_Value = val;
+	if (val >= 0 && val <= 100) {
+		Brightness_Value = val;
+	}
+}
+
+void Brightness_SetValueDirect(uint8_t val) {
 	if (val >= 0 && val <= 100 && Brightness_TIMHandle != nullptr && IS_TIM_CCX_INSTANCE(Brightness_TIMHandle -> Instance, Brightness_TIMChannel)) {
+		Brightness_Value = val;
 		__HAL_TIM_SET_COMPARE(Brightness_TIMHandle, Brightness_TIMChannel, Brightness_Value);
 	}
 }

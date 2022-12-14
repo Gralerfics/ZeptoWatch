@@ -7,5 +7,5 @@ int ZeptoWatchStdLib_Display_getBrightness(PikaObj *self) {
 }
 
 void ZeptoWatchStdLib_Display_setBrightness(PikaObj *self, int val) {
-	Brightness_SetValue(val);
+	Brightness_SetValueDirect(val);
 }

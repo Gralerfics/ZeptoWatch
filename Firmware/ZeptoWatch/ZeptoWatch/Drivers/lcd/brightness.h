@@ -10,6 +10,7 @@ extern "C" {
 void Brightness_Start(TIM_HandleTypeDef *htim, uint32_t channel);
 
 void Brightness_SetValue(uint8_t val);
+void Brightness_SetValueDirect(uint8_t val);
 uint8_t Brightness_GetValue();
 uint8_t Brightness_GetValueDirect();
 

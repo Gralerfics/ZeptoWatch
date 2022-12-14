@@ -113,16 +113,14 @@ void MX_FREERTOS_Init(void) {
 	Power_SetState(0);
 	Power_SetTIMHandle(&htim7);
 	// Screen Brightness Initialization - Dark
-	Brightness_SetValue(0);
 	Brightness_Start(&htim3, TIM_CHANNEL_1);
+	Brightness_SetValueDirect(0);
 	// Lvgl Initialization
 	lv_init();
 	lv_port_disp_init();
 	lv_port_indev_init();
 	ui_init();
 	HAL_TIM_Base_Start_IT(&htim2);
-	// Screen Brightness Initialization - Light Up
-	Brightness_SetValue(50);
 	// EEPROM Initialization
 	ROM_Init();
 	// File System Initialization

@@ -18,12 +18,16 @@ extern "C" {
 void StartSystemUI(void const * argument) {
 //	extern int btn1ClickedFlag, btn2ClickedFlag;
 
+	Brightness_SetValue(60);
+	Brightness_LightUp();
+
 	for (;;) {
 		/* 状态更新 */
 		if (Power_GetState() == 0) {
+			// Brightness, [0, 100] non-linearly mapping into [1, 100]
 			int brightnessSliderValue = lv_slider_get_value(ui_dropdownBrightnessSlider);
-			Brightness_SetValue(brightnessSliderValue * brightnessSliderValue * 99 / 10000 + 1);
-
+			Brightness_SetValueDirect(brightnessSliderValue * brightnessSliderValue * 99 / 10000 + 1);
+			// Battery
 			lv_slider_set_value(ui_dropdownBatterySlider, Battery_GetPowerPercentage(), LV_ANIM_OFF);
 		}
 
