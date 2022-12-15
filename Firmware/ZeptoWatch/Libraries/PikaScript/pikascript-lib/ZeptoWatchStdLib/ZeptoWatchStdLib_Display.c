@@ -3,7 +3,6 @@
 #include "brightness.h"
 
 #include "ui.h"
-#include "ui_user.h"
 
 int ZeptoWatchStdLib_Display_getBrightness(PikaObj *self) {
 	return (int) Brightness_GetValue();

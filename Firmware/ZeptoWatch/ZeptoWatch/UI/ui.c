@@ -38,7 +38,6 @@ lv_obj_t * ui_applicationsList;
 lv_obj_t * ui_appRefreshIcon;
 void ui_event_Appfield(lv_event_t * e);
 lv_obj_t * ui_Appfield;
-lv_obj_t * ui_appfieldTestLabel;
 lv_obj_t * ui_Shutdown;
 lv_obj_t * ui_shutdownLabel;
 lv_obj_t * ui_shutdownConfirmBtn;
@@ -491,12 +490,6 @@ void ui_Appfield_screen_init(void)
 {
     ui_Appfield = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_Appfield, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-
-    ui_appfieldTestLabel = lv_label_create(ui_Appfield);
-    lv_obj_set_width(ui_appfieldTestLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_appfieldTestLabel, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_appfieldTestLabel, LV_ALIGN_CENTER);
-    lv_obj_set_style_text_font(ui_appfieldTestLabel, &lv_font_montserrat_8, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_add_event_cb(ui_Appfield, ui_event_Appfield, LV_EVENT_ALL, NULL);
 

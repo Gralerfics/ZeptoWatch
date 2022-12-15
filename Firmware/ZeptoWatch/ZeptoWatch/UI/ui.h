@@ -42,7 +42,6 @@ extern lv_obj_t * ui_applicationsList;
 extern lv_obj_t * ui_appRefreshIcon;
 void ui_event_Appfield(lv_event_t * e);
 extern lv_obj_t * ui_Appfield;
-extern lv_obj_t * ui_appfieldTestLabel;
 extern lv_obj_t * ui_Shutdown;
 extern lv_obj_t * ui_shutdownLabel;
 extern lv_obj_t * ui_shutdownConfirmBtn;
