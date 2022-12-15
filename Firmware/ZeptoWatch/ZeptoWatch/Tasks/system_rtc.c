@@ -34,6 +34,7 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *mHrtc) {
 	char timeLabel[16] = {0};
 	sprintf(timeLabel, "%d%d : %d%d : %d%d", rtcHours / 10, rtcHours % 10, rtcMinutes / 10, rtcMinutes % 10, rtcSeconds / 10, rtcSeconds % 10);
 	lv_label_set_text(ui_dropdownTimeLabel, timeLabel);
+	lv_label_set_text(ui_appDropdownTimeLabel, timeLabel);
 }
 
 #ifdef __cplusplus
