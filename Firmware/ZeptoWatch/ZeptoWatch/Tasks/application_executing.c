@@ -12,9 +12,11 @@ void StartApplicationExecuting(void const * argument) {
 	for (;;) {
 		if (Applications_IsRunning()) {
 			Application_ExecuteFromFS(Applications_GetApplicationPath());
-			Applications_HaltApplication();
 
-			lv_label_set_text(ui_appfieldTestLabel, "Halted.");
+			Debug_Printf("Executed.");
+			Applications_HaltApplication();
+			_ui_screen_change(ui_Home, LV_SCR_LOAD_ANIM_FADE_ON, 200, 0);
+//			lv_label_set_text(ui_appfieldTestLabel, "Halted.");
 		}
 		osDelay(10);
 	}

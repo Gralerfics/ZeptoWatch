@@ -152,8 +152,9 @@ void Applications_HaltApplication() {
 
 void Application_ExecuteFromFS(const char *filepath) {
 	FS_ReadFile(filepath);
-	lv_label_set_text(ui_appfieldTestLabel, (char *) ReadBuffer);
 	char* Program = (char *) ReadBuffer;
+//	lv_label_set_text(ui_appfieldTestLabel, Program);
+	// TODO: 读取文件会在文件末尾多读一些奇怪的字符导致脚本编译错误，此处以下策暂时解决
 	for (int i = 0; i < FSHELPER_READBUFFER_SIZE - 4; i ++) {
 		if (Program[i] == '#' && Program[i + 1] == 'E' && Program[i + 2] == 'N' && Program[i + 3] == 'D' && Program[i + 4] == '#') {
 			for (int j = i + 5; j < FSHELPER_READBUFFER_SIZE; j ++) Program[j] = 0;
