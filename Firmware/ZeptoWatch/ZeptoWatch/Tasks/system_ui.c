@@ -25,10 +25,11 @@ void StartSystemUI(void const * argument) {
 	extern int SystemScanningEnabled;
 	SystemScanningEnabled = 1;
 
+	// Main Loop
 	for (;;) {
-		/* 状态更新 */
+		/* State Update */
 		if (Power_GetState() == 0) {
-			// Brightness, [0, 100] non-linearly mapping into [1, 100]
+			// Brightness
 			int brightnessSliderValue;
 			if (!Applications_IsRunning()) {
 				brightnessSliderValue = lv_slider_get_value(ui_dropdownBrightnessSlider);
@@ -37,32 +38,17 @@ void StartSystemUI(void const * argument) {
 				brightnessSliderValue = lv_slider_get_value(ui_appDropdownBrightnessSlider);
 				lv_slider_set_value(ui_dropdownBrightnessSlider, brightnessSliderValue, LV_ANIM_OFF);
 			}
-			Brightness_SetValueDirect(brightnessSliderValue * brightnessSliderValue * 99 / 10000 + 1);
+			Brightness_SetValueDirect(Brightness_CoreFunc(brightnessSliderValue));
 			// Battery
 			int batterySliderValue = Battery_GetPowerPercentage();
 			lv_slider_set_value(ui_dropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
 			lv_slider_set_value(ui_appDropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
 		}
 
-		/* 事件处理 */
-//		extern int btn1ClickedFlag, btn2ClickedFlag;
-//		if (btn1ClickedFlag) {
-//			char filepath[30] = {0}, filename[30] = {0};
-//			lv_roller_get_selected_str(ui_roller, filename, 30);
-//			sprintf(filepath, "0:%s", filename);
-//			lv_label_set_text(ui_applabel, filepath);
-//			Applications_ActivateApplication(filepath);
-//			btn1ClickedFlag = 0;
-//		}
-//		if (btn2ClickedFlag) {
-//			Applications_HaltApplication();
-//			btn2ClickedFlag = 0;
-//		}
-
-		/* Lvgl 任务处理 */
+		/* Lvgl Task Handler */
 		lv_task_handler();
 
-		/* 延时 */
+		/* Delay */
 		osDelay(1);
 	}
 }

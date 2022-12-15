@@ -15,6 +15,11 @@ void Brightness_Start(TIM_HandleTypeDef *htim, uint32_t channel) {
 	}
 }
 
+uint8_t Brightness_CoreFunc(uint8_t val) {
+	// [0, 100] non-linearly mapping into [4, 100]
+	return val * val * 96 / 10000 + 4;
+}
+
 void Brightness_SetValue(uint8_t val) {
 	if (val >= 0 && val <= 100) {
 		Brightness_Value = val;
