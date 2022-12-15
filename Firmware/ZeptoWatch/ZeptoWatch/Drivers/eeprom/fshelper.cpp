@@ -50,6 +50,7 @@ void FS_ClearAll() {
 }
 
 void FS_Make() {
+	// 创建文件系统时记得去 ff.c 注释掉 "< 128" 所在处的某两行，否则无法对如此小的空间建立文件系统。
 	FS_Mount();
 
 	if (retUSER == FR_NO_FILESYSTEM) {

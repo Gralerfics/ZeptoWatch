@@ -20,7 +20,10 @@ void UI_Clock_InitArrows() {
 	uint16_t secPtrAngle = (uint16_t) (60 * (uint32_t) rtcSeconds);
 	uint16_t minPtrAngle = (uint16_t) (60 * (uint32_t) rtcMinutes + (uint32_t) rtcSeconds);
 	uint16_t hourPtrAngle = (uint16_t) (300 * (uint32_t) rtcHours + 5 * (uint32_t) rtcMinutes + (uint32_t) rtcSeconds / 12);
-	UI_Animate_PtrIniting(ui_secPtr, secPtrAngle, 0);
-	UI_Animate_PtrIniting(ui_minPtr, minPtrAngle, 0);
-	UI_Animate_PtrIniting(ui_hourPtr, hourPtrAngle, 0);
+	lv_img_set_angle(ui_secPtr, secPtrAngle);
+	lv_img_set_angle(ui_minPtr, minPtrAngle);
+	lv_img_set_angle(ui_hourPtr, hourPtrAngle);
+//	UI_Animate_PtrIniting(ui_secPtr, secPtrAngle, 0);
+//	UI_Animate_PtrIniting(ui_minPtr, minPtrAngle, 0);
+//	UI_Animate_PtrIniting(ui_hourPtr, hourPtrAngle, 0);
 }

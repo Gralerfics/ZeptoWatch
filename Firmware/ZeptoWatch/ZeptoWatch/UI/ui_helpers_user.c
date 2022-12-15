@@ -46,5 +46,4 @@ void UI_Animate_PtrIniting(lv_obj_t * TargetObject, int end, int delay) {
 	lv_anim_set_repeat_delay(&PropertyAnimation_1, 0);
 	lv_anim_set_early_apply(&PropertyAnimation_1, false);
 	lv_anim_start(&PropertyAnimation_1);
-
 }

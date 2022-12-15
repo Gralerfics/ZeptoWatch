@@ -14,6 +14,8 @@ extern "C" {
 
 void dropdownDropping_Animation(lv_obj_t * TargetObject, int delay);
 void dropdownLeaving_Animation(lv_obj_t * TargetObject, int delay);
+void applicationsEntering_Animation(lv_obj_t * TargetObject, int delay);
+void applicationsLeaving_Animation(lv_obj_t * TargetObject, int delay);
 void ui_event_Home(lv_event_t * e);
 extern lv_obj_t * ui_Home;
 extern lv_obj_t * ui_secPtr;
@@ -31,8 +33,15 @@ extern lv_obj_t * ui_dropdownBatterySlider;
 extern lv_obj_t * ui_dropdownBrightnessSlider;
 void ui_event_dropdownBtn(lv_event_t * e);
 extern lv_obj_t * ui_dropdownBtn;
+void ui_event_Applications(lv_event_t * e);
 extern lv_obj_t * ui_Applications;
-extern lv_obj_t * ui_Applications_Label1;
+extern lv_obj_t * ui_applicationsPanel;
+extern lv_obj_t * ui_applicationsLabel;
+extern lv_obj_t * ui_applicationsList;
+extern lv_obj_t * ui_appSampleBtn1;
+extern lv_obj_t * ui_appSampleName1;
+extern lv_obj_t * ui_appSampleBtn2;
+extern lv_obj_t * ui_appSampleName2;
 extern lv_obj_t * ui_Appfield;
 extern lv_obj_t * ui_Shutdown;
 extern lv_obj_t * ui_shutdownLabel;
@@ -45,7 +54,10 @@ LV_IMG_DECLARE(ui_img_clock_min_png);    // assets\clock_min.png
 LV_IMG_DECLARE(ui_img_clock_hour_png);    // assets\clock_hour.png
 LV_IMG_DECLARE(ui_img_battery_png);    // assets\battery.png
 LV_IMG_DECLARE(ui_img_brightness_png);    // assets\brightness.png
+LV_IMG_DECLARE(ui_img_home_png);    // assets\home.png
+LV_IMG_DECLARE(ui_img_scripts_png);    // assets\scripts.png
 LV_IMG_DECLARE(ui_img_power_png);    // assets\power.png
+LV_IMG_DECLARE(ui_img_undo_png);    // assets\undo.png
 
 
 

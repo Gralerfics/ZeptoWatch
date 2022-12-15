@@ -5364,9 +5364,9 @@ FRESULT f_mkfs (
 		if (disk_ioctl(pdrv, GET_SECTOR_COUNT, &sz_vol) != RES_OK) return FR_DISK_ERR;
 		b_vol = (opt & FM_SFD) ? 0 : 63;		/* Volume start sector */
 		if (sz_vol < b_vol) return FR_MKFS_ABORTED;
-		sz_vol -= b_vol;						/* Volume size */
+//		sz_vol -= b_vol;						/* Volume size */
 	}
-	if (sz_vol < 128) return FR_MKFS_ABORTED;	/* Check if volume size is >=128s */
+//	if (sz_vol < 128) return FR_MKFS_ABORTED;	/* Check if volume size is >=128s */
 
 	/* Pre-determine the FAT type */
 	do {
