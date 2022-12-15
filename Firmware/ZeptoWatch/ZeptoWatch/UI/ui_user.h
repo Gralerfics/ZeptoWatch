@@ -3,8 +3,13 @@
 
 #include "ui_helpers.h"
 
-void callApplication(lv_event_t * e);
-void refreshAppList(lv_event_t * e);
+// TODO: 更新 Squareline 记得把本头文件加到 ui.c 里
+
+void ui_event_appButtons(lv_event_t *e);
+
+void quitFromApplication(lv_event_t *e);
+void callApplication(lv_event_t *e);
+void refreshAppList(lv_event_t *e);
 
 void UI_Clock_Arrows_Reset();
 void UI_Clock_InitArrows();

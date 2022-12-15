@@ -42,10 +42,20 @@ extern lv_obj_t * ui_applicationsList;
 extern lv_obj_t * ui_appRefreshIcon;
 void ui_event_Appfield(lv_event_t * e);
 extern lv_obj_t * ui_Appfield;
+extern lv_obj_t * ui_appfieldTestLabel;
 extern lv_obj_t * ui_Shutdown;
 extern lv_obj_t * ui_shutdownLabel;
 extern lv_obj_t * ui_shutdownConfirmBtn;
 extern lv_obj_t * ui_shutdownBackBtn;
+extern lv_obj_t * ui_AppDropdown;
+extern lv_obj_t * ui_appDropdownPanel;
+extern lv_obj_t * ui_appDropdownTimeLabel;
+extern lv_obj_t * ui_appDropdownBatterySlider;
+extern lv_obj_t * ui_appDropdownBrightnessSlider;
+void ui_event_appDropdownBtn(lv_event_t * e);
+extern lv_obj_t * ui_appDropdownBtn;
+void ui_event_appDropdownBackBtn(lv_event_t * e);
+extern lv_obj_t * ui_appDropdownBackBtn;
 
 
 LV_IMG_DECLARE(ui_img_clock_sec_png);    // assets\clock_sec.png

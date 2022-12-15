@@ -16,23 +16,7 @@ void UI_Applications_InitList() {
 		lv_obj_set_style_radius(Application_LVIcons[i], 25, LV_PART_MAIN | LV_STATE_DEFAULT);
 		lv_obj_set_style_bg_opa(Application_LVIcons[i], 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 		lv_obj_add_flag(Application_LVIcons[i], LV_OBJ_FLAG_HIDDEN); // Hide first.
-
-//		lv_obj_add_event_cb(ui_appSampleBtn1, ui_event_appSampleBtn1, LV_EVENT_ALL, NULL);
-
-//			void ui_event_appSampleBtn1(lv_event_t * e)
-//			{
-//				lv_event_code_t event_code = lv_event_get_code(e);
-//				lv_obj_t * target = lv_event_get_target(e);
-//				if(event_code == LV_EVENT_CLICKED) {
-//					_ui_screen_change(ui_Appfield, LV_SCR_LOAD_ANIM_FADE_ON, 150, 0);
-//					callApplication(e);
-//				}
-//			}
-
-//			void callApplication(lv_event_t * e)
-//			{
-//				// Your code here
-//			}
+		lv_obj_add_event_cb(Application_LVIcons[i], ui_event_appButtons, LV_EVENT_ALL, NULL);
 
 		// Labels
 		Application_LVLabels[i] = lv_label_create(ui_applicationsList);

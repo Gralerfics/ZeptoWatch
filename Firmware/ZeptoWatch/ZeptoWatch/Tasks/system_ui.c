@@ -29,10 +29,19 @@ void StartSystemUI(void const * argument) {
 		/* 状态更新 */
 		if (Power_GetState() == 0) {
 			// Brightness, [0, 100] non-linearly mapping into [1, 100]
-			int brightnessSliderValue = lv_slider_get_value(ui_dropdownBrightnessSlider);
+			int brightnessSliderValue;
+			if (!Applications_IsRunning()) {
+				brightnessSliderValue = lv_slider_get_value(ui_dropdownBrightnessSlider);
+				lv_slider_set_value(ui_appDropdownBrightnessSlider, brightnessSliderValue, LV_ANIM_OFF);
+			} else {
+				brightnessSliderValue = lv_slider_get_value(ui_appDropdownBrightnessSlider);
+				lv_slider_set_value(ui_dropdownBrightnessSlider, brightnessSliderValue, LV_ANIM_OFF);
+			}
 			Brightness_SetValueDirect(brightnessSliderValue * brightnessSliderValue * 99 / 10000 + 1);
 			// Battery
-			lv_slider_set_value(ui_dropdownBatterySlider, Battery_GetPowerPercentage(), LV_ANIM_OFF);
+			int batterySliderValue = Battery_GetPowerPercentage();
+			lv_slider_set_value(ui_dropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
+			lv_slider_set_value(ui_appDropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
 		}
 
 		/* 事件处理 */

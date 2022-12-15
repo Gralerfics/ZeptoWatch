@@ -2,6 +2,7 @@
 
 #include "fatfs.h"
 
+// TODO: Check if longer program will be stored following the shorter and newer one.
 BYTE ReadBuffer[FSHELPER_READBUFFER_SIZE] __attribute__((section(".ccmram"))) = {0};
 
 void FS_Mount() {

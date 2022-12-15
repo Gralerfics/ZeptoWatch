@@ -59,28 +59,29 @@ void MX_RTC_Init(void)
 	/* USER CODE BEGIN Check_RTC_BKUP */
 	HAL_RTC_GetTime(&hrtc, &RTC_Time, RTC_FORMAT_BIN);
 	HAL_RTC_GetDate(&hrtc, &RTC_Date, RTC_FORMAT_BIN);
+	// TODO: 更新 CubeMX 记得注释掉下面一段, 并且把闹钟秒定为 RTC_Time.Seconds + 1
 	/* USER CODE END Check_RTC_BKUP */
 
 	/** Initialize RTC and set the Time and Date
 	*/
-//  sTime.Hours = 0;
-//  sTime.Minutes = 0;
-//  sTime.Seconds = 0;
-//  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-//  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
-//  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK)
-//  {
-//    Error_Handler();
-//  }
-//  sDate.WeekDay = RTC_WEEKDAY_MONDAY;
-//  sDate.Month = RTC_MONTH_JANUARY;
-//  sDate.Date = 1;
-//  sDate.Year = 0;
+//	sTime.Hours = 0;
+//	sTime.Minutes = 0;
+//	sTime.Seconds = 0;
+//	sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+//	sTime.StoreOperation = RTC_STOREOPERATION_RESET;
+//	if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK)
+//	{
+//		Error_Handler();
+//	}
+//	sDate.WeekDay = RTC_WEEKDAY_MONDAY;
+//	sDate.Month = RTC_MONTH_JANUARY;
+//	sDate.Date = 1;
+//	sDate.Year = 0;
 //
-//  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN) != HAL_OK)
-//  {
-//    Error_Handler();
-//  }
+//	if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN) != HAL_OK)
+//	{
+//		Error_Handler();
+//	}
 
 	/** Enable the Alarm A
 	*/

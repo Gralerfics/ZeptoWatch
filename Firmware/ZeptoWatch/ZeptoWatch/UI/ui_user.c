@@ -2,13 +2,32 @@
 
 #include "ui.h"
 
+#include "applications.h"
 #include "clock.h"
 
-void callApplication(lv_event_t * e) {
-
+void ui_event_appButtons(lv_event_t *e) {
+	lv_event_code_t event_code = lv_event_get_code(e);
+	if (event_code == LV_EVENT_CLICKED) {
+		_ui_screen_change(ui_Appfield, LV_SCR_LOAD_ANIM_FADE_ON, 150, 0);
+		callApplication(e);
+	}
 }
 
-void refreshAppList(lv_event_t * e) {
+void quitFromApplication(lv_event_t *e) {
+	Applications_HaltApplication();
+}
+
+void callApplication(lv_event_t *e) {
+	lv_obj_t* target = lv_event_get_target(e);
+	for (int i = 0; i < Applications_GetAppNumber(); i ++) {
+		if (target == Application_LVIcons[i]) {
+			Applications_ActivateApplication(Applications_GetAppPath(i));
+			break;
+		}
+	}
+}
+
+void refreshAppList(lv_event_t *e) {
 	extern int SystemScanningEnabled;
 	SystemScanningEnabled = 1;
 }

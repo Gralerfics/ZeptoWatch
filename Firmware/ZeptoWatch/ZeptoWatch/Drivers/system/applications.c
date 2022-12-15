@@ -152,5 +152,12 @@ void Applications_HaltApplication() {
 
 void Application_ExecuteFromFS(const char *filepath) {
 	FS_ReadFile(filepath);
-	obj_run(MainPikaObj, (char *) ReadBuffer);
+	lv_label_set_text(ui_appfieldTestLabel, (char *) ReadBuffer);
+	char* Program = (char *) ReadBuffer;
+	for (int i = 0; i < FSHELPER_READBUFFER_SIZE - 4; i ++) {
+		if (Program[i] == '#' && Program[i + 1] == 'E' && Program[i + 2] == 'N' && Program[i + 3] == 'D' && Program[i + 4] == '#') {
+			for (int j = i + 5; j < FSHELPER_READBUFFER_SIZE; j ++) Program[j] = 0;
+		}
+	}
+	obj_run(MainPikaObj, Program);
 }

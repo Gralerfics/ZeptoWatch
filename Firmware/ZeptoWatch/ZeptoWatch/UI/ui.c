@@ -38,10 +38,20 @@ lv_obj_t * ui_applicationsList;
 lv_obj_t * ui_appRefreshIcon;
 void ui_event_Appfield(lv_event_t * e);
 lv_obj_t * ui_Appfield;
+lv_obj_t * ui_appfieldTestLabel;
 lv_obj_t * ui_Shutdown;
 lv_obj_t * ui_shutdownLabel;
 lv_obj_t * ui_shutdownConfirmBtn;
 lv_obj_t * ui_shutdownBackBtn;
+lv_obj_t * ui_AppDropdown;
+lv_obj_t * ui_appDropdownPanel;
+lv_obj_t * ui_appDropdownTimeLabel;
+lv_obj_t * ui_appDropdownBatterySlider;
+lv_obj_t * ui_appDropdownBrightnessSlider;
+void ui_event_appDropdownBtn(lv_event_t * e);
+lv_obj_t * ui_appDropdownBtn;
+void ui_event_appDropdownBackBtn(lv_event_t * e);
+lv_obj_t * ui_appDropdownBackBtn;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
 #if LV_COLOR_DEPTH != 16
@@ -198,8 +208,27 @@ void ui_event_Appfield(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_BOTTOM) {
-        dropdownDropping_Animation(ui_dropdownPanel, 0);
-        _ui_screen_change(ui_Dropdown, LV_SCR_LOAD_ANIM_FADE_ON, 150, 0);
+        dropdownDropping_Animation(ui_appDropdownPanel, 0);
+        _ui_screen_change(ui_AppDropdown, LV_SCR_LOAD_ANIM_FADE_ON, 150, 0);
+    }
+}
+void ui_event_appDropdownBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(ui_Home, LV_SCR_LOAD_ANIM_FADE_ON, 200, 150);
+        dropdownLeaving_Animation(ui_appDropdownPanel, 0);
+        quitFromApplication(e);
+    }
+}
+void ui_event_appDropdownBackBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(ui_Appfield, LV_SCR_LOAD_ANIM_FADE_ON, 200, 150);
+        dropdownLeaving_Animation(ui_appDropdownPanel, 0);
     }
 }
 
@@ -463,6 +492,12 @@ void ui_Appfield_screen_init(void)
     ui_Appfield = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_Appfield, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
+    ui_appfieldTestLabel = lv_label_create(ui_Appfield);
+    lv_obj_set_width(ui_appfieldTestLabel, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_appfieldTestLabel, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_appfieldTestLabel, LV_ALIGN_CENTER);
+    lv_obj_set_style_text_font(ui_appfieldTestLabel, &lv_font_montserrat_8, LV_PART_MAIN | LV_STATE_DEFAULT);
+
     lv_obj_add_event_cb(ui_Appfield, ui_event_Appfield, LV_EVENT_ALL, NULL);
 
 }
@@ -510,6 +545,131 @@ void ui_Shutdown_screen_init(void)
     lv_obj_set_style_bg_img_recolor_opa(ui_shutdownBackBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 }
+void ui_AppDropdown_screen_init(void)
+{
+    ui_AppDropdown = lv_obj_create(NULL);
+    lv_obj_clear_flag(ui_AppDropdown, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_appDropdownPanel = lv_obj_create(ui_AppDropdown);
+    lv_obj_set_width(ui_appDropdownPanel, 240);
+    lv_obj_set_height(ui_appDropdownPanel, 240);
+    lv_obj_set_x(ui_appDropdownPanel, 0);
+    lv_obj_set_y(ui_appDropdownPanel, -1);
+    lv_obj_set_align(ui_appDropdownPanel, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_appDropdownPanel, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_bg_color(ui_appDropdownPanel, lv_color_hex(0x101418), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_appDropdownPanel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(ui_appDropdownPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_appDropdownTimeLabel = lv_label_create(ui_appDropdownPanel);
+    lv_obj_set_width(ui_appDropdownTimeLabel, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_appDropdownTimeLabel, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_appDropdownTimeLabel, 0);
+    lv_obj_set_y(ui_appDropdownTimeLabel, 26);
+    lv_obj_set_align(ui_appDropdownTimeLabel, LV_ALIGN_TOP_MID);
+    lv_label_set_text(ui_appDropdownTimeLabel, "00 : 00 : 00");
+
+    ui_appDropdownBatterySlider = lv_slider_create(ui_appDropdownPanel);
+    lv_slider_set_value(ui_appDropdownBatterySlider, 75, LV_ANIM_OFF);
+    if(lv_slider_get_mode(ui_appDropdownBatterySlider) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(
+            ui_appDropdownBatterySlider, 0, LV_ANIM_OFF);
+    lv_obj_set_width(ui_appDropdownBatterySlider, 45);
+    lv_obj_set_height(ui_appDropdownBatterySlider, 128);
+    lv_obj_set_x(ui_appDropdownBatterySlider, -56);
+    lv_obj_set_y(ui_appDropdownBatterySlider, 17);
+    lv_obj_set_align(ui_appDropdownBatterySlider, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_appDropdownBatterySlider, LV_OBJ_FLAG_CLICKABLE);      /// Flags
+    lv_obj_set_style_radius(ui_appDropdownBatterySlider, 6, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_appDropdownBatterySlider, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_appDropdownBatterySlider, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_appDropdownBatterySlider, &ui_img_battery_png, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_opa(ui_appDropdownBatterySlider, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor(ui_appDropdownBatterySlider, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor_opa(ui_appDropdownBatterySlider, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui_appDropdownBatterySlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui_appDropdownBatterySlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui_appDropdownBatterySlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui_appDropdownBatterySlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_set_style_radius(ui_appDropdownBatterySlider, 1, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_appDropdownBatterySlider, lv_color_hex(0xFFFFFF), LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_appDropdownBatterySlider, 220, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_appDropdownBatterySlider, &ui_img_battery_png, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor(ui_appDropdownBatterySlider, lv_color_hex(0x101418),
+                                    LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor_opa(ui_appDropdownBatterySlider, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+
+    lv_obj_set_style_bg_color(ui_appDropdownBatterySlider, lv_color_hex(0xFFFFFF), LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_appDropdownBatterySlider, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
+
+    ui_appDropdownBrightnessSlider = lv_slider_create(ui_appDropdownPanel);
+    lv_slider_set_value(ui_appDropdownBrightnessSlider, 60, LV_ANIM_OFF);
+    if(lv_slider_get_mode(ui_appDropdownBrightnessSlider) == LV_SLIDER_MODE_RANGE) lv_slider_set_left_value(
+            ui_appDropdownBrightnessSlider, 0, LV_ANIM_OFF);
+    lv_obj_set_width(ui_appDropdownBrightnessSlider, 45);
+    lv_obj_set_height(ui_appDropdownBrightnessSlider, 128);
+    lv_obj_set_x(ui_appDropdownBrightnessSlider, -5);
+    lv_obj_set_y(ui_appDropdownBrightnessSlider, 17);
+    lv_obj_set_align(ui_appDropdownBrightnessSlider, LV_ALIGN_CENTER);
+    lv_obj_set_style_radius(ui_appDropdownBrightnessSlider, 6, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_appDropdownBrightnessSlider, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_appDropdownBrightnessSlider, 20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_appDropdownBrightnessSlider, &ui_img_brightness_png, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor(ui_appDropdownBrightnessSlider, lv_color_hex(0xFFFFFF),
+                                    LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_recolor_opa(ui_appDropdownBrightnessSlider, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui_appDropdownBrightnessSlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui_appDropdownBrightnessSlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui_appDropdownBrightnessSlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui_appDropdownBrightnessSlider, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_set_style_radius(ui_appDropdownBrightnessSlider, 1, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_appDropdownBrightnessSlider, lv_color_hex(0xFFFFFF), LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_appDropdownBrightnessSlider, 220, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_appDropdownBrightnessSlider, &ui_img_brightness_png,
+                                LV_PART_INDICATOR | LV_STATE_DEFAULT);
+
+    lv_obj_set_style_bg_color(ui_appDropdownBrightnessSlider, lv_color_hex(0xFFFFFF), LV_PART_KNOB | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_appDropdownBrightnessSlider, 0, LV_PART_KNOB | LV_STATE_DEFAULT);
+
+    ui_appDropdownBtn = lv_btn_create(ui_appDropdownPanel);
+    lv_obj_set_width(ui_appDropdownBtn, 60);
+    lv_obj_set_height(ui_appDropdownBtn, 61);
+    lv_obj_set_x(ui_appDropdownBtn, 54);
+    lv_obj_set_y(ui_appDropdownBtn, -18);
+    lv_obj_set_align(ui_appDropdownBtn, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_appDropdownBtn, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_appDropdownBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_radius(ui_appDropdownBtn, 6, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_appDropdownBtn, lv_color_hex(0xE6E2E6), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_appDropdownBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_appDropdownBtn, &ui_img_home_png, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_color(ui_appDropdownBtn, lv_color_hex(0x293031), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_opa(ui_appDropdownBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(ui_appDropdownBtn, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_side(ui_appDropdownBtn, LV_BORDER_SIDE_FULL, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_appDropdownBackBtn = lv_btn_create(ui_appDropdownPanel);
+    lv_obj_set_width(ui_appDropdownBackBtn, 60);
+    lv_obj_set_height(ui_appDropdownBackBtn, 61);
+    lv_obj_set_x(ui_appDropdownBackBtn, 54);
+    lv_obj_set_y(ui_appDropdownBackBtn, 49);
+    lv_obj_set_align(ui_appDropdownBackBtn, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_appDropdownBackBtn, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_appDropdownBackBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_radius(ui_appDropdownBackBtn, 6, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_appDropdownBackBtn, lv_color_hex(0xE6E2E6), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_appDropdownBackBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_appDropdownBackBtn, &ui_img_undo_png, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_color(ui_appDropdownBackBtn, lv_color_hex(0x293031), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_opa(ui_appDropdownBackBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(ui_appDropdownBackBtn, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_side(ui_appDropdownBackBtn, LV_BORDER_SIDE_FULL, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_add_event_cb(ui_appDropdownBtn, ui_event_appDropdownBtn, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_appDropdownBackBtn, ui_event_appDropdownBackBtn, LV_EVENT_ALL, NULL);
+
+}
 
 void ui_init(void)
 {
@@ -522,5 +682,6 @@ void ui_init(void)
     ui_Applications_screen_init();
     ui_Appfield_screen_init();
     ui_Shutdown_screen_init();
+    ui_AppDropdown_screen_init();
     lv_disp_load_scr(ui_Home);
 }
