@@ -3,6 +3,9 @@
 
 #include "ui_helpers.h"
 
+void callApplication(lv_event_t * e);
+void refreshAppList(lv_event_t * e);
+
 void UI_Clock_Arrows_Reset();
 void UI_Clock_InitArrows();
 

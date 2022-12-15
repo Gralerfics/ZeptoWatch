@@ -5,6 +5,7 @@
 
 #include "ui.h"
 #include "ui_helpers.h"
+#include "ui_user.h"
 
 ///////////////////// VARIABLES ////////////////////
 void dropdownDropping_Animation(lv_obj_t * TargetObject, int delay);

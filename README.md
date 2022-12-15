@@ -19,7 +19,10 @@ A smart watch based on STM32F405RGT6.
   - ......
 
 <div align="center">
-    <img src="Documents/imgs/IMG_20221211_184247.jpg" height="400">
+    <img src="Documents/imgs/FE7E135F2EE59D07F1611126BC068844.jpg" height="200">
+    <img src="Documents/imgs/E9C457554D189AD4F0F847DAE70AA1DC.jpg" height="200">
+    <img src="Documents/imgs/7D140A95CB4EF4CE1C6424B43CCBAFC1.jpg" height="200">
+    <img src="Documents/imgs/1AC1DB860FB19763F201A053C7C4109F.jpg" height="200">
 </div>
 
 **/Hardware**: PCBs & Schematics.

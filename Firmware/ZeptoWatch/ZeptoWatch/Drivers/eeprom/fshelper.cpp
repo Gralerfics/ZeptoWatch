@@ -44,7 +44,7 @@ void FS_ScanFolder(const char *dirpath, int *num, Application_Info_Type *fileInf
 void FS_ReadFile(const char *filepath) {
 	UINT fnum;
 
-	osDelay(300);
+	osDelay(500);
 	retUSER = f_open(&USERFile, filepath,FA_OPEN_EXISTING | FA_READ);
 	if (retUSER == FR_OK) {
 		retUSER = f_read(&USERFile, ReadBuffer, FSHELPER_READBUFFER_SIZE, &fnum);

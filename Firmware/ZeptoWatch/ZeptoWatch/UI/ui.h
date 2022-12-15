@@ -47,7 +47,6 @@ extern lv_obj_t * ui_shutdownLabel;
 extern lv_obj_t * ui_shutdownConfirmBtn;
 extern lv_obj_t * ui_shutdownBackBtn;
 
-void refreshAppList(lv_event_t * e);
 
 LV_IMG_DECLARE(ui_img_clock_sec_png);    // assets\clock_sec.png
 LV_IMG_DECLARE(ui_img_clock_min_png);    // assets\clock_min.png
