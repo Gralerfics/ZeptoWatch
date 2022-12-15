@@ -2,7 +2,7 @@
 
 #include "fatfs.h"
 
-BYTE ReadBuffer[FSHELPER_READBUFFER_SIZE] __attribute__((section(".ccmram")));
+BYTE ReadBuffer[FSHELPER_READBUFFER_SIZE] __attribute__((section(".ccmram"))) = {0};
 
 void FS_Mount() {
 	retUSER = f_mount(&USERFatFS, "0:", 1);
@@ -13,28 +13,27 @@ void FS_Mount() {
 	}
 }
 
-void FS_ScanFolder(const char *path, char *names) {
+void FS_ScanFolder(const char *dirpath, int *num, Application_Info_Type *fileInfos) {
 	DIR dir;
 	FILINFO fileInfo;
-	int is_first_file = 1;
+
 	Debug_Printf("Dir Opening.\n");
-	retUSER = f_opendir(&dir, path);
+	retUSER = f_opendir(&dir, dirpath);
 	if (retUSER == FR_OK) {
 		Debug_Printf("Dir Scanning.\n");
+		(*num) = 0;
 		for (;;) {
 			retUSER = f_readdir(&dir, &fileInfo);
 			if (retUSER != FR_OK || fileInfo.fname[0] == 0) break;
 			if (!(fileInfo.fattrib & AM_DIR)) {
-				if (is_first_file) {
-					Debug_Printf("Find %s.\n", fileInfo.fname);
-					sprintf(names, "%s", fileInfo.fname);
-					is_first_file = 0;
-				} else {
-					sprintf(names, "%s\n%s", names, fileInfo.fname);
-				}
+				Debug_Printf("Found %s.\n", fileInfo.fname);
+				sprintf(fileInfos[(*num)].path, "%s%s", dirpath, fileInfo.fname);
+				(*num) ++;
 			}
+			osDelay(5);
 		}
 	} else {
+		(*num) = -1;
 		char errCode[2];
 		Debug_Printf(errCode, "Open Dir: %d\n", retUSER);
 	}
@@ -42,7 +41,26 @@ void FS_ScanFolder(const char *path, char *names) {
 	Debug_Printf("Dir Closed.\n");
 }
 
-void FS_ClearAll() {
+void FS_ReadFile(const char *filepath) {
+	UINT fnum;
+
+	osDelay(300);
+	retUSER = f_open(&USERFile, filepath,FA_OPEN_EXISTING | FA_READ);
+	if (retUSER == FR_OK) {
+		retUSER = f_read(&USERFile, ReadBuffer, FSHELPER_READBUFFER_SIZE, &fnum);
+		if (retUSER == FR_OK) {
+			Debug_Printf("Contents:\n%s\n", (char *) ReadBuffer);
+		} else {
+			Debug_Printf("Read File: %d\n", retUSER);
+		}
+	} else {
+		Debug_Printf("Open File: %d\n", retUSER);
+	}
+	f_close(&USERFile);
+	Debug_Printf("File Closed.\n");
+}
+
+void FS_Clear() {
 	Debug_Printf("Clear.\n");
 	uint8_t buf[1024] = {0};
 	ROM_Write_Bytes(buf, 0x0000, 1024);
@@ -67,9 +85,10 @@ void FS_Make() {
 	}
 }
 
-void FS_WriteFile() {
+void FS_WriteTestFile() {
 	UINT fnum;
-	BYTE WriteBuffer[] = "import PikaStdLib as std\n"
+	BYTE WriteBuffer[] = "###ICON=scripts;NAME=Test1;COLOR=16751415###\n"
+						 "import PikaStdLib as std\n"
 						 "import ZeptoWatchStdLib as zws\n"
 						 "import ZeptoWatchPeriphLib as zwp\n"
 						 "\n"

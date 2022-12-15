@@ -18,9 +18,6 @@ extern "C" {
 lv_chart_series_t *series = NULL;
 
 void StartSystemDetecting(void const * argument) {
-	char names[300] = {0};
-	FS_ScanFolder("0:", names);
-
 	while (1) {
 
 

@@ -5,6 +5,15 @@
 
 #include "clock.h"
 
+void callApplication(lv_event_t * e) {
+
+}
+
+void refreshAppList(lv_event_t * e) {
+	extern int SystemScanningEnabled;
+	SystemScanningEnabled = 1;
+}
+
 void UI_Clock_Arrows_Reset() {
 	lv_img_set_angle(ui_secPtr, 0);
 	lv_img_set_angle(ui_minPtr, 0);

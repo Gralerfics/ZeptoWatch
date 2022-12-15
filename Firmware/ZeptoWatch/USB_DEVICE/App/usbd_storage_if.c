@@ -105,7 +105,7 @@ const int8_t STORAGE_Inquirydata_FS[] = {/* 36 */
 		0x00,
 		0x00,
 		0x00,
-		' ', ' ', ' ', '  ', ' ', ' ', ' ', ' ', /* Manufacturer : 8 bytes */
+		' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', /* Manufacturer : 8 bytes */
 		'Z', 'e', 'p', 't', 'o', 'W', 'a', 't', /* Product      : 16 Bytes */
 		'c', 'h', ' ', ' ', ' ', ' ', ' ', ' ',
 		'0', '.', '3' ,'0'                      /* Version      : 4 Bytes */

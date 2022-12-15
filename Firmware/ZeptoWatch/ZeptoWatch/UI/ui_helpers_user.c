@@ -1,5 +1,65 @@
 #include "ui_helpers_user.h"
 
+#include "applications.h"
+
+void UI_Applications_InitList() {
+	for (int i = 0; i < APPLICATION_MAX; i ++) {
+		// Icons
+		Application_LVIcons[i] = lv_btn_create(ui_applicationsList);
+		lv_obj_set_width(Application_LVIcons[i], 50);
+		lv_obj_set_height(Application_LVIcons[i], 50);
+		lv_obj_set_x(Application_LVIcons[i], (lv_coord_t) (-35 + (i % 2) * 65));
+		lv_obj_set_y(Application_LVIcons[i], (lv_coord_t) (-32 + (i / 2) * 76));
+		lv_obj_set_align(Application_LVIcons[i], LV_ALIGN_CENTER);
+		lv_obj_add_flag(Application_LVIcons[i], LV_OBJ_FLAG_SCROLL_ON_FOCUS);
+		lv_obj_clear_flag(Application_LVIcons[i], LV_OBJ_FLAG_SCROLLABLE);
+		lv_obj_set_style_radius(Application_LVIcons[i], 25, LV_PART_MAIN | LV_STATE_DEFAULT);
+		lv_obj_set_style_bg_opa(Application_LVIcons[i], 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+		lv_obj_add_flag(Application_LVIcons[i], LV_OBJ_FLAG_HIDDEN); // Hide first.
+
+//		lv_obj_add_event_cb(ui_appSampleBtn1, ui_event_appSampleBtn1, LV_EVENT_ALL, NULL);
+
+//			void ui_event_appSampleBtn1(lv_event_t * e)
+//			{
+//				lv_event_code_t event_code = lv_event_get_code(e);
+//				lv_obj_t * target = lv_event_get_target(e);
+//				if(event_code == LV_EVENT_CLICKED) {
+//					_ui_screen_change(ui_Appfield, LV_SCR_LOAD_ANIM_FADE_ON, 150, 0);
+//					callApplication(e);
+//				}
+//			}
+
+//			void callApplication(lv_event_t * e)
+//			{
+//				// Your code here
+//			}
+
+		// Labels
+		Application_LVLabels[i] = lv_label_create(ui_applicationsList);
+		lv_obj_set_width(Application_LVLabels[i], LV_SIZE_CONTENT);
+		lv_obj_set_height(Application_LVLabels[i], LV_SIZE_CONTENT);
+		lv_obj_set_x(Application_LVLabels[i], (lv_coord_t) (-35 + (i % 2) * 65));
+		lv_obj_set_y(Application_LVLabels[i], (lv_coord_t) (2 + (i / 2) * 76));
+		lv_obj_set_align(Application_LVLabels[i], LV_ALIGN_CENTER);
+		lv_obj_set_style_text_font(Application_LVLabels[i], &lv_font_montserrat_8, LV_PART_MAIN | LV_STATE_DEFAULT);
+		lv_obj_add_flag(Application_LVLabels[i], LV_OBJ_FLAG_HIDDEN); // Hide first.
+	}
+}
+
+void UI_Applications_Listing() {
+	for (int i = 0; i < Applications_GetAppNumber(); i ++) {
+		lv_obj_set_style_bg_img_src(Application_LVIcons[i], Applications_GetAppIcon(i), LV_PART_MAIN | LV_STATE_DEFAULT); // TODO. Icon selector.
+		lv_obj_set_style_bg_color(Application_LVIcons[i], lv_color_hex(Applications_GetAppColor(i)), LV_PART_MAIN | LV_STATE_DEFAULT);
+		lv_label_set_text(Application_LVLabels[i], Applications_GetAppName(i));
+		lv_obj_clear_flag(Application_LVIcons[i], LV_OBJ_FLAG_HIDDEN);
+		lv_obj_clear_flag(Application_LVLabels[i], LV_OBJ_FLAG_HIDDEN);
+	}
+	for (int i = Applications_GetAppNumber(); i < APPLICATION_MAX; i ++) {
+		lv_obj_add_flag(Application_LVIcons[i], LV_OBJ_FLAG_HIDDEN);
+		lv_obj_add_flag(Application_LVLabels[i], LV_OBJ_FLAG_HIDDEN);
+	}
+}
+
 void UI_Animate_PtrTicking(lv_obj_t *TargetObject, int start, int end, int time, int delay) {
 	lv_anim_t PropertyAnimation_0;
 	lv_anim_init(&PropertyAnimation_0);

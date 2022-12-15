@@ -6,8 +6,6 @@ extern "C" {
 
 #include "common.h"
 
-#include "applications.h"
-
 #include "lvgl.h"
 #include "ui.h"
 
@@ -15,11 +13,17 @@ extern "C" {
 #include "brightness.h"
 #include "power.h"
 
-void StartSystemUI(void const * argument) {
-//	extern int btn1ClickedFlag, btn2ClickedFlag;
+#include "fshelper.h"
 
+void StartSystemUI(void const * argument) {
+	// Lighting
+	lv_task_handler();
 	Brightness_SetValue(60);
 	Brightness_LightUp();
+
+	// Enable Scanning
+	extern int SystemScanningEnabled;
+	SystemScanningEnabled = 1;
 
 	for (;;) {
 		/* 状态更新 */
@@ -32,6 +36,7 @@ void StartSystemUI(void const * argument) {
 		}
 
 		/* 事件处理 */
+//		extern int btn1ClickedFlag, btn2ClickedFlag;
 //		if (btn1ClickedFlag) {
 //			char filepath[30] = {0}, filename[30] = {0};
 //			lv_roller_get_selected_str(ui_roller, filename, 30);
