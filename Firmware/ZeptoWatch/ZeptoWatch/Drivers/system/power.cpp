@@ -45,7 +45,10 @@ void Power_InterruptHandler_Key() {
 				if (Power_GetState() == 0) {
 					Power_SetState(1);
 					Brightness_GoDark();
-//					while (Power_GetState() == 1) HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+//					while (Power_GetState() == 1) {
+//						HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+//					}
+//					Brightness_LightUp();
 				} else {
 					Power_SetState(0);
 					Brightness_LightUp();

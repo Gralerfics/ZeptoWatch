@@ -20,7 +20,6 @@ lv_chart_series_t *series = NULL;
 void StartSystemDetecting(void const * argument) {
 	while (1) {
 
-
 		osDelay(1);
 	}
 }

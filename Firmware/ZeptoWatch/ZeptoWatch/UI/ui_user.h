@@ -3,7 +3,7 @@
 
 #include "ui_helpers.h"
 
-/* 更新 Squareline 记得把本头文件加到 ui.c, ui_helpers.c 里, 并修改如下函数 */
+/* TODO: 更新 Squareline 记得把本头文件加到 ui.c, ui_helpers.c 里, 并修改如下函数 */
 //	void _ui_screen_change(lv_obj_t * target, lv_scr_load_anim_t fademode, int spd, int delay)
 //	{
 //		lv_scr_load_anim(target, fademode, spd, delay, false);
