@@ -4,6 +4,7 @@
 // PROJECT: systemui
 
 #include "ui_helpers.h"
+#include "ui_user.h"
 
 void _ui_bar_set_property(lv_obj_t * target, int id, int val)
 {
@@ -52,6 +53,9 @@ void _ui_slider_set_property(lv_obj_t * target, int id, int val)
 void _ui_screen_change(lv_obj_t * target, lv_scr_load_anim_t fademode, int spd, int delay)
 {
     lv_scr_load_anim(target, fademode, spd, delay, false);
+    if (target != ui_Shutdown) {
+        setUICurrentPage(target);
+    }
 }
 
 void _ui_arc_increment(lv_obj_t * target, int val)

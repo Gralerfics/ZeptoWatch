@@ -39,8 +39,11 @@ lv_obj_t * ui_appRefreshIcon;
 void ui_event_Appfield(lv_event_t * e);
 lv_obj_t * ui_Appfield;
 lv_obj_t * ui_Shutdown;
+lv_obj_t * ui_shundownPanel;
 lv_obj_t * ui_shutdownLabel;
+void ui_event_shutdownConfirmBtn(lv_event_t * e);
 lv_obj_t * ui_shutdownConfirmBtn;
+void ui_event_shutdownBackBtn(lv_event_t * e);
 lv_obj_t * ui_shutdownBackBtn;
 lv_obj_t * ui_AppDropdown;
 lv_obj_t * ui_appDropdownPanel;
@@ -211,6 +214,23 @@ void ui_event_Appfield(lv_event_t * e)
         _ui_screen_change(ui_AppDropdown, LV_SCR_LOAD_ANIM_FADE_ON, 150, 0);
     }
 }
+void ui_event_shutdownConfirmBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        shutdownConfirmed(e);
+    }
+}
+void ui_event_shutdownBackBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dropdownLeaving_Animation(ui_shundownPanel, 0);
+        shutdownBack(e);
+    }
+}
 void ui_event_appDropdownBtn(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -332,8 +352,6 @@ void ui_Dropdown_screen_init(void)
     ui_dropdownPanel = lv_obj_create(ui_Dropdown);
     lv_obj_set_width(ui_dropdownPanel, 240);
     lv_obj_set_height(ui_dropdownPanel, 240);
-    lv_obj_set_x(ui_dropdownPanel, 0);
-    lv_obj_set_y(ui_dropdownPanel, -1);
     lv_obj_set_align(ui_dropdownPanel, LV_ALIGN_CENTER);
     lv_obj_clear_flag(ui_dropdownPanel, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_bg_color(ui_dropdownPanel, lv_color_hex(0x101418), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -438,8 +456,6 @@ void ui_Applications_screen_init(void)
     ui_applicationsPanel = lv_obj_create(ui_Applications);
     lv_obj_set_width(ui_applicationsPanel, 240);
     lv_obj_set_height(ui_applicationsPanel, 240);
-    lv_obj_set_x(ui_applicationsPanel, 0);
-    lv_obj_set_y(ui_applicationsPanel, -1);
     lv_obj_set_align(ui_applicationsPanel, LV_ALIGN_CENTER);
     lv_obj_clear_flag(ui_applicationsPanel, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_bg_color(ui_applicationsPanel, lv_color_hex(0x101418), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -499,7 +515,16 @@ void ui_Shutdown_screen_init(void)
     ui_Shutdown = lv_obj_create(NULL);
     lv_obj_clear_flag(ui_Shutdown, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_shutdownLabel = lv_label_create(ui_Shutdown);
+    ui_shundownPanel = lv_obj_create(ui_Shutdown);
+    lv_obj_set_width(ui_shundownPanel, 240);
+    lv_obj_set_height(ui_shundownPanel, 240);
+    lv_obj_set_align(ui_shundownPanel, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_shundownPanel, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_radius(ui_shundownPanel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_shundownPanel, lv_color_hex(0x101418), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_shundownPanel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_shutdownLabel = lv_label_create(ui_shundownPanel);
     lv_obj_set_width(ui_shutdownLabel, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_shutdownLabel, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_x(ui_shutdownLabel, 0);
@@ -507,7 +532,7 @@ void ui_Shutdown_screen_init(void)
     lv_obj_set_align(ui_shutdownLabel, LV_ALIGN_CENTER);
     lv_label_set_text(ui_shutdownLabel, "Confirm?");
 
-    ui_shutdownConfirmBtn = lv_btn_create(ui_Shutdown);
+    ui_shutdownConfirmBtn = lv_btn_create(ui_shundownPanel);
     lv_obj_set_width(ui_shutdownConfirmBtn, 70);
     lv_obj_set_height(ui_shutdownConfirmBtn, 70);
     lv_obj_set_x(ui_shutdownConfirmBtn, -45);
@@ -522,7 +547,7 @@ void ui_Shutdown_screen_init(void)
     lv_obj_set_style_bg_img_recolor(ui_shutdownConfirmBtn, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_recolor_opa(ui_shutdownConfirmBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_shutdownBackBtn = lv_btn_create(ui_Shutdown);
+    ui_shutdownBackBtn = lv_btn_create(ui_shundownPanel);
     lv_obj_set_width(ui_shutdownBackBtn, 70);
     lv_obj_set_height(ui_shutdownBackBtn, 70);
     lv_obj_set_x(ui_shutdownBackBtn, 45);
@@ -536,6 +561,9 @@ void ui_Shutdown_screen_init(void)
     lv_obj_set_style_bg_img_src(ui_shutdownBackBtn, &ui_img_undo_png, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_recolor(ui_shutdownBackBtn, lv_color_hex(0x101418), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_recolor_opa(ui_shutdownBackBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_add_event_cb(ui_shutdownConfirmBtn, ui_event_shutdownConfirmBtn, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_shutdownBackBtn, ui_event_shutdownBackBtn, LV_EVENT_ALL, NULL);
 
 }
 void ui_AppDropdown_screen_init(void)

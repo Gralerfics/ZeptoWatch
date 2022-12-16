@@ -1,15 +1,20 @@
 #include "power.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "delay.h"
 
 #include "brightness.h"
 #include "vibrator.h"
+#include "ui_user.h"
 
 TIM_HandleTypeDef *Power_TIMHandle = nullptr;
 
 /* 0: Normal
  * 1: Pause
- * 2: Shutdown */
+ * 2: Shutdown Confirming */
 int Power_CurrentState = 0;
 
 void Power_SetTIMHandle(TIM_HandleTypeDef *htim) {
@@ -35,13 +40,7 @@ void Power_InterruptHandler_Key() {
 		if (tmpState == GPIO_PIN_RESET) {
 			// Falling -> Released
 			HAL_TIM_Base_Stop_IT(Power_TIMHandle);
-			if (Power_GetState() == 2) {
-				// Long Pressed
-				// TODO: Shuting down UI.
-				Delay_ms(200);
-				HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
-				HAL_PWR_EnterSTANDBYMode();
-			} else {
+			if (Power_GetState() != 2) {
 				// Short Pressed
 				if (Power_GetState() == 0) {
 					Power_SetState(1);
@@ -63,7 +62,20 @@ void Power_InterruptHandler_Key() {
 }
 
 void Power_InterruptHandler_Tim() {
+	Power_SetState(2);
 	if (Power_TIMHandle == nullptr) return;
 	HAL_TIM_Base_Stop_IT(Power_TIMHandle);
-	Power_SetState(2);
+	callShutdown();
 }
+
+void Power_Standby() {
+	HAL_RTC_DeactivateAlarm(&hrtc, RTC_ALARM_A);
+	HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
+	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU); // !
+	HAL_SuspendTick();
+	HAL_PWR_EnterSTANDBYMode();
+}
+
+#ifdef __cplusplus
+}
+#endif

@@ -25,6 +25,9 @@ void StartSystemUI(void const * argument) {
 	extern int SystemScanningEnabled;
 	SystemScanningEnabled = 1;
 
+	// Set State
+	setUICurrentPage(ui_Home);
+
 	// Main Loop
 	for (;;) {
 		/* State Update */

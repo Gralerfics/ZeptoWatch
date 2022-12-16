@@ -3,11 +3,24 @@
 
 #include "ui_helpers.h"
 
-// TODO: 更新 Squareline 记得把本头文件加到 ui.c 里
+/* 更新 Squareline 记得把本头文件加到 ui.c, ui_helpers.c 里, 并修改如下函数 */
+//	void _ui_screen_change(lv_obj_t * target, lv_scr_load_anim_t fademode, int spd, int delay)
+//	{
+//		lv_scr_load_anim(target, fademode, spd, delay, false);
+//		if (target != ui_Shutdown) {
+//			setUICurrentPage(target);
+//		}
+//	}
+
+void setUICurrentPage(lv_obj_t *v);
+lv_obj_t* getUICurrentPage();
 
 void ui_event_appButtons(lv_event_t *e);
 
+void shutdownConfirmed(lv_event_t *e);
+void shutdownBack(lv_event_t *e);
 void quitFromApplication(lv_event_t *e);
+void callShutdown();
 void callApplication(lv_event_t *e);
 void refreshAppList(lv_event_t *e);
 

@@ -15,6 +15,8 @@ void Power_SetState(int state);
 void Power_InterruptHandler_Key();
 void Power_InterruptHandler_Tim();
 
+void Power_Standby();
+
 #ifdef __cplusplus
 }
 #endif

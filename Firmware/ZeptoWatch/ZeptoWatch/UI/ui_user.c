@@ -4,12 +4,35 @@
 
 #include "applications.h"
 #include "clock.h"
+#include "power.h"
+
+lv_obj_t* UI_Current_Page = NULL;
+
+void setUICurrentPage(lv_obj_t *v) {
+	UI_Current_Page = v;
+}
+
+lv_obj_t* getUICurrentPage() {
+	return UI_Current_Page;
+}
 
 void ui_event_appButtons(lv_event_t *e) {
 	lv_event_code_t event_code = lv_event_get_code(e);
 	if (event_code == LV_EVENT_CLICKED) {
 		_ui_screen_change(ui_Appfield, LV_SCR_LOAD_ANIM_FADE_ON, 150, 0);
 		callApplication(e);
+	}
+}
+
+void shutdownConfirmed(lv_event_t *e) {
+	Power_Standby();
+}
+
+void shutdownBack(lv_event_t *e) {
+	lv_event_code_t event_code = lv_event_get_code(e);
+	if (event_code == LV_EVENT_CLICKED) {
+		if (getUICurrentPage() == NULL) setUICurrentPage(ui_Home);
+		_ui_screen_change(getUICurrentPage(), LV_SCR_LOAD_ANIM_FADE_ON, 150, 0);
 	}
 }
 
@@ -25,6 +48,11 @@ void callApplication(lv_event_t *e) {
 			break;
 		}
 	}
+}
+
+void callShutdown() {
+	_ui_screen_change(ui_Shutdown, LV_SCR_LOAD_ANIM_FADE_ON, 150, 0);
+	dropdownDropping_Animation(ui_shundownPanel, 0);
 }
 
 void refreshAppList(lv_event_t *e) {
