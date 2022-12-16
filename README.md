@@ -5,6 +5,8 @@ A smart watch based on STM32F405RGT6.
 基于 STM32F405RGT6 的智能手表（大号手环），特点是可以执行用户编写的 Python 脚本（应用程序），并提供板上资源的 Python 库封装。
 使能了 USB FS Device，使设备可像 U 盘一样被操作系统识别，并且内有 FAT 文件系统，脚本直接拖入根目录即可（就是没优化有亿点慢）。设备端可在应用列表以左滑手势刷新列表，固件会进行扫描。
 
+**【Incompleted. 未完成，各项功能完善中】**
+
 ---
 
 **/Documents**.
