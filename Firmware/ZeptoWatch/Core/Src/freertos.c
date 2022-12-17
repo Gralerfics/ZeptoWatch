@@ -135,6 +135,8 @@ void MX_FREERTOS_Init(void) {
 	// Vibrator Initialization
 	Vibrator_Initialize(&htim4, TIM_CHANNEL_1);
 
+	// Scan 任务 Heap 大小大一些好像很重要
+
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -167,11 +169,11 @@ void MX_FREERTOS_Init(void) {
   systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
   /* definition and creation of applicationExec */
-  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 2048);
+  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 3072);
   applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
 
   /* definition and creation of systemScanning */
-  osThreadDef(systemScanning, startSystemScanning, osPriorityBelowNormal, 0, 800);
+  osThreadDef(systemScanning, startSystemScanning, osPriorityBelowNormal, 0, 1024);
   systemScanningHandle = osThreadCreate(osThread(systemScanning), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
