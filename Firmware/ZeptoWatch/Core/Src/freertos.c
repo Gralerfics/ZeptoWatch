@@ -59,7 +59,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-PikaObj *MainPikaObj __attribute__((section(".ccmram")));
+
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId systemUIHandle;
@@ -109,8 +109,6 @@ void MX_FREERTOS_Init(void) {
 	MX_USB_DEVICE_Init();
 	// Retarget printf
 	RetargetInit(&huart6);
-	// PikaScript Root Object Initialization
-	MainPikaObj = pikaScriptInit();
 	// Power Key Initialization
 	Power_SetState(0);
 	Power_SetTIMHandle(&htim7);
@@ -128,6 +126,8 @@ void MX_FREERTOS_Init(void) {
 	ROM_Init();
 	// File System Initialization
 	FS_Mount();
+	// Halt Applications
+	Applications_HaltApplication();
 	// IMU Initialization
 	MPU_Initialize();
 	// Microphone Initialization
@@ -159,11 +159,11 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of systemUI */
-  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 1536);
+  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 1024);
   systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
   /* definition and creation of systemDetecting */
-  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1024);
+  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 128);
   systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
   /* definition and creation of applicationExec */
@@ -171,7 +171,7 @@ void MX_FREERTOS_Init(void) {
   applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
 
   /* definition and creation of systemScanning */
-  osThreadDef(systemScanning, startSystemScanning, osPriorityBelowNormal, 0, 512);
+  osThreadDef(systemScanning, startSystemScanning, osPriorityBelowNormal, 0, 800);
   systemScanningHandle = osThreadCreate(osThread(systemScanning), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
