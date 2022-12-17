@@ -21,6 +21,9 @@ void StartSystemUI(void const * argument) {
 	Brightness_SetValue(60);
 	Brightness_LightUp();
 
+//	// Test File
+//	FS_WriteTestFile();
+
 	// Enable Scanning
 	extern int SystemScanningEnabled;
 	SystemScanningEnabled = 1;

@@ -21,6 +21,7 @@
 #include "PikaStdLib.h"
 #include "ZeptoWatchPeriphLib.h"
 #include "ZeptoWatchStdLib.h"
+#include "pika_lvgl.h"
 #include "PikaStdData.h"
 #include "TinyObj.h"
 #include "PikaStdData_ByteArray.h"
@@ -94,6 +95,74 @@
 #include "TinyObj.h"
 #include "ZeptoWatchStdLib_System.h"
 #include "TinyObj.h"
+#include "pika_lvgl.h"
+#include "TinyObj.h"
+#include "pika_lvgl_ALIGN.h"
+#include "TinyObj.h"
+#include "pika_lvgl_ANIM.h"
+#include "TinyObj.h"
+#include "pika_lvgl_EVENT.h"
+#include "TinyObj.h"
+#include "pika_lvgl_FLEX_ALIGN.h"
+#include "TinyObj.h"
+#include "pika_lvgl_FLEX_FLOW.h"
+#include "TinyObj.h"
+#include "pika_lvgl_LAYOUT_FLEX.h"
+#include "TinyObj.h"
+#include "pika_lvgl_OPA.h"
+#include "TinyObj.h"
+#include "pika_lvgl_PALETTE.h"
+#include "TinyObj.h"
+#include "pika_lvgl_SIZE.h"
+#include "TinyObj.h"
+#include "pika_lvgl_STATE.h"
+#include "TinyObj.h"
+#include "pika_lvgl_TEXT_DECOR.h"
+#include "TinyObj.h"
+#include "pika_lvgl_arc.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_bar.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_btn.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_checkbox.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_dropdown.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_flag_t.h"
+#include "TinyObj.h"
+#include "pika_lvgl_img.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_img_dsc_t.h"
+#include "TinyObj.h"
+#include "pika_lvgl_indev_t.h"
+#include "TinyObj.h"
+#include "pika_lvgl_label.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_lv_color_t.h"
+#include "TinyObj.h"
+#include "pika_lvgl_lv_event.h"
+#include "TinyObj.h"
+#include "pika_lvgl_lv_obj.h"
+#include "TinyObj.h"
+#include "pika_lvgl_lv_timer_t.h"
+#include "TinyObj.h"
+#include "pika_lvgl_obj.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_point_t.h"
+#include "TinyObj.h"
+#include "pika_lvgl_roller.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_slider.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_style_t.h"
+#include "TinyObj.h"
+#include "pika_lvgl_switch.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_table.h"
+#include "pika_lvgl_lv_obj.h"
+#include "pika_lvgl_textarea.h"
+#include "pika_lvgl_lv_obj.h"
 
 #ifndef PIKA_MODULE_PIKADEBUG_DISABLE
 void PikaDebug_DebugerMethod(PikaObj *self, Args *args){
@@ -164,6 +233,7 @@ PikaObj *New_PikaMain(Args *args){
     obj_newObj(self, "PikaStdLib", "PikaStdLib", New_PikaStdLib);
     obj_newObj(self, "ZeptoWatchPeriphLib", "ZeptoWatchPeriphLib", New_ZeptoWatchPeriphLib);
     obj_newObj(self, "ZeptoWatchStdLib", "ZeptoWatchStdLib", New_ZeptoWatchStdLib);
+    obj_newObj(self, "pika_lvgl", "pika_lvgl", New_pika_lvgl);
     obj_setClass(self, PikaMain);
     return self;
 }
@@ -3788,6 +3858,15 @@ method_typedef(
     "getBrightness", ""
 );
 
+void ZeptoWatchStdLib_Display_getFieldMethod(PikaObj *self, Args *args){
+    PikaObj* res = ZeptoWatchStdLib_Display_getField(self);
+    method_returnObj(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Display_getField,
+    "getField", ""
+);
+
 void ZeptoWatchStdLib_Display_setBrightnessMethod(PikaObj *self, Args *args){
     int val = args_getInt(args, "val");
     ZeptoWatchStdLib_Display_setBrightness(self, val);
@@ -3801,6 +3880,7 @@ class_def(ZeptoWatchStdLib_Display){
     __BEFORE_MOETHOD_DEF
     method_def(ZeptoWatchStdLib_Display_setBrightness, 395230250),
     method_def(ZeptoWatchStdLib_Display_getBrightness, 1595558430),
+    method_def(ZeptoWatchStdLib_Display_getField, 2091799721),
 };
 class_inhert(ZeptoWatchStdLib_Display, TinyObj);
 
@@ -3839,6 +3919,3543 @@ PikaObj *New_ZeptoWatchStdLib_System(Args *args){
 
 Arg *ZeptoWatchStdLib_System(PikaObj *self){
     return obj_newObjInPackage(New_ZeptoWatchStdLib_System);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_ALIGNMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_ALIGN(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_ALIGN,
+    "ALIGN", ""
+);
+
+void pika_lvgl_ANIMMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_ANIM(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_ANIM,
+    "ANIM", ""
+);
+
+void pika_lvgl_EVENTMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_EVENT(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_EVENT,
+    "EVENT", ""
+);
+
+void pika_lvgl_FLEX_ALIGNMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_FLEX_ALIGN(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_FLEX_ALIGN,
+    "FLEX_ALIGN", ""
+);
+
+void pika_lvgl_FLEX_FLOWMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_FLEX_FLOW(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_FLEX_FLOW,
+    "FLEX_FLOW", ""
+);
+
+void pika_lvgl_LAYOUT_FLEXMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_LAYOUT_FLEX(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_LAYOUT_FLEX,
+    "LAYOUT_FLEX", ""
+);
+
+void pika_lvgl_OPAMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_OPA(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_OPA,
+    "OPA", ""
+);
+
+void pika_lvgl_PALETTEMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_PALETTE(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_PALETTE,
+    "PALETTE", ""
+);
+
+void pika_lvgl_SIZEMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_SIZE(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_SIZE,
+    "SIZE", ""
+);
+
+void pika_lvgl_STATEMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_STATE(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_STATE,
+    "STATE", ""
+);
+
+void pika_lvgl_TEXT_DECORMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_TEXT_DECOR(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_TEXT_DECOR,
+    "TEXT_DECOR", ""
+);
+
+void pika_lvgl___init__Method(PikaObj *self, Args *args){
+    pika_lvgl___init__(self);
+}
+method_typedef(
+    pika_lvgl___init__,
+    "__init__", ""
+);
+
+void pika_lvgl_arcMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_arc(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_arc,
+    "arc", ""
+);
+
+void pika_lvgl_barMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_bar(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_bar,
+    "bar", ""
+);
+
+void pika_lvgl_btnMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_btn(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_btn,
+    "btn", ""
+);
+
+void pika_lvgl_checkboxMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_checkbox(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_checkbox,
+    "checkbox", ""
+);
+
+void pika_lvgl_dropdownMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_dropdown(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown,
+    "dropdown", ""
+);
+
+void pika_lvgl_flag_tMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_flag_t(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_flag_t,
+    "flag_t", ""
+);
+
+void pika_lvgl_imgMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_img(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_img,
+    "img", ""
+);
+
+void pika_lvgl_img_dsc_tMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_img_dsc_t(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_img_dsc_t,
+    "img_dsc_t", ""
+);
+
+void pika_lvgl_indev_get_actMethod(PikaObj *self, Args *args){
+    PikaObj* res = pika_lvgl_indev_get_act(self);
+    method_returnObj(args, res);
+}
+method_typedef(
+    pika_lvgl_indev_get_act,
+    "indev_get_act", ""
+);
+
+void pika_lvgl_indev_tMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_indev_t(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_indev_t,
+    "indev_t", ""
+);
+
+void pika_lvgl_labelMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_label(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_label,
+    "label", ""
+);
+
+void pika_lvgl_lv_color_hexMethod(PikaObj *self, Args *args){
+    int64_t hex = args_getInt(args, "hex");
+    PikaObj* res = pika_lvgl_lv_color_hex(self, hex);
+    method_returnObj(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_color_hex,
+    "lv_color_hex", "hex"
+);
+
+void pika_lvgl_lv_color_tMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_lv_color_t(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_color_t,
+    "lv_color_t", ""
+);
+
+void pika_lvgl_lv_eventMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_lv_event(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_event,
+    "lv_event", ""
+);
+
+void pika_lvgl_lv_objMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_lv_obj(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj,
+    "lv_obj", ""
+);
+
+void pika_lvgl_lv_timer_tMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_lv_timer_t(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_timer_t,
+    "lv_timer_t", ""
+);
+
+void pika_lvgl_objMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_obj(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_obj,
+    "obj", ""
+);
+
+void pika_lvgl_palette_lightenMethod(PikaObj *self, Args *args){
+    int p = args_getInt(args, "p");
+    int lvl = args_getInt(args, "lvl");
+    PikaObj* res = pika_lvgl_palette_lighten(self, p, lvl);
+    method_returnObj(args, res);
+}
+method_typedef(
+    pika_lvgl_palette_lighten,
+    "palette_lighten", "p,lvl"
+);
+
+void pika_lvgl_palette_mainMethod(PikaObj *self, Args *args){
+    int p = args_getInt(args, "p");
+    PikaObj* res = pika_lvgl_palette_main(self, p);
+    method_returnObj(args, res);
+}
+method_typedef(
+    pika_lvgl_palette_main,
+    "palette_main", "p"
+);
+
+void pika_lvgl_pctMethod(PikaObj *self, Args *args){
+    int x = args_getInt(args, "x");
+    int res = pika_lvgl_pct(self, x);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_pct,
+    "pct", "x"
+);
+
+void pika_lvgl_point_tMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_point_t(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_point_t,
+    "point_t", ""
+);
+
+void pika_lvgl_rollerMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_roller(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_roller,
+    "roller", ""
+);
+
+void pika_lvgl_scr_actMethod(PikaObj *self, Args *args){
+    PikaObj* res = pika_lvgl_scr_act(self);
+    method_returnObj(args, res);
+}
+method_typedef(
+    pika_lvgl_scr_act,
+    "scr_act", ""
+);
+
+void pika_lvgl_sliderMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_slider(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_slider,
+    "slider", ""
+);
+
+void pika_lvgl_style_tMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_style_t(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_style_t,
+    "style_t", ""
+);
+
+void pika_lvgl_switchMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_switch(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_switch,
+    "switch", ""
+);
+
+void pika_lvgl_tableMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_table(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_table,
+    "table", ""
+);
+
+void pika_lvgl_textareaMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_textarea(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_textarea,
+    "textarea", ""
+);
+
+void pika_lvgl_timer_create_basicMethod(PikaObj *self, Args *args){
+    PikaObj* res = pika_lvgl_timer_create_basic(self);
+    method_returnObj(args, res);
+}
+method_typedef(
+    pika_lvgl_timer_create_basic,
+    "timer_create_basic", ""
+);
+
+class_def(pika_lvgl){
+    __BEFORE_MOETHOD_DEF
+    constructor_def(pika_lvgl_FLEX_FLOW, 54903627),
+    method_def(pika_lvgl_scr_act, 123488676),
+    constructor_def(pika_lvgl_lv_event, 131156360),
+    constructor_def(pika_lvgl_textarea, 144113955),
+    constructor_def(pika_lvgl_OPA, 193465733),
+    constructor_def(pika_lvgl_arc, 193486491),
+    constructor_def(pika_lvgl_bar, 193487034),
+    constructor_def(pika_lvgl_btn, 193487657),
+    constructor_def(pika_lvgl_img, 193495042),
+    constructor_def(pika_lvgl_obj, 193501216),
+    method_def(pika_lvgl_pct, 193502348),
+    constructor_def(pika_lvgl_lv_obj, 207188321),
+    constructor_def(pika_lvgl_ALIGN, 214050224),
+    constructor_def(pika_lvgl_EVENT, 219149159),
+    constructor_def(pika_lvgl_STATE, 235676006),
+    constructor_def(pika_lvgl_label, 265827749),
+    constructor_def(pika_lvgl_table, 275315341),
+    constructor_def(pika_lvgl_checkbox, 296102156),
+    constructor_def(pika_lvgl_lv_color_t, 394293688),
+    constructor_def(pika_lvgl_dropdown, 401183730),
+    constructor_def(pika_lvgl_roller, 434163253),
+    constructor_def(pika_lvgl_slider, 469624360),
+    constructor_def(pika_lvgl_switch, 482686839),
+    constructor_def(pika_lvgl_indev_t, 507835662),
+    method_def(pika_lvgl_palette_lighten, 573278590),
+    constructor_def(pika_lvgl_lv_timer_t, 640426874),
+    constructor_def(pika_lvgl_img_dsc_t, 784949518),
+    constructor_def(pika_lvgl_PALETTE, 790132596),
+    constructor_def(pika_lvgl_style_t, 797563209),
+    method_def(pika_lvgl___init__, 904762485),
+    constructor_def(pika_lvgl_point_t, 1003563106),
+    constructor_def(pika_lvgl_TEXT_DECOR, 1241293750),
+    constructor_def(pika_lvgl_LAYOUT_FLEX, 1259909937),
+    method_def(pika_lvgl_timer_create_basic, 1321143834),
+    method_def(pika_lvgl_palette_main, 1452255384),
+    constructor_def(pika_lvgl_FLEX_ALIGN, 1805883102),
+    method_def(pika_lvgl_lv_color_hex, 2036570665),
+    constructor_def(pika_lvgl_ANIM, 2088896938),
+    constructor_def(pika_lvgl_SIZE, 2089538912),
+    constructor_def(pika_lvgl_flag_t, 2108063474),
+    method_def(pika_lvgl_indev_get_act, 2120537489),
+};
+class_inhert(pika_lvgl, TinyObj);
+
+PikaObj *New_pika_lvgl(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl);
+    return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_ALIGN___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_ALIGN___init__(self);
+}
+method_typedef(
+    pika_lvgl_ALIGN___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_ALIGN){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_ALIGN___init__, 904762485),
+};
+class_inhert(pika_lvgl_ALIGN, TinyObj);
+
+PikaObj *New_pika_lvgl_ALIGN(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_ALIGN);
+    return self;
+}
+
+Arg *pika_lvgl_ALIGN(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_ALIGN);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_ANIM___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_ANIM___init__(self);
+}
+method_typedef(
+    pika_lvgl_ANIM___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_ANIM){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_ANIM___init__, 904762485),
+};
+class_inhert(pika_lvgl_ANIM, TinyObj);
+
+PikaObj *New_pika_lvgl_ANIM(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_ANIM);
+    return self;
+}
+
+Arg *pika_lvgl_ANIM(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_ANIM);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_EVENT___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_EVENT___init__(self);
+}
+method_typedef(
+    pika_lvgl_EVENT___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_EVENT){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_EVENT___init__, 904762485),
+};
+class_inhert(pika_lvgl_EVENT, TinyObj);
+
+PikaObj *New_pika_lvgl_EVENT(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_EVENT);
+    return self;
+}
+
+Arg *pika_lvgl_EVENT(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_EVENT);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_FLEX_ALIGN___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_FLEX_ALIGN___init__(self);
+}
+method_typedef(
+    pika_lvgl_FLEX_ALIGN___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_FLEX_ALIGN){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_FLEX_ALIGN___init__, 904762485),
+};
+class_inhert(pika_lvgl_FLEX_ALIGN, TinyObj);
+
+PikaObj *New_pika_lvgl_FLEX_ALIGN(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_FLEX_ALIGN);
+    return self;
+}
+
+Arg *pika_lvgl_FLEX_ALIGN(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_FLEX_ALIGN);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_FLEX_FLOW___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_FLEX_FLOW___init__(self);
+}
+method_typedef(
+    pika_lvgl_FLEX_FLOW___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_FLEX_FLOW){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_FLEX_FLOW___init__, 904762485),
+};
+class_inhert(pika_lvgl_FLEX_FLOW, TinyObj);
+
+PikaObj *New_pika_lvgl_FLEX_FLOW(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_FLEX_FLOW);
+    return self;
+}
+
+Arg *pika_lvgl_FLEX_FLOW(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_FLEX_FLOW);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_LAYOUT_FLEX___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_LAYOUT_FLEX___init__(self);
+}
+method_typedef(
+    pika_lvgl_LAYOUT_FLEX___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_LAYOUT_FLEX){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_LAYOUT_FLEX___init__, 904762485),
+};
+class_inhert(pika_lvgl_LAYOUT_FLEX, TinyObj);
+
+PikaObj *New_pika_lvgl_LAYOUT_FLEX(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_LAYOUT_FLEX);
+    return self;
+}
+
+Arg *pika_lvgl_LAYOUT_FLEX(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_LAYOUT_FLEX);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_OPA___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_OPA___init__(self);
+}
+method_typedef(
+    pika_lvgl_OPA___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_OPA){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_OPA___init__, 904762485),
+};
+class_inhert(pika_lvgl_OPA, TinyObj);
+
+PikaObj *New_pika_lvgl_OPA(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_OPA);
+    return self;
+}
+
+Arg *pika_lvgl_OPA(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_OPA);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_PALETTE___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_PALETTE___init__(self);
+}
+method_typedef(
+    pika_lvgl_PALETTE___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_PALETTE){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_PALETTE___init__, 904762485),
+};
+class_inhert(pika_lvgl_PALETTE, TinyObj);
+
+PikaObj *New_pika_lvgl_PALETTE(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_PALETTE);
+    return self;
+}
+
+Arg *pika_lvgl_PALETTE(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_PALETTE);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_SIZE___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_SIZE___init__(self);
+}
+method_typedef(
+    pika_lvgl_SIZE___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_SIZE){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_SIZE___init__, 904762485),
+};
+class_inhert(pika_lvgl_SIZE, TinyObj);
+
+PikaObj *New_pika_lvgl_SIZE(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_SIZE);
+    return self;
+}
+
+Arg *pika_lvgl_SIZE(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_SIZE);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_STATE___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_STATE___init__(self);
+}
+method_typedef(
+    pika_lvgl_STATE___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_STATE){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_STATE___init__, 904762485),
+};
+class_inhert(pika_lvgl_STATE, TinyObj);
+
+PikaObj *New_pika_lvgl_STATE(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_STATE);
+    return self;
+}
+
+Arg *pika_lvgl_STATE(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_STATE);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_TEXT_DECOR___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_TEXT_DECOR___init__(self);
+}
+method_typedef(
+    pika_lvgl_TEXT_DECOR___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_TEXT_DECOR){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_TEXT_DECOR___init__, 904762485),
+};
+class_inhert(pika_lvgl_TEXT_DECOR, TinyObj);
+
+PikaObj *New_pika_lvgl_TEXT_DECOR(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_TEXT_DECOR);
+    return self;
+}
+
+Arg *pika_lvgl_TEXT_DECOR(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_TEXT_DECOR);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_arc___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_arc___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_arc___init__,
+    "__init__", "parent"
+);
+
+void pika_lvgl_arc_get_angle_endMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_arc_get_angle_end(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_arc_get_angle_end,
+    "get_angle_end", ""
+);
+
+void pika_lvgl_arc_get_angle_startMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_arc_get_angle_start(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_arc_get_angle_start,
+    "get_angle_start", ""
+);
+
+void pika_lvgl_arc_get_bg_angle_endMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_arc_get_bg_angle_end(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_arc_get_bg_angle_end,
+    "get_bg_angle_end", ""
+);
+
+void pika_lvgl_arc_get_bg_angle_startMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_arc_get_bg_angle_start(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_arc_get_bg_angle_start,
+    "get_bg_angle_start", ""
+);
+
+void pika_lvgl_arc_get_max_valueMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_arc_get_max_value(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_arc_get_max_value,
+    "get_max_value", ""
+);
+
+void pika_lvgl_arc_get_min_valueMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_arc_get_min_value(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_arc_get_min_value,
+    "get_min_value", ""
+);
+
+void pika_lvgl_arc_get_modeMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_arc_get_mode(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_arc_get_mode,
+    "get_mode", ""
+);
+
+void pika_lvgl_arc_get_valueMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_arc_get_value(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_arc_get_value,
+    "get_value", ""
+);
+
+void pika_lvgl_arc_set_anglesMethod(PikaObj *self, Args *args){
+    int start = args_getInt(args, "start");
+    int end = args_getInt(args, "end");
+    pika_lvgl_arc_set_angles(self, start, end);
+}
+method_typedef(
+    pika_lvgl_arc_set_angles,
+    "set_angles", "start,end"
+);
+
+void pika_lvgl_arc_set_bg_anglesMethod(PikaObj *self, Args *args){
+    int start = args_getInt(args, "start");
+    int end = args_getInt(args, "end");
+    pika_lvgl_arc_set_bg_angles(self, start, end);
+}
+method_typedef(
+    pika_lvgl_arc_set_bg_angles,
+    "set_bg_angles", "start,end"
+);
+
+void pika_lvgl_arc_set_bg_end_angleMethod(PikaObj *self, Args *args){
+    int angle = args_getInt(args, "angle");
+    pika_lvgl_arc_set_bg_end_angle(self, angle);
+}
+method_typedef(
+    pika_lvgl_arc_set_bg_end_angle,
+    "set_bg_end_angle", "angle"
+);
+
+void pika_lvgl_arc_set_bg_start_angleMethod(PikaObj *self, Args *args){
+    int start = args_getInt(args, "start");
+    pika_lvgl_arc_set_bg_start_angle(self, start);
+}
+method_typedef(
+    pika_lvgl_arc_set_bg_start_angle,
+    "set_bg_start_angle", "start"
+);
+
+void pika_lvgl_arc_set_change_rateMethod(PikaObj *self, Args *args){
+    int rate = args_getInt(args, "rate");
+    pika_lvgl_arc_set_change_rate(self, rate);
+}
+method_typedef(
+    pika_lvgl_arc_set_change_rate,
+    "set_change_rate", "rate"
+);
+
+void pika_lvgl_arc_set_end_angleMethod(PikaObj *self, Args *args){
+    int angle = args_getInt(args, "angle");
+    pika_lvgl_arc_set_end_angle(self, angle);
+}
+method_typedef(
+    pika_lvgl_arc_set_end_angle,
+    "set_end_angle", "angle"
+);
+
+void pika_lvgl_arc_set_modeMethod(PikaObj *self, Args *args){
+    int mode = args_getInt(args, "mode");
+    pika_lvgl_arc_set_mode(self, mode);
+}
+method_typedef(
+    pika_lvgl_arc_set_mode,
+    "set_mode", "mode"
+);
+
+void pika_lvgl_arc_set_rangeMethod(PikaObj *self, Args *args){
+    int min = args_getInt(args, "min");
+    int max = args_getInt(args, "max");
+    pika_lvgl_arc_set_range(self, min, max);
+}
+method_typedef(
+    pika_lvgl_arc_set_range,
+    "set_range", "min,max"
+);
+
+void pika_lvgl_arc_set_rotationMethod(PikaObj *self, Args *args){
+    int rotation = args_getInt(args, "rotation");
+    pika_lvgl_arc_set_rotation(self, rotation);
+}
+method_typedef(
+    pika_lvgl_arc_set_rotation,
+    "set_rotation", "rotation"
+);
+
+void pika_lvgl_arc_set_start_angleMethod(PikaObj *self, Args *args){
+    int start = args_getInt(args, "start");
+    pika_lvgl_arc_set_start_angle(self, start);
+}
+method_typedef(
+    pika_lvgl_arc_set_start_angle,
+    "set_start_angle", "start"
+);
+
+void pika_lvgl_arc_set_valueMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_arc_set_value(self, value);
+}
+method_typedef(
+    pika_lvgl_arc_set_value,
+    "set_value", "value"
+);
+
+class_def(pika_lvgl_arc){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_arc_set_angles, 75229290),
+    method_def(pika_lvgl_arc_set_bg_start_angle, 105253004),
+    method_def(pika_lvgl_arc_set_mode, 294325973),
+    method_def(pika_lvgl_arc_get_min_value, 332722052),
+    method_def(pika_lvgl_arc_get_bg_angle_start, 343363008),
+    method_def(pika_lvgl_arc_set_rotation, 772090656),
+    method_def(pika_lvgl_arc_get_max_value, 864856070),
+    method_def(pika_lvgl_arc___init__, 904762485),
+    method_def(pika_lvgl_arc_get_angle_end, 1032805057),
+    method_def(pika_lvgl_arc_set_change_rate, 1036405217),
+    method_def(pika_lvgl_arc_set_end_angle, 1114876493),
+    method_def(pika_lvgl_arc_set_range, 1128260061),
+    method_def(pika_lvgl_arc_set_value, 1133002029),
+    method_def(pika_lvgl_arc_set_bg_end_angle, 1198536661),
+    method_def(pika_lvgl_arc_get_value, 1303572769),
+    method_def(pika_lvgl_arc_set_start_angle, 1341126916),
+    method_def(pika_lvgl_arc_get_angle_start, 1607578296),
+    method_def(pika_lvgl_arc_get_bg_angle_end, 1753387977),
+    method_def(pika_lvgl_arc_set_bg_angles, 1944068850),
+    method_def(pika_lvgl_arc_get_mode, 2121602121),
+};
+class_inhert(pika_lvgl_arc, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_arc(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_arc);
+    return self;
+}
+
+Arg *pika_lvgl_arc(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_arc);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_bar___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_bar___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_bar___init__,
+    "__init__", "parent"
+);
+
+void pika_lvgl_bar_get_max_valueMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_bar_get_max_value(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_bar_get_max_value,
+    "get_max_value", ""
+);
+
+void pika_lvgl_bar_get_min_valueMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_bar_get_min_value(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_bar_get_min_value,
+    "get_min_value", ""
+);
+
+void pika_lvgl_bar_get_modeMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_bar_get_mode(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_bar_get_mode,
+    "get_mode", ""
+);
+
+void pika_lvgl_bar_get_start_valueMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_bar_get_start_value(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_bar_get_start_value,
+    "get_start_value", ""
+);
+
+void pika_lvgl_bar_get_valueMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_bar_get_value(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_bar_get_value,
+    "get_value", ""
+);
+
+void pika_lvgl_bar_set_modeMethod(PikaObj *self, Args *args){
+    int mode = args_getInt(args, "mode");
+    pika_lvgl_bar_set_mode(self, mode);
+}
+method_typedef(
+    pika_lvgl_bar_set_mode,
+    "set_mode", "mode"
+);
+
+void pika_lvgl_bar_set_rangeMethod(PikaObj *self, Args *args){
+    int min = args_getInt(args, "min");
+    int max = args_getInt(args, "max");
+    pika_lvgl_bar_set_range(self, min, max);
+}
+method_typedef(
+    pika_lvgl_bar_set_range,
+    "set_range", "min,max"
+);
+
+void pika_lvgl_bar_set_start_valueMethod(PikaObj *self, Args *args){
+    int start_value = args_getInt(args, "start_value");
+    int anim = args_getInt(args, "anim");
+    pika_lvgl_bar_set_start_value(self, start_value, anim);
+}
+method_typedef(
+    pika_lvgl_bar_set_start_value,
+    "set_start_value", "start_value,anim"
+);
+
+void pika_lvgl_bar_set_valueMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    int anim = args_getInt(args, "anim");
+    pika_lvgl_bar_set_value(self, value, anim);
+}
+method_typedef(
+    pika_lvgl_bar_set_value,
+    "set_value", "value,anim"
+);
+
+class_def(pika_lvgl_bar){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_bar_set_mode, 294325973),
+    method_def(pika_lvgl_bar_get_min_value, 332722052),
+    method_def(pika_lvgl_bar_get_start_value, 705416206),
+    method_def(pika_lvgl_bar_get_max_value, 864856070),
+    method_def(pika_lvgl_bar___init__, 904762485),
+    method_def(pika_lvgl_bar_set_range, 1128260061),
+    method_def(pika_lvgl_bar_set_value, 1133002029),
+    method_def(pika_lvgl_bar_get_value, 1303572769),
+    method_def(pika_lvgl_bar_set_start_value, 1365569818),
+    method_def(pika_lvgl_bar_get_mode, 2121602121),
+};
+class_inhert(pika_lvgl_bar, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_bar(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_bar);
+    return self;
+}
+
+Arg *pika_lvgl_bar(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_bar);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_btn___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_btn___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_btn___init__,
+    "__init__", "parent"
+);
+
+class_def(pika_lvgl_btn){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_btn___init__, 904762485),
+};
+class_inhert(pika_lvgl_btn, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_btn(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_btn);
+    return self;
+}
+
+Arg *pika_lvgl_btn(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_btn);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_checkbox___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_checkbox___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_checkbox___init__,
+    "__init__", "parent"
+);
+
+void pika_lvgl_checkbox_get_textMethod(PikaObj *self, Args *args){
+    char* res = pika_lvgl_checkbox_get_text(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    pika_lvgl_checkbox_get_text,
+    "get_text", ""
+);
+
+void pika_lvgl_checkbox_set_textMethod(PikaObj *self, Args *args){
+    char* txt = args_getStr(args, "txt");
+    pika_lvgl_checkbox_set_text(self, txt);
+}
+method_typedef(
+    pika_lvgl_checkbox_set_text,
+    "set_text", "txt"
+);
+
+void pika_lvgl_checkbox_set_text_staticMethod(PikaObj *self, Args *args){
+    char* txt = args_getStr(args, "txt");
+    pika_lvgl_checkbox_set_text_static(self, txt);
+}
+method_typedef(
+    pika_lvgl_checkbox_set_text_static,
+    "set_text_static", "txt"
+);
+
+class_def(pika_lvgl_checkbox){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_checkbox_set_text, 294567317),
+    method_def(pika_lvgl_checkbox___init__, 904762485),
+    method_def(pika_lvgl_checkbox_set_text_static, 1204885116),
+    method_def(pika_lvgl_checkbox_get_text, 2121843465),
+};
+class_inhert(pika_lvgl_checkbox, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_checkbox(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_checkbox);
+    return self;
+}
+
+Arg *pika_lvgl_checkbox(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_checkbox);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_dropdown___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_dropdown___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_dropdown___init__,
+    "__init__", "parent"
+);
+
+void pika_lvgl_dropdown_add_optionMethod(PikaObj *self, Args *args){
+    char* option = args_getStr(args, "option");
+    int pos = args_getInt(args, "pos");
+    pika_lvgl_dropdown_add_option(self, option, pos);
+}
+method_typedef(
+    pika_lvgl_dropdown_add_option,
+    "add_option", "option,pos"
+);
+
+void pika_lvgl_dropdown_clear_optionsMethod(PikaObj *self, Args *args){
+    pika_lvgl_dropdown_clear_options(self);
+}
+method_typedef(
+    pika_lvgl_dropdown_clear_options,
+    "clear_options", ""
+);
+
+void pika_lvgl_dropdown_closeMethod(PikaObj *self, Args *args){
+    pika_lvgl_dropdown_close(self);
+}
+method_typedef(
+    pika_lvgl_dropdown_close,
+    "close", ""
+);
+
+void pika_lvgl_dropdown_get_dirMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_dropdown_get_dir(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown_get_dir,
+    "get_dir", ""
+);
+
+void pika_lvgl_dropdown_get_option_cntMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_dropdown_get_option_cnt(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown_get_option_cnt,
+    "get_option_cnt", ""
+);
+
+void pika_lvgl_dropdown_get_option_indexMethod(PikaObj *self, Args *args){
+    char* option = args_getStr(args, "option");
+    int res = pika_lvgl_dropdown_get_option_index(self, option);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown_get_option_index,
+    "get_option_index", "option"
+);
+
+void pika_lvgl_dropdown_get_optionsMethod(PikaObj *self, Args *args){
+    char* res = pika_lvgl_dropdown_get_options(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown_get_options,
+    "get_options", ""
+);
+
+void pika_lvgl_dropdown_get_selectedMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_dropdown_get_selected(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown_get_selected,
+    "get_selected", ""
+);
+
+void pika_lvgl_dropdown_get_selected_highlightMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_dropdown_get_selected_highlight(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown_get_selected_highlight,
+    "get_selected_highlight", ""
+);
+
+void pika_lvgl_dropdown_get_selected_strMethod(PikaObj *self, Args *args){
+    char* res = pika_lvgl_dropdown_get_selected_str(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown_get_selected_str,
+    "get_selected_str", ""
+);
+
+void pika_lvgl_dropdown_get_symbolMethod(PikaObj *self, Args *args){
+    char* res = pika_lvgl_dropdown_get_symbol(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown_get_symbol,
+    "get_symbol", ""
+);
+
+void pika_lvgl_dropdown_get_textMethod(PikaObj *self, Args *args){
+    char* res = pika_lvgl_dropdown_get_text(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown_get_text,
+    "get_text", ""
+);
+
+void pika_lvgl_dropdown_is_openMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_dropdown_is_open(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_dropdown_is_open,
+    "is_open", ""
+);
+
+void pika_lvgl_dropdown_openMethod(PikaObj *self, Args *args){
+    pika_lvgl_dropdown_open(self);
+}
+method_typedef(
+    pika_lvgl_dropdown_open,
+    "open", ""
+);
+
+void pika_lvgl_dropdown_set_dirMethod(PikaObj *self, Args *args){
+    int dir = args_getInt(args, "dir");
+    pika_lvgl_dropdown_set_dir(self, dir);
+}
+method_typedef(
+    pika_lvgl_dropdown_set_dir,
+    "set_dir", "dir"
+);
+
+void pika_lvgl_dropdown_set_optionsMethod(PikaObj *self, Args *args){
+    char* options = args_getStr(args, "options");
+    pika_lvgl_dropdown_set_options(self, options);
+}
+method_typedef(
+    pika_lvgl_dropdown_set_options,
+    "set_options", "options"
+);
+
+void pika_lvgl_dropdown_set_selectedMethod(PikaObj *self, Args *args){
+    int sel_opt = args_getInt(args, "sel_opt");
+    pika_lvgl_dropdown_set_selected(self, sel_opt);
+}
+method_typedef(
+    pika_lvgl_dropdown_set_selected,
+    "set_selected", "sel_opt"
+);
+
+void pika_lvgl_dropdown_set_selected_hightlightMethod(PikaObj *self, Args *args){
+    int en = args_getInt(args, "en");
+    pika_lvgl_dropdown_set_selected_hightlight(self, en);
+}
+method_typedef(
+    pika_lvgl_dropdown_set_selected_hightlight,
+    "set_selected_hightlight", "en"
+);
+
+void pika_lvgl_dropdown_set_symbolMethod(PikaObj *self, Args *args){
+    char* symbol = args_getStr(args, "symbol");
+    pika_lvgl_dropdown_set_symbol(self, symbol);
+}
+method_typedef(
+    pika_lvgl_dropdown_set_symbol,
+    "set_symbol", "symbol"
+);
+
+void pika_lvgl_dropdown_set_textMethod(PikaObj *self, Args *args){
+    char* txt = args_getStr(args, "txt");
+    pika_lvgl_dropdown_set_text(self, txt);
+}
+method_typedef(
+    pika_lvgl_dropdown_set_text,
+    "set_text", "txt"
+);
+
+class_def(pika_lvgl_dropdown){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_dropdown_set_selected, 102144121),
+    method_def(pika_lvgl_dropdown_set_dir, 204134767),
+    method_def(pika_lvgl_dropdown_get_options, 249814576),
+    method_def(pika_lvgl_dropdown_close, 255564379),
+    method_def(pika_lvgl_dropdown_set_text, 294567317),
+    method_def(pika_lvgl_dropdown_add_option, 603419718),
+    method_def(pika_lvgl_dropdown_is_open, 697936050),
+    method_def(pika_lvgl_dropdown_set_symbol, 792916550),
+    method_def(pika_lvgl_dropdown___init__, 904762485),
+    method_def(pika_lvgl_dropdown_get_selected, 984496109),
+    method_def(pika_lvgl_dropdown_get_option_cnt, 1104161889),
+    method_def(pika_lvgl_dropdown_set_selected_hightlight, 1109702884),
+    method_def(pika_lvgl_dropdown_set_options, 1329356092),
+    method_def(pika_lvgl_dropdown_get_selected_str, 1441298181),
+    method_def(pika_lvgl_dropdown_clear_options, 1694821431),
+    method_def(pika_lvgl_dropdown_get_dir, 1886388323),
+    method_def(pika_lvgl_dropdown_get_option_index, 1996039444),
+    method_def(pika_lvgl_dropdown_get_selected_highlight, 2056354148),
+    method_def(pika_lvgl_dropdown_open, 2090588023),
+    method_def(pika_lvgl_dropdown_get_text, 2121843465),
+    method_def(pika_lvgl_dropdown_get_symbol, 2126783674),
+};
+class_inhert(pika_lvgl_dropdown, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_dropdown(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_dropdown);
+    return self;
+}
+
+Arg *pika_lvgl_dropdown(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_dropdown);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_flag_t___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_flag_t___init__(self);
+}
+method_typedef(
+    pika_lvgl_flag_t___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_flag_t){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_flag_t___init__, 904762485),
+};
+class_inhert(pika_lvgl_flag_t, TinyObj);
+
+PikaObj *New_pika_lvgl_flag_t(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_flag_t);
+    return self;
+}
+
+Arg *pika_lvgl_flag_t(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_flag_t);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_img___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_img___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_img___init__,
+    "__init__", "parent"
+);
+
+void pika_lvgl_img_get_angleMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_img_get_angle(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_img_get_angle,
+    "get_angle", ""
+);
+
+void pika_lvgl_img_get_antialiasMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_img_get_antialias(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_img_get_antialias,
+    "get_antialias", ""
+);
+
+void pika_lvgl_img_get_offset_xMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_img_get_offset_x(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_img_get_offset_x,
+    "get_offset_x", ""
+);
+
+void pika_lvgl_img_get_offset_yMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_img_get_offset_y(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_img_get_offset_y,
+    "get_offset_y", ""
+);
+
+void pika_lvgl_img_get_size_modeMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_img_get_size_mode(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_img_get_size_mode,
+    "get_size_mode", ""
+);
+
+void pika_lvgl_img_get_srcMethod(PikaObj *self, Args *args){
+    PikaObj* res = pika_lvgl_img_get_src(self);
+    method_returnObj(args, res);
+}
+method_typedef(
+    pika_lvgl_img_get_src,
+    "get_src", ""
+);
+
+void pika_lvgl_img_get_zoomMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_img_get_zoom(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_img_get_zoom,
+    "get_zoom", ""
+);
+
+void pika_lvgl_img_set_angleMethod(PikaObj *self, Args *args){
+    int angle = args_getInt(args, "angle");
+    pika_lvgl_img_set_angle(self, angle);
+}
+method_typedef(
+    pika_lvgl_img_set_angle,
+    "set_angle", "angle"
+);
+
+void pika_lvgl_img_set_antialiasMethod(PikaObj *self, Args *args){
+    int antialias = args_getInt(args, "antialias");
+    pika_lvgl_img_set_antialias(self, antialias);
+}
+method_typedef(
+    pika_lvgl_img_set_antialias,
+    "set_antialias", "antialias"
+);
+
+void pika_lvgl_img_set_offset_xMethod(PikaObj *self, Args *args){
+    int x = args_getInt(args, "x");
+    pika_lvgl_img_set_offset_x(self, x);
+}
+method_typedef(
+    pika_lvgl_img_set_offset_x,
+    "set_offset_x", "x"
+);
+
+void pika_lvgl_img_set_offset_yMethod(PikaObj *self, Args *args){
+    int y = args_getInt(args, "y");
+    pika_lvgl_img_set_offset_y(self, y);
+}
+method_typedef(
+    pika_lvgl_img_set_offset_y,
+    "set_offset_y", "y"
+);
+
+void pika_lvgl_img_set_pivotMethod(PikaObj *self, Args *args){
+    int x = args_getInt(args, "x");
+    int y = args_getInt(args, "y");
+    pika_lvgl_img_set_pivot(self, x, y);
+}
+method_typedef(
+    pika_lvgl_img_set_pivot,
+    "set_pivot", "x,y"
+);
+
+void pika_lvgl_img_set_size_modeMethod(PikaObj *self, Args *args){
+    int mode = args_getInt(args, "mode");
+    pika_lvgl_img_set_size_mode(self, mode);
+}
+method_typedef(
+    pika_lvgl_img_set_size_mode,
+    "set_size_mode", "mode"
+);
+
+void pika_lvgl_img_set_srcMethod(PikaObj *self, Args *args){
+    PikaObj* src = args_getPtr(args, "src");
+    pika_lvgl_img_set_src(self, src);
+}
+method_typedef(
+    pika_lvgl_img_set_src,
+    "set_src", "src"
+);
+
+void pika_lvgl_img_set_zoomMethod(PikaObj *self, Args *args){
+    int zoom = args_getInt(args, "zoom");
+    pika_lvgl_img_set_zoom(self, zoom);
+}
+method_typedef(
+    pika_lvgl_img_set_zoom,
+    "set_zoom", "zoom"
+);
+
+class_def(pika_lvgl_img){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_img_set_src, 204151384),
+    method_def(pika_lvgl_img_set_zoom, 294793525),
+    method_def(pika_lvgl_img_set_offset_x, 352910606),
+    method_def(pika_lvgl_img_set_offset_y, 352910607),
+    method_def(pika_lvgl_img_get_antialias, 520340730),
+    method_def(pika_lvgl_img_set_size_mode, 794050543),
+    method_def(pika_lvgl_img___init__, 904762485),
+    method_def(pika_lvgl_img_set_angle, 1108559127),
+    method_def(pika_lvgl_img_set_pivot, 1126184706),
+    method_def(pika_lvgl_img_get_offset_x, 1235262594),
+    method_def(pika_lvgl_img_get_offset_y, 1235262595),
+    method_def(pika_lvgl_img_get_angle, 1279129867),
+    method_def(pika_lvgl_img_set_antialias, 1467496198),
+    method_def(pika_lvgl_img_get_src, 1886404940),
+    method_def(pika_lvgl_img_get_size_mode, 1994378723),
+    method_def(pika_lvgl_img_get_zoom, 2122069673),
+};
+class_inhert(pika_lvgl_img, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_img(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_img);
+    return self;
+}
+
+Arg *pika_lvgl_img(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_img);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_img_dsc_t___init__Method(PikaObj *self, Args *args){
+    PikaObj* dsc_dict = args_getPtr(args, "dsc_dict");
+    pika_lvgl_img_dsc_t___init__(self, dsc_dict);
+}
+method_typedef(
+    pika_lvgl_img_dsc_t___init__,
+    "__init__", "dsc_dict"
+);
+
+class_def(pika_lvgl_img_dsc_t){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_img_dsc_t___init__, 904762485),
+};
+class_inhert(pika_lvgl_img_dsc_t, TinyObj);
+
+PikaObj *New_pika_lvgl_img_dsc_t(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_img_dsc_t);
+    return self;
+}
+
+Arg *pika_lvgl_img_dsc_t(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_img_dsc_t);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_indev_t_get_vectMethod(PikaObj *self, Args *args){
+    PikaObj* point = args_getPtr(args, "point");
+    pika_lvgl_indev_t_get_vect(self, point);
+}
+method_typedef(
+    pika_lvgl_indev_t_get_vect,
+    "get_vect", "point"
+);
+
+class_def(pika_lvgl_indev_t){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_indev_t_get_vect, 2121914646),
+};
+class_inhert(pika_lvgl_indev_t, TinyObj);
+
+PikaObj *New_pika_lvgl_indev_t(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_indev_t);
+    return self;
+}
+
+Arg *pika_lvgl_indev_t(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_indev_t);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_label___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_label___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_label___init__,
+    "__init__", "parent"
+);
+
+void pika_lvgl_label_set_long_modeMethod(PikaObj *self, Args *args){
+    int mode = args_getInt(args, "mode");
+    pika_lvgl_label_set_long_mode(self, mode);
+}
+method_typedef(
+    pika_lvgl_label_set_long_mode,
+    "set_long_mode", "mode"
+);
+
+void pika_lvgl_label_set_recolorMethod(PikaObj *self, Args *args){
+    int en = args_getInt(args, "en");
+    pika_lvgl_label_set_recolor(self, en);
+}
+method_typedef(
+    pika_lvgl_label_set_recolor,
+    "set_recolor", "en"
+);
+
+void pika_lvgl_label_set_style_text_alignMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    int selector = args_getInt(args, "selector");
+    pika_lvgl_label_set_style_text_align(self, value, selector);
+}
+method_typedef(
+    pika_lvgl_label_set_style_text_align,
+    "set_style_text_align", "value,selector"
+);
+
+void pika_lvgl_label_set_textMethod(PikaObj *self, Args *args){
+    char* txt = args_getStr(args, "txt");
+    pika_lvgl_label_set_text(self, txt);
+}
+method_typedef(
+    pika_lvgl_label_set_text,
+    "set_text", "txt"
+);
+
+class_def(pika_lvgl_label){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_label_set_text, 294567317),
+    method_def(pika_lvgl_label_set_style_text_align, 342106287),
+    method_def(pika_lvgl_label_set_recolor, 458355110),
+    method_def(pika_lvgl_label___init__, 904762485),
+    method_def(pika_lvgl_label_set_long_mode, 1919393380),
+};
+class_inhert(pika_lvgl_label, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_label(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_label);
+    return self;
+}
+
+Arg *pika_lvgl_label(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_label);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+class_def(pika_lvgl_lv_color_t){
+    __BEFORE_MOETHOD_DEF
+};
+class_inhert(pika_lvgl_lv_color_t, TinyObj);
+
+PikaObj *New_pika_lvgl_lv_color_t(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_lv_color_t);
+    return self;
+}
+
+Arg *pika_lvgl_lv_color_t(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_lv_color_t);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_lv_event_get_codeMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_event_get_code(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_event_get_code,
+    "get_code", ""
+);
+
+void pika_lvgl_lv_event_get_targetMethod(PikaObj *self, Args *args){
+    PikaObj* res = pika_lvgl_lv_event_get_target(self);
+    method_returnObj(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_event_get_target,
+    "get_target", ""
+);
+
+class_def(pika_lvgl_lv_event){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_lv_event_get_code, 2121242751),
+    method_def(pika_lvgl_lv_event_get_target, 2137641771),
+};
+class_inhert(pika_lvgl_lv_event, TinyObj);
+
+PikaObj *New_pika_lvgl_lv_event(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_lv_event);
+    return self;
+}
+
+Arg *pika_lvgl_lv_event(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_lv_event);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_lv_obj___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_lv_obj___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_lv_obj___init__,
+    "__init__", "parent"
+);
+
+void pika_lvgl_lv_obj_add_event_cbMethod(PikaObj *self, Args *args){
+    Arg* event_cb = args_getArg(args, "event_cb");
+    int filter = args_getInt(args, "filter");
+    void* user_data = args_getPtr(args, "user_data");
+    pika_lvgl_lv_obj_add_event_cb(self, event_cb, filter, user_data);
+}
+method_typedef(
+    pika_lvgl_lv_obj_add_event_cb,
+    "add_event_cb", "event_cb,filter,user_data"
+);
+
+void pika_lvgl_lv_obj_add_flagMethod(PikaObj *self, Args *args){
+    int flag = args_getInt(args, "flag");
+    pika_lvgl_lv_obj_add_flag(self, flag);
+}
+method_typedef(
+    pika_lvgl_lv_obj_add_flag,
+    "add_flag", "flag"
+);
+
+void pika_lvgl_lv_obj_add_stateMethod(PikaObj *self, Args *args){
+    int state = args_getInt(args, "state");
+    pika_lvgl_lv_obj_add_state(self, state);
+}
+method_typedef(
+    pika_lvgl_lv_obj_add_state,
+    "add_state", "state"
+);
+
+void pika_lvgl_lv_obj_add_styleMethod(PikaObj *self, Args *args){
+    PikaObj* style = args_getPtr(args, "style");
+    int selector = args_getInt(args, "selector");
+    pika_lvgl_lv_obj_add_style(self, style, selector);
+}
+method_typedef(
+    pika_lvgl_lv_obj_add_style,
+    "add_style", "style,selector"
+);
+
+void pika_lvgl_lv_obj_alignMethod(PikaObj *self, Args *args){
+    int align = args_getInt(args, "align");
+    int x_ofs = args_getInt(args, "x_ofs");
+    int y_ofs = args_getInt(args, "y_ofs");
+    pika_lvgl_lv_obj_align(self, align, x_ofs, y_ofs);
+}
+method_typedef(
+    pika_lvgl_lv_obj_align,
+    "align", "align,x_ofs,y_ofs"
+);
+
+void pika_lvgl_lv_obj_align_toMethod(PikaObj *self, Args *args){
+    PikaObj* base = args_getPtr(args, "base");
+    int align = args_getInt(args, "align");
+    int x_ofs = args_getInt(args, "x_ofs");
+    int y_ofs = args_getInt(args, "y_ofs");
+    pika_lvgl_lv_obj_align_to(self, base, align, x_ofs, y_ofs);
+}
+method_typedef(
+    pika_lvgl_lv_obj_align_to,
+    "align_to", "base,align,x_ofs,y_ofs"
+);
+
+void pika_lvgl_lv_obj_centerMethod(PikaObj *self, Args *args){
+    pika_lvgl_lv_obj_center(self);
+}
+method_typedef(
+    pika_lvgl_lv_obj_center,
+    "center", ""
+);
+
+void pika_lvgl_lv_obj_cleanMethod(PikaObj *self, Args *args){
+    pika_lvgl_lv_obj_clean(self);
+}
+method_typedef(
+    pika_lvgl_lv_obj_clean,
+    "clean", ""
+);
+
+void pika_lvgl_lv_obj_clear_flagMethod(PikaObj *self, Args *args){
+    int flag = args_getInt(args, "flag");
+    pika_lvgl_lv_obj_clear_flag(self, flag);
+}
+method_typedef(
+    pika_lvgl_lv_obj_clear_flag,
+    "clear_flag", "flag"
+);
+
+void pika_lvgl_lv_obj_get_content_heightMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_content_height(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_content_height,
+    "get_content_height", ""
+);
+
+void pika_lvgl_lv_obj_get_content_widthMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_content_width(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_content_width,
+    "get_content_width", ""
+);
+
+void pika_lvgl_lv_obj_get_heightMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_height(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_height,
+    "get_height", ""
+);
+
+void pika_lvgl_lv_obj_get_idMethod(PikaObj *self, Args *args){
+    char* res = pika_lvgl_lv_obj_get_id(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_id,
+    "get_id", ""
+);
+
+void pika_lvgl_lv_obj_get_self_heightMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_self_height(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_self_height,
+    "get_self_height", ""
+);
+
+void pika_lvgl_lv_obj_get_self_widthMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_self_width(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_self_width,
+    "get_self_width", ""
+);
+
+void pika_lvgl_lv_obj_get_widthMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_width(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_width,
+    "get_width", ""
+);
+
+void pika_lvgl_lv_obj_get_xMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_x(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_x,
+    "get_x", ""
+);
+
+void pika_lvgl_lv_obj_get_x2Method(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_x2(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_x2,
+    "get_x2", ""
+);
+
+void pika_lvgl_lv_obj_get_x_alignedMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_x_aligned(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_x_aligned,
+    "get_x_aligned", ""
+);
+
+void pika_lvgl_lv_obj_get_yMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_y(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_y,
+    "get_y", ""
+);
+
+void pika_lvgl_lv_obj_get_y2Method(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_y2(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_y2,
+    "get_y2", ""
+);
+
+void pika_lvgl_lv_obj_get_y_alignedMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_get_y_aligned(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_get_y_aligned,
+    "get_y_aligned", ""
+);
+
+void pika_lvgl_lv_obj_hit_testMethod(PikaObj *self, Args *args){
+    PikaObj* point = args_getPtr(args, "point");
+    int res = pika_lvgl_lv_obj_hit_test(self, point);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_hit_test,
+    "hit_test", "point"
+);
+
+void pika_lvgl_lv_obj_invalidateMethod(PikaObj *self, Args *args){
+    pika_lvgl_lv_obj_invalidate(self);
+}
+method_typedef(
+    pika_lvgl_lv_obj_invalidate,
+    "invalidate", ""
+);
+
+void pika_lvgl_lv_obj_is_layout_positionedMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_is_layout_positioned(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_is_layout_positioned,
+    "is_layout_positioned", ""
+);
+
+void pika_lvgl_lv_obj_is_visibleMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_is_visible(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_is_visible,
+    "is_visible", ""
+);
+
+void pika_lvgl_lv_obj_mark_layout_as_dirtyMethod(PikaObj *self, Args *args){
+    pika_lvgl_lv_obj_mark_layout_as_dirty(self);
+}
+method_typedef(
+    pika_lvgl_lv_obj_mark_layout_as_dirty,
+    "mark_layout_as_dirty", ""
+);
+
+void pika_lvgl_lv_obj_move_children_byMethod(PikaObj *self, Args *args){
+    int x_diff = args_getInt(args, "x_diff");
+    int y_diff = args_getInt(args, "y_diff");
+    int ignore_floating = args_getInt(args, "ignore_floating");
+    pika_lvgl_lv_obj_move_children_by(self, x_diff, y_diff, ignore_floating);
+}
+method_typedef(
+    pika_lvgl_lv_obj_move_children_by,
+    "move_children_by", "x_diff,y_diff,ignore_floating"
+);
+
+void pika_lvgl_lv_obj_move_toMethod(PikaObj *self, Args *args){
+    int x = args_getInt(args, "x");
+    int y = args_getInt(args, "y");
+    pika_lvgl_lv_obj_move_to(self, x, y);
+}
+method_typedef(
+    pika_lvgl_lv_obj_move_to,
+    "move_to", "x,y"
+);
+
+void pika_lvgl_lv_obj_refr_posMethod(PikaObj *self, Args *args){
+    pika_lvgl_lv_obj_refr_pos(self);
+}
+method_typedef(
+    pika_lvgl_lv_obj_refr_pos,
+    "refr_pos", ""
+);
+
+void pika_lvgl_lv_obj_refr_sizeMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_refr_size(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_refr_size,
+    "refr_size", ""
+);
+
+void pika_lvgl_lv_obj_refresh_self_sizeMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_lv_obj_refresh_self_size(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_lv_obj_refresh_self_size,
+    "refresh_self_size", ""
+);
+
+void pika_lvgl_lv_obj_set_alignMethod(PikaObj *self, Args *args){
+    int align = args_getInt(args, "align");
+    pika_lvgl_lv_obj_set_align(self, align);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_align,
+    "set_align", "align"
+);
+
+void pika_lvgl_lv_obj_set_content_heightMethod(PikaObj *self, Args *args){
+    int h = args_getInt(args, "h");
+    pika_lvgl_lv_obj_set_content_height(self, h);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_content_height,
+    "set_content_height", "h"
+);
+
+void pika_lvgl_lv_obj_set_content_widthMethod(PikaObj *self, Args *args){
+    int w = args_getInt(args, "w");
+    pika_lvgl_lv_obj_set_content_width(self, w);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_content_width,
+    "set_content_width", "w"
+);
+
+void pika_lvgl_lv_obj_set_ext_click_areaMethod(PikaObj *self, Args *args){
+    int size = args_getInt(args, "size");
+    pika_lvgl_lv_obj_set_ext_click_area(self, size);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_ext_click_area,
+    "set_ext_click_area", "size"
+);
+
+void pika_lvgl_lv_obj_set_flex_alignMethod(PikaObj *self, Args *args){
+    int main_place = args_getInt(args, "main_place");
+    int cross_place = args_getInt(args, "cross_place");
+    int align = args_getInt(args, "align");
+    pika_lvgl_lv_obj_set_flex_align(self, main_place, cross_place, align);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_flex_align,
+    "set_flex_align", "main_place,cross_place,align"
+);
+
+void pika_lvgl_lv_obj_set_flex_flowMethod(PikaObj *self, Args *args){
+    int flow = args_getInt(args, "flow");
+    pika_lvgl_lv_obj_set_flex_flow(self, flow);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_flex_flow,
+    "set_flex_flow", "flow"
+);
+
+void pika_lvgl_lv_obj_set_flex_growMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_lv_obj_set_flex_grow(self, value);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_flex_grow,
+    "set_flex_grow", "value"
+);
+
+void pika_lvgl_lv_obj_set_heightMethod(PikaObj *self, Args *args){
+    int h = args_getInt(args, "h");
+    pika_lvgl_lv_obj_set_height(self, h);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_height,
+    "set_height", "h"
+);
+
+void pika_lvgl_lv_obj_set_idMethod(PikaObj *self, Args *args){
+    char* id = args_getStr(args, "id");
+    pika_lvgl_lv_obj_set_id(self, id);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_id,
+    "set_id", "id"
+);
+
+void pika_lvgl_lv_obj_set_layoutMethod(PikaObj *self, Args *args){
+    int layout = args_getInt(args, "layout");
+    pika_lvgl_lv_obj_set_layout(self, layout);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_layout,
+    "set_layout", "layout"
+);
+
+void pika_lvgl_lv_obj_set_posMethod(PikaObj *self, Args *args){
+    int x = args_getInt(args, "x");
+    int y = args_getInt(args, "y");
+    pika_lvgl_lv_obj_set_pos(self, x, y);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_pos,
+    "set_pos", "x,y"
+);
+
+void pika_lvgl_lv_obj_set_sizeMethod(PikaObj *self, Args *args){
+    int w = args_getInt(args, "w");
+    int h = args_getInt(args, "h");
+    pika_lvgl_lv_obj_set_size(self, w, h);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_size,
+    "set_size", "w,h"
+);
+
+void pika_lvgl_lv_obj_set_widthMethod(PikaObj *self, Args *args){
+    int w = args_getInt(args, "w");
+    pika_lvgl_lv_obj_set_width(self, w);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_width,
+    "set_width", "w"
+);
+
+void pika_lvgl_lv_obj_set_xMethod(PikaObj *self, Args *args){
+    int x = args_getInt(args, "x");
+    pika_lvgl_lv_obj_set_x(self, x);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_x,
+    "set_x", "x"
+);
+
+void pika_lvgl_lv_obj_set_yMethod(PikaObj *self, Args *args){
+    int y = args_getInt(args, "y");
+    pika_lvgl_lv_obj_set_y(self, y);
+}
+method_typedef(
+    pika_lvgl_lv_obj_set_y,
+    "set_y", "y"
+);
+
+void pika_lvgl_lv_obj_transform_pointMethod(PikaObj *self, Args *args){
+    PikaObj* p = args_getPtr(args, "p");
+    int recursive = args_getInt(args, "recursive");
+    int inv = args_getInt(args, "inv");
+    pika_lvgl_lv_obj_transform_point(self, p, recursive, inv);
+}
+method_typedef(
+    pika_lvgl_lv_obj_transform_point,
+    "transform_point", "p,recursive,inv"
+);
+
+void pika_lvgl_lv_obj_update_layoutMethod(PikaObj *self, Args *args){
+    pika_lvgl_lv_obj_update_layout(self);
+}
+method_typedef(
+    pika_lvgl_lv_obj_update_layout,
+    "update_layout", ""
+);
+
+class_def(pika_lvgl_lv_obj){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_lv_obj_invalidate, 3591110),
+    method_def(pika_lvgl_lv_obj_add_flag, 43609191),
+    method_def(pika_lvgl_lv_obj_set_ext_click_area, 60312958),
+    method_def(pika_lvgl_lv_obj_get_y_aligned, 63829840),
+    method_def(pika_lvgl_lv_obj_refr_pos, 99691301),
+    method_def(pika_lvgl_lv_obj_set_content_width, 137436842),
+    method_def(pika_lvgl_lv_obj_set_pos, 204148034),
+    method_def(pika_lvgl_lv_obj_align, 253185616),
+    method_def(pika_lvgl_lv_obj_clean, 255552904),
+    method_def(pika_lvgl_lv_obj_get_x_aligned, 257001039),
+    method_def(pika_lvgl_lv_obj_get_x, 260061308),
+    method_def(pika_lvgl_lv_obj_get_y, 260061309),
+    method_def(pika_lvgl_lv_obj_set_x, 274292360),
+    method_def(pika_lvgl_lv_obj_set_y, 274292361),
+    method_def(pika_lvgl_lv_obj_set_size, 294535787),
+    method_def(pika_lvgl_lv_obj_refresh_self_size, 302518935),
+    method_def(pika_lvgl_lv_obj_set_height, 338570281),
+    method_def(pika_lvgl_lv_obj_set_flex_align, 387549385),
+    method_def(pika_lvgl_lv_obj_mark_layout_as_dirty, 392460491),
+    method_def(pika_lvgl_lv_obj_set_id, 461712893),
+    method_def(pika_lvgl_lv_obj_set_layout, 490952302),
+    method_def(pika_lvgl_lv_obj_hit_test, 514034249),
+    method_def(pika_lvgl_lv_obj_get_self_height, 519588102),
+    method_def(pika_lvgl_lv_obj_is_layout_positioned, 587518683),
+    method_def(pika_lvgl_lv_obj_get_content_width, 637175454),
+    method_def(pika_lvgl_lv_obj___init__, 904762485),
+    method_def(pika_lvgl_lv_obj_get_content_height, 1107828215),
+    method_def(pika_lvgl_lv_obj_set_align, 1108489275),
+    method_def(pika_lvgl_lv_obj_set_width, 1134466704),
+    method_def(pika_lvgl_lv_obj_refr_size, 1142430894),
+    method_def(pika_lvgl_lv_obj_get_width, 1305037444),
+    method_def(pika_lvgl_lv_obj_update_layout, 1348517285),
+    method_def(pika_lvgl_lv_obj_move_children_by, 1406194782),
+    method_def(pika_lvgl_lv_obj_move_to, 1439197854),
+    method_def(pika_lvgl_lv_obj_add_state, 1454808302),
+    method_def(pika_lvgl_lv_obj_add_style, 1454834174),
+    method_def(pika_lvgl_lv_obj_is_visible, 1459230894),
+    method_def(pika_lvgl_lv_obj_clear_flag, 1542104037),
+    method_def(pika_lvgl_lv_obj_get_self_width, 1660554189),
+    method_def(pika_lvgl_lv_obj_get_height, 1672437405),
+    method_def(pika_lvgl_lv_obj_set_flex_flow, 1703880630),
+    method_def(pika_lvgl_lv_obj_set_flex_grow, 1703923101),
+    method_def(pika_lvgl_lv_obj_set_content_height, 1796323203),
+    method_def(pika_lvgl_lv_obj_add_event_cb, 1884315091),
+    method_def(pika_lvgl_lv_obj_center, 1982837382),
+    method_def(pika_lvgl_lv_obj_align_to, 1990856658),
+    method_def(pika_lvgl_lv_obj_transform_point, 2082582986),
+    method_def(pika_lvgl_lv_obj_get_id, 2139571825),
+    method_def(pika_lvgl_lv_obj_get_x2, 2139572270),
+    method_def(pika_lvgl_lv_obj_get_y2, 2139572303),
+};
+class_inhert(pika_lvgl_lv_obj, TinyObj);
+
+PikaObj *New_pika_lvgl_lv_obj(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_lv_obj);
+    return self;
+}
+
+Arg *pika_lvgl_lv_obj(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_lv_obj);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_lv_timer_t__delMethod(PikaObj *self, Args *args){
+    pika_lvgl_lv_timer_t__del(self);
+}
+method_typedef(
+    pika_lvgl_lv_timer_t__del,
+    "_del", ""
+);
+
+void pika_lvgl_lv_timer_t_set_cbMethod(PikaObj *self, Args *args){
+    Arg* cb = args_getArg(args, "cb");
+    pika_lvgl_lv_timer_t_set_cb(self, cb);
+}
+method_typedef(
+    pika_lvgl_lv_timer_t_set_cb,
+    "set_cb", "cb"
+);
+
+void pika_lvgl_lv_timer_t_set_periodMethod(PikaObj *self, Args *args){
+    int period = args_getInt(args, "period");
+    pika_lvgl_lv_timer_t_set_period(self, period);
+}
+method_typedef(
+    pika_lvgl_lv_timer_t_set_period,
+    "set_period", "period"
+);
+
+class_def(pika_lvgl_lv_timer_t){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_lv_timer_t_set_cb, 461712693),
+    method_def(pika_lvgl_lv_timer_t_set_period, 651979251),
+    method_def(pika_lvgl_lv_timer_t__del, 2089999961),
+};
+class_inhert(pika_lvgl_lv_timer_t, TinyObj);
+
+PikaObj *New_pika_lvgl_lv_timer_t(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_lv_timer_t);
+    return self;
+}
+
+Arg *pika_lvgl_lv_timer_t(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_lv_timer_t);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_obj___init__Method(PikaObj *self, Args *args){
+    PikaTuple* parent = args_getTuple(args, "parent");
+    pika_lvgl_obj___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_obj___init__,
+    "__init__", "*parent"
+);
+
+class_def(pika_lvgl_obj){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_obj___init__, 904762485),
+};
+class_inhert(pika_lvgl_obj, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_obj(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_obj);
+    return self;
+}
+
+Arg *pika_lvgl_obj(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_obj);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_point_t___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_point_t___init__(self);
+}
+method_typedef(
+    pika_lvgl_point_t___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_point_t){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_point_t___init__, 904762485),
+};
+class_inhert(pika_lvgl_point_t, TinyObj);
+
+PikaObj *New_pika_lvgl_point_t(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_point_t);
+    return self;
+}
+
+Arg *pika_lvgl_point_t(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_point_t);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_roller___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_roller___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_roller___init__,
+    "__init__", "parent"
+);
+
+void pika_lvgl_roller_set_optionsMethod(PikaObj *self, Args *args){
+    char* options = args_getStr(args, "options");
+    int mode = args_getInt(args, "mode");
+    pika_lvgl_roller_set_options(self, options, mode);
+}
+method_typedef(
+    pika_lvgl_roller_set_options,
+    "set_options", "options,mode"
+);
+
+void pika_lvgl_roller_set_visible_row_countMethod(PikaObj *self, Args *args){
+    int row_cnt = args_getInt(args, "row_cnt");
+    pika_lvgl_roller_set_visible_row_count(self, row_cnt);
+}
+method_typedef(
+    pika_lvgl_roller_set_visible_row_count,
+    "set_visible_row_count", "row_cnt"
+);
+
+class_def(pika_lvgl_roller){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_roller___init__, 904762485),
+    method_def(pika_lvgl_roller_set_visible_row_count, 1296618621),
+    method_def(pika_lvgl_roller_set_options, 1329356092),
+};
+class_inhert(pika_lvgl_roller, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_roller(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_roller);
+    return self;
+}
+
+Arg *pika_lvgl_roller(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_roller);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_slider___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_slider___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_slider___init__,
+    "__init__", "parent"
+);
+
+class_def(pika_lvgl_slider){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_slider___init__, 904762485),
+};
+class_inhert(pika_lvgl_slider, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_slider(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_slider);
+    return self;
+}
+
+Arg *pika_lvgl_slider(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_slider);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_style_t___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_style_t___init__(self);
+}
+method_typedef(
+    pika_lvgl_style_t___init__,
+    "__init__", ""
+);
+
+void pika_lvgl_style_t_get_num_custom_propsMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_style_t_get_num_custom_props(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_style_t_get_num_custom_props,
+    "get_num_custom_props", ""
+);
+
+void pika_lvgl_style_t_initMethod(PikaObj *self, Args *args){
+    pika_lvgl_style_t_init(self);
+}
+method_typedef(
+    pika_lvgl_style_t_init,
+    "init", ""
+);
+
+void pika_lvgl_style_t_is_emptyMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_style_t_is_empty(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_style_t_is_empty,
+    "is_empty", ""
+);
+
+void pika_lvgl_style_t_prop_has_flagMethod(PikaObj *self, Args *args){
+    int prop = args_getInt(args, "prop");
+    int flag = args_getInt(args, "flag");
+    int res = pika_lvgl_style_t_prop_has_flag(self, prop, flag);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_style_t_prop_has_flag,
+    "prop_has_flag", "prop,flag"
+);
+
+void pika_lvgl_style_t_register_propMethod(PikaObj *self, Args *args){
+    int flag = args_getInt(args, "flag");
+    int res = pika_lvgl_style_t_register_prop(self, flag);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_style_t_register_prop,
+    "register_prop", "flag"
+);
+
+void pika_lvgl_style_t_remove_propMethod(PikaObj *self, Args *args){
+    int prop = args_getInt(args, "prop");
+    int res = pika_lvgl_style_t_remove_prop(self, prop);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_style_t_remove_prop,
+    "remove_prop", "prop"
+);
+
+void pika_lvgl_style_t_resetMethod(PikaObj *self, Args *args){
+    pika_lvgl_style_t_reset(self);
+}
+method_typedef(
+    pika_lvgl_style_t_reset,
+    "reset", ""
+);
+
+void pika_lvgl_style_t_set_alignMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_align(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_align,
+    "set_align", "value"
+);
+
+void pika_lvgl_style_t_set_anim_speedMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_anim_speed(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_anim_speed,
+    "set_anim_speed", "value"
+);
+
+void pika_lvgl_style_t_set_anim_timeMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_anim_time(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_anim_time,
+    "set_anim_time", "value"
+);
+
+void pika_lvgl_style_t_set_arc_colorMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_arc_color(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_arc_color,
+    "set_arc_color", "value"
+);
+
+void pika_lvgl_style_t_set_arc_img_srcMethod(PikaObj *self, Args *args){
+    uint8_t* value = args_getBytes(args, "value");
+    pika_lvgl_style_t_set_arc_img_src(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_arc_img_src,
+    "set_arc_img_src", "value"
+);
+
+void pika_lvgl_style_t_set_arc_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_arc_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_arc_opa,
+    "set_arc_opa", "value"
+);
+
+void pika_lvgl_style_t_set_arc_roundedMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_arc_rounded(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_arc_rounded,
+    "set_arc_rounded", "value"
+);
+
+void pika_lvgl_style_t_set_arc_widthMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_arc_width(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_arc_width,
+    "set_arc_width", "value"
+);
+
+void pika_lvgl_style_t_set_base_dirMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_base_dir(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_base_dir,
+    "set_base_dir", "value"
+);
+
+void pika_lvgl_style_t_set_bg_colorMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_bg_color(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_color,
+    "set_bg_color", "value"
+);
+
+void pika_lvgl_style_t_set_bg_dither_modeMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_bg_dither_mode(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_dither_mode,
+    "set_bg_dither_mode", "value"
+);
+
+void pika_lvgl_style_t_set_bg_grad_colorMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_bg_grad_color(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_grad_color,
+    "set_bg_grad_color", "value"
+);
+
+void pika_lvgl_style_t_set_bg_grad_dirMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_bg_grad_dir(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_grad_dir,
+    "set_bg_grad_dir", "value"
+);
+
+void pika_lvgl_style_t_set_bg_grad_stopMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_bg_grad_stop(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_grad_stop,
+    "set_bg_grad_stop", "value"
+);
+
+void pika_lvgl_style_t_set_bg_img_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_bg_img_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_img_opa,
+    "set_bg_img_opa", "value"
+);
+
+void pika_lvgl_style_t_set_bg_img_recolorMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_bg_img_recolor(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_img_recolor,
+    "set_bg_img_recolor", "value"
+);
+
+void pika_lvgl_style_t_set_bg_img_recolor_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_bg_img_recolor_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_img_recolor_opa,
+    "set_bg_img_recolor_opa", "value"
+);
+
+void pika_lvgl_style_t_set_bg_img_srcMethod(PikaObj *self, Args *args){
+    uint8_t* value = args_getBytes(args, "value");
+    pika_lvgl_style_t_set_bg_img_src(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_img_src,
+    "set_bg_img_src", "value"
+);
+
+void pika_lvgl_style_t_set_bg_img_tiledMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_bg_img_tiled(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_img_tiled,
+    "set_bg_img_tiled", "value"
+);
+
+void pika_lvgl_style_t_set_bg_main_stopMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_bg_main_stop(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_main_stop,
+    "set_bg_main_stop", "value"
+);
+
+void pika_lvgl_style_t_set_bg_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_bg_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_bg_opa,
+    "set_bg_opa", "value"
+);
+
+void pika_lvgl_style_t_set_blend_modeMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_blend_mode(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_blend_mode,
+    "set_blend_mode", "value"
+);
+
+void pika_lvgl_style_t_set_border_colorMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_border_color(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_border_color,
+    "set_border_color", "value"
+);
+
+void pika_lvgl_style_t_set_border_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_border_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_border_opa,
+    "set_border_opa", "value"
+);
+
+void pika_lvgl_style_t_set_border_postMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_border_post(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_border_post,
+    "set_border_post", "value"
+);
+
+void pika_lvgl_style_t_set_border_sideMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_border_side(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_border_side,
+    "set_border_side", "value"
+);
+
+void pika_lvgl_style_t_set_border_widthMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_border_width(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_border_width,
+    "set_border_width", "value"
+);
+
+void pika_lvgl_style_t_set_clip_cornerMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_clip_corner(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_clip_corner,
+    "set_clip_corner", "value"
+);
+
+void pika_lvgl_style_t_set_color_filter_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_color_filter_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_color_filter_opa,
+    "set_color_filter_opa", "value"
+);
+
+void pika_lvgl_style_t_set_flex_cross_placeMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_flex_cross_place(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_flex_cross_place,
+    "set_flex_cross_place", "value"
+);
+
+void pika_lvgl_style_t_set_flex_flowMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_flex_flow(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_flex_flow,
+    "set_flex_flow", "value"
+);
+
+void pika_lvgl_style_t_set_flex_growMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_flex_grow(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_flex_grow,
+    "set_flex_grow", "value"
+);
+
+void pika_lvgl_style_t_set_flex_main_placeMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_flex_main_place(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_flex_main_place,
+    "set_flex_main_place", "value"
+);
+
+void pika_lvgl_style_t_set_flex_track_placeMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_flex_track_place(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_flex_track_place,
+    "set_flex_track_place", "value"
+);
+
+void pika_lvgl_style_t_set_heightMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_height(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_height,
+    "set_height", "value"
+);
+
+void pika_lvgl_style_t_set_img_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_img_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_img_opa,
+    "set_img_opa", "value"
+);
+
+void pika_lvgl_style_t_set_img_recolorMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_img_recolor(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_img_recolor,
+    "set_img_recolor", "value"
+);
+
+void pika_lvgl_style_t_set_img_recolor_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_img_recolor_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_img_recolor_opa,
+    "set_img_recolor_opa", "value"
+);
+
+void pika_lvgl_style_t_set_layoutMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_layout(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_layout,
+    "set_layout", "value"
+);
+
+void pika_lvgl_style_t_set_line_colorMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_line_color(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_line_color,
+    "set_line_color", "value"
+);
+
+void pika_lvgl_style_t_set_line_dash_gapMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_line_dash_gap(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_line_dash_gap,
+    "set_line_dash_gap", "value"
+);
+
+void pika_lvgl_style_t_set_line_dash_widthMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_line_dash_width(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_line_dash_width,
+    "set_line_dash_width", "value"
+);
+
+void pika_lvgl_style_t_set_line_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_line_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_line_opa,
+    "set_line_opa", "value"
+);
+
+void pika_lvgl_style_t_set_line_roundedMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_line_rounded(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_line_rounded,
+    "set_line_rounded", "value"
+);
+
+void pika_lvgl_style_t_set_line_widthMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_line_width(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_line_width,
+    "set_line_width", "value"
+);
+
+void pika_lvgl_style_t_set_max_heightMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_max_height(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_max_height,
+    "set_max_height", "value"
+);
+
+void pika_lvgl_style_t_set_max_widthMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_max_width(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_max_width,
+    "set_max_width", "value"
+);
+
+void pika_lvgl_style_t_set_min_heightMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_min_height(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_min_height,
+    "set_min_height", "value"
+);
+
+void pika_lvgl_style_t_set_min_widthMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_min_width(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_min_width,
+    "set_min_width", "value"
+);
+
+void pika_lvgl_style_t_set_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_opa,
+    "set_opa", "value"
+);
+
+void pika_lvgl_style_t_set_outline_colorMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_outline_color(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_outline_color,
+    "set_outline_color", "value"
+);
+
+void pika_lvgl_style_t_set_outline_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_outline_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_outline_opa,
+    "set_outline_opa", "value"
+);
+
+void pika_lvgl_style_t_set_outline_padMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_outline_pad(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_outline_pad,
+    "set_outline_pad", "value"
+);
+
+void pika_lvgl_style_t_set_outline_widthMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_outline_width(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_outline_width,
+    "set_outline_width", "value"
+);
+
+void pika_lvgl_style_t_set_pad_allMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_pad_all(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_pad_all,
+    "set_pad_all", "value"
+);
+
+void pika_lvgl_style_t_set_pad_bottomMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_pad_bottom(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_pad_bottom,
+    "set_pad_bottom", "value"
+);
+
+void pika_lvgl_style_t_set_pad_columnMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_pad_column(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_pad_column,
+    "set_pad_column", "value"
+);
+
+void pika_lvgl_style_t_set_pad_gapMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_pad_gap(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_pad_gap,
+    "set_pad_gap", "value"
+);
+
+void pika_lvgl_style_t_set_pad_horMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_pad_hor(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_pad_hor,
+    "set_pad_hor", "value"
+);
+
+void pika_lvgl_style_t_set_pad_leftMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_pad_left(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_pad_left,
+    "set_pad_left", "value"
+);
+
+void pika_lvgl_style_t_set_pad_rightMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_pad_right(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_pad_right,
+    "set_pad_right", "value"
+);
+
+void pika_lvgl_style_t_set_pad_rowMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_pad_row(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_pad_row,
+    "set_pad_row", "value"
+);
+
+void pika_lvgl_style_t_set_pad_topMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_pad_top(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_pad_top,
+    "set_pad_top", "value"
+);
+
+void pika_lvgl_style_t_set_pad_verMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_pad_ver(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_pad_ver,
+    "set_pad_ver", "value"
+);
+
+void pika_lvgl_style_t_set_radiusMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_radius(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_radius,
+    "set_radius", "value"
+);
+
+void pika_lvgl_style_t_set_shadow_colorMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_shadow_color(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_shadow_color,
+    "set_shadow_color", "value"
+);
+
+void pika_lvgl_style_t_set_shadow_ofs_xMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_shadow_ofs_x(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_shadow_ofs_x,
+    "set_shadow_ofs_x", "value"
+);
+
+void pika_lvgl_style_t_set_shadow_ofs_yMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_shadow_ofs_y(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_shadow_ofs_y,
+    "set_shadow_ofs_y", "value"
+);
+
+void pika_lvgl_style_t_set_shadow_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_shadow_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_shadow_opa,
+    "set_shadow_opa", "value"
+);
+
+void pika_lvgl_style_t_set_shadow_spreadMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_shadow_spread(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_shadow_spread,
+    "set_shadow_spread", "value"
+);
+
+void pika_lvgl_style_t_set_shadow_widthMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_shadow_width(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_shadow_width,
+    "set_shadow_width", "value"
+);
+
+void pika_lvgl_style_t_set_sizeMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_size(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_size,
+    "set_size", "value"
+);
+
+void pika_lvgl_style_t_set_text_alignMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_text_align(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_text_align,
+    "set_text_align", "value"
+);
+
+void pika_lvgl_style_t_set_text_colorMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_text_color(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_text_color,
+    "set_text_color", "value"
+);
+
+void pika_lvgl_style_t_set_text_decorMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_text_decor(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_text_decor,
+    "set_text_decor", "value"
+);
+
+void pika_lvgl_style_t_set_text_letter_spaceMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_text_letter_space(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_text_letter_space,
+    "set_text_letter_space", "value"
+);
+
+void pika_lvgl_style_t_set_text_line_spaceMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_text_line_space(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_text_line_space,
+    "set_text_line_space", "value"
+);
+
+void pika_lvgl_style_t_set_text_opaMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_text_opa(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_text_opa,
+    "set_text_opa", "value"
+);
+
+void pika_lvgl_style_t_set_transform_angleMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_transform_angle(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_transform_angle,
+    "set_transform_angle", "value"
+);
+
+void pika_lvgl_style_t_set_transform_heightMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_transform_height(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_transform_height,
+    "set_transform_height", "value"
+);
+
+void pika_lvgl_style_t_set_transform_pivot_xMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_transform_pivot_x(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_transform_pivot_x,
+    "set_transform_pivot_x", "value"
+);
+
+void pika_lvgl_style_t_set_transform_pivot_yMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_transform_pivot_y(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_transform_pivot_y,
+    "set_transform_pivot_y", "value"
+);
+
+void pika_lvgl_style_t_set_transform_widthMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_transform_width(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_transform_width,
+    "set_transform_width", "value"
+);
+
+void pika_lvgl_style_t_set_transform_zoomMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_transform_zoom(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_transform_zoom,
+    "set_transform_zoom", "value"
+);
+
+void pika_lvgl_style_t_set_translate_xMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_translate_x(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_translate_x,
+    "set_translate_x", "value"
+);
+
+void pika_lvgl_style_t_set_translate_yMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_translate_y(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_translate_y,
+    "set_translate_y", "value"
+);
+
+void pika_lvgl_style_t_set_widthMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_width(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_width,
+    "set_width", "value"
+);
+
+void pika_lvgl_style_t_set_xMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_x(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_x,
+    "set_x", "value"
+);
+
+void pika_lvgl_style_t_set_yMethod(PikaObj *self, Args *args){
+    int value = args_getInt(args, "value");
+    pika_lvgl_style_t_set_y(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_y,
+    "set_y", "value"
+);
+
+class_def(pika_lvgl_style_t){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_style_t_set_bg_grad_stop, 101336795),
+    method_def(pika_lvgl_style_t_set_bg_opa, 105779352),
+    method_def(pika_lvgl_style_t_set_transform_angle, 147403954),
+    method_def(pika_lvgl_style_t_set_transform_width, 173311531),
+    method_def(pika_lvgl_style_t_set_opa, 204146960),
+    method_def(pika_lvgl_style_t_set_text_opa, 258178836),
+    method_def(pika_lvgl_style_t_set_bg_main_stop, 263931458),
+    method_def(pika_lvgl_style_t_reset, 273105544),
+    method_def(pika_lvgl_style_t_set_x, 274292360),
+    method_def(pika_lvgl_style_t_set_y, 274292361),
+    method_def(pika_lvgl_style_t_set_blend_mode, 279913561),
+    method_def(pika_lvgl_style_t_set_size, 294535787),
+    method_def(pika_lvgl_style_t_set_anim_time, 300708035),
+    method_def(pika_lvgl_style_t_set_height, 338570281),
+    method_def(pika_lvgl_style_t_get_num_custom_props, 355535745),
+    method_def(pika_lvgl_style_t_set_bg_img_tiled, 358876486),
+    method_def(pika_lvgl_style_t_set_arc_img_src, 431511337),
+    method_def(pika_lvgl_style_t_set_bg_grad_dir, 458580948),
+    method_def(pika_lvgl_style_t_set_arc_opa, 486424517),
+    method_def(pika_lvgl_style_t_set_layout, 490952302),
+    method_def(pika_lvgl_style_t_set_bg_dither_mode, 496048092),
+    method_def(pika_lvgl_style_t_set_color_filter_opa, 508949203),
+    method_def(pika_lvgl_style_t_set_img_recolor, 608047938),
+    method_def(pika_lvgl_style_t_set_text_line_space, 675833767),
+    method_def(pika_lvgl_style_t_set_radius, 725003448),
+    method_def(pika_lvgl_style_t_set_outline_opa, 783690479),
+    method_def(pika_lvgl_style_t_set_outline_pad, 783691076),
+    method_def(pika_lvgl_style_t_set_flex_main_place, 810763239),
+    method_def(pika_lvgl_style_t_set_transform_height, 832704292),
+    method_def(pika_lvgl_style_t_set_base_dir, 840968681),
+    method_def(pika_lvgl_style_t_set_border_color, 841342988),
+    method_def(pika_lvgl_style_t_set_border_width, 864837229),
+    method_def(pika_lvgl_style_t_set_outline_color, 873672142),
+    method_def(pika_lvgl_style_t_set_min_height, 890494188),
+    method_def(pika_lvgl_style_t_set_outline_width, 897166383),
+    method_def(pika_lvgl_style_t___init__, 904762485),
+    method_def(pika_lvgl_style_t_register_prop, 927701706),
+    method_def(pika_lvgl_style_t_set_align, 1108489275),
+    method_def(pika_lvgl_style_t_set_line_dash_width, 1129934934),
+    method_def(pika_lvgl_style_t_set_shadow_color, 1132985364),
+    method_def(pika_lvgl_style_t_set_width, 1134466704),
+    method_def(pika_lvgl_style_t_set_shadow_ofs_x, 1146900084),
+    method_def(pika_lvgl_style_t_set_shadow_ofs_y, 1146900085),
+    method_def(pika_lvgl_style_t_set_shadow_width, 1156479605),
+    method_def(pika_lvgl_style_t_set_pad_right, 1168480290),
+    method_def(pika_lvgl_style_t_set_bg_grad_color, 1177472980),
+    method_def(pika_lvgl_style_t_set_text_letter_space, 1213071919),
+    method_def(pika_lvgl_style_t_set_line_opa, 1222296887),
+    method_def(pika_lvgl_style_t_set_max_height, 1271047598),
+    method_def(pika_lvgl_style_t_set_min_width, 1281342195),
+    method_def(pika_lvgl_style_t_set_flex_track_place, 1319252791),
+    method_def(pika_lvgl_style_t_set_anim_speed, 1332487589),
+    method_def(pika_lvgl_style_t_set_bg_color, 1362829751),
+    method_def(pika_lvgl_style_t_set_arc_rounded, 1412700790),
+    method_def(pika_lvgl_style_t_set_arc_color, 1421070372),
+    method_def(pika_lvgl_style_t_set_bg_img_opa, 1431980084),
+    method_def(pika_lvgl_style_t_set_bg_img_src, 1431984508),
+    method_def(pika_lvgl_style_t_set_pad_bottom, 1434056985),
+    method_def(pika_lvgl_style_t_set_arc_width, 1444564613),
+    method_def(pika_lvgl_style_t_set_pad_column, 1472905906),
+    method_def(pika_lvgl_style_t_set_transform_pivot_x, 1476021908),
+    method_def(pika_lvgl_style_t_set_transform_pivot_y, 1476021909),
+    method_def(pika_lvgl_style_t_set_shadow_spread, 1508851476),
+    method_def(pika_lvgl_style_t_set_bg_img_recolor, 1519657674),
+    method_def(pika_lvgl_style_t_set_border_post, 1522693683),
+    method_def(pika_lvgl_style_t_set_border_side, 1522794450),
+    method_def(pika_lvgl_style_t_is_empty, 1545098447),
+    method_def(pika_lvgl_style_t_remove_prop, 1582082643),
+    method_def(pika_lvgl_style_t_set_clip_corner, 1593656928),
+    method_def(pika_lvgl_style_t_set_transform_zoom, 1697323376),
+    method_def(pika_lvgl_style_t_set_flex_flow, 1703880630),
+    method_def(pika_lvgl_style_t_set_flex_grow, 1703923101),
+    method_def(pika_lvgl_style_t_set_line_color, 1774680598),
+    method_def(pika_lvgl_style_t_set_line_width, 1798174839),
+    method_def(pika_lvgl_style_t_set_shadow_opa, 1811328949),
+    method_def(pika_lvgl_style_t_set_max_width, 1813476213),
+    method_def(pika_lvgl_style_t_set_translate_x, 1837911061),
+    method_def(pika_lvgl_style_t_set_translate_y, 1837911062),
+    method_def(pika_lvgl_style_t_set_border_opa, 1868248493),
+    method_def(pika_lvgl_style_t_set_img_recolor_opa, 1877992257),
+    method_def(pika_lvgl_style_t_set_line_dash_gap, 1907922286),
+    method_def(pika_lvgl_style_t_set_text_align, 1967143743),
+    method_def(pika_lvgl_style_t_set_text_color, 1969626931),
+    method_def(pika_lvgl_style_t_set_text_decor, 1970443681),
+    method_def(pika_lvgl_style_t_set_pad_all, 2014443741),
+    method_def(pika_lvgl_style_t_set_pad_gap, 2014449916),
+    method_def(pika_lvgl_style_t_set_pad_hor, 2014451469),
+    method_def(pika_lvgl_style_t_set_pad_row, 2014462364),
+    method_def(pika_lvgl_style_t_set_pad_top, 2014464535),
+    method_def(pika_lvgl_style_t_set_pad_ver, 2014466385),
+    method_def(pika_lvgl_style_t_set_img_opa, 2037300396),
+    method_def(pika_lvgl_style_t_set_bg_img_recolor_opa, 2052224713),
+    method_def(pika_lvgl_style_t_set_pad_left, 2052521615),
+    method_def(pika_lvgl_style_t_init, 2090370361),
+    method_def(pika_lvgl_style_t_set_line_rounded, 2094663912),
+    method_def(pika_lvgl_style_t_prop_has_flag, 2108733306),
+    method_def(pika_lvgl_style_t_set_flex_cross_place, 2117569548),
+};
+class_inhert(pika_lvgl_style_t, TinyObj);
+
+PikaObj *New_pika_lvgl_style_t(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_style_t);
+    return self;
+}
+
+Arg *pika_lvgl_style_t(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_style_t);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_switch___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_switch___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_switch___init__,
+    "__init__", "parent"
+);
+
+class_def(pika_lvgl_switch){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_switch___init__, 904762485),
+};
+class_inhert(pika_lvgl_switch, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_switch(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_switch);
+    return self;
+}
+
+Arg *pika_lvgl_switch(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_switch);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_table___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_table___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_table___init__,
+    "__init__", "parent"
+);
+
+void pika_lvgl_table_set_cell_valueMethod(PikaObj *self, Args *args){
+    int row = args_getInt(args, "row");
+    int col = args_getInt(args, "col");
+    char* txt = args_getStr(args, "txt");
+    pika_lvgl_table_set_cell_value(self, row, col, txt);
+}
+method_typedef(
+    pika_lvgl_table_set_cell_value,
+    "set_cell_value", "row,col,txt"
+);
+
+class_def(pika_lvgl_table){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_table___init__, 904762485),
+    method_def(pika_lvgl_table_set_cell_value, 924500076),
+};
+class_inhert(pika_lvgl_table, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_table(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_table);
+    return self;
+}
+
+Arg *pika_lvgl_table(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_table);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_textarea___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_textarea___init__(self, parent);
+}
+method_typedef(
+    pika_lvgl_textarea___init__,
+    "__init__", "parent"
+);
+
+void pika_lvgl_textarea_set_one_lineMethod(PikaObj *self, Args *args){
+    int en = args_getInt(args, "en");
+    pika_lvgl_textarea_set_one_line(self, en);
+}
+method_typedef(
+    pika_lvgl_textarea_set_one_line,
+    "set_one_line", "en"
+);
+
+class_def(pika_lvgl_textarea){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_textarea___init__, 904762485),
+    method_def(pika_lvgl_textarea_set_one_line, 2032106009),
+};
+class_inhert(pika_lvgl_textarea, pika_lvgl_lv_obj);
+
+PikaObj *New_pika_lvgl_textarea(Args *args){
+    PikaObj *self = New_pika_lvgl_lv_obj(args);
+    obj_setClass(self, pika_lvgl_textarea);
+    return self;
+}
+
+Arg *pika_lvgl_textarea(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_textarea);
 }
 #endif
 

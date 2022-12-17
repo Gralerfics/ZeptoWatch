@@ -46,9 +46,9 @@
     #define PIKA_SYNTAX_LEVEL_MAXIMAL 1
 
     /* use user config */
-    #ifdef PIKA_CONFIG_ENABLE
+//    #ifdef PIKA_CONFIG_ENABLE
         #include "pika_config.h"
-    #endif
+//    #endif
 
     /* default pika_nano_enabled */
     #ifndef PIKA_NANO_ENABLE
@@ -184,7 +184,7 @@
     #endif
 
     #ifndef PIKA_STACK_BUFF_SIZE
-        #define PIKA_STACK_BUFF_SIZE 256
+        #define PIKA_STACK_BUFF_SIZE 512
     #endif
 
     #ifndef PIKA_NAME_BUFF_SIZE
@@ -334,6 +334,10 @@
 
     #ifndef PIKA_EVENT_LIST_SIZE
         #define PIKA_EVENT_LIST_SIZE 16
+    #endif
+        
+    #ifndef PIKA_BYTECODE_ONLY_ENABLE
+        #define PIKA_BYTECODE_ONLY_ENABLE 0
     #endif
 
     /* configuration validation */

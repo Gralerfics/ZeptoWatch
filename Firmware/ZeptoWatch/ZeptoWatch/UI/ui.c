@@ -472,10 +472,13 @@ void ui_Applications_screen_init(void)
 
     ui_applicationsList = lv_obj_create(ui_applicationsPanel);
     lv_obj_set_width(ui_applicationsList, 150);
-    lv_obj_set_height(ui_applicationsList, 146);
+    lv_obj_set_height(ui_applicationsList, 147);
     lv_obj_set_x(ui_applicationsList, 0);
     lv_obj_set_y(ui_applicationsList, 7);
     lv_obj_set_align(ui_applicationsList, LV_ALIGN_CENTER);
+    lv_obj_set_style_bg_color(ui_applicationsList, lv_color_hex(0x101418), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_applicationsList, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_width(ui_applicationsList, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_appRefreshIcon = lv_btn_create(ui_Applications);
     lv_obj_set_width(ui_appRefreshIcon, 50);

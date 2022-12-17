@@ -62,6 +62,7 @@ include_directories(
         Libraries
         Libraries/lvgl
         Libraries/lvgl/porting
+        Libraries/lvgl/src/core
         Libraries/PikaScript/pikascript-api
         Libraries/PikaScript/pikascript-core
         Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc

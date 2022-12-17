@@ -5,7 +5,7 @@
 
 #include "fshelper.h"
 
-extern PikaObj *MainPikaObj;
+PikaObj *MainPikaObj = NULL;
 
 int Application_RunningExisted __attribute__((section(".ccmram"))) = 0;
 char Application_RunningFilePath[APPLICATION_PATH_MAXLEN] __attribute__((section(".ccmram"))) = {0};
@@ -20,7 +20,7 @@ void Applications_Scan() {
 	FS_ScanFolder("0:", &Application_Number, (Application_Info_Type *) Application_Info);
 	if (Application_Number < 0) {
 		Application_Number = 0;
-		Debug_Printf("Scan failed.");
+		Debug_Printf("Scan Error.");
 	}
 
 	for (int i = 0; i < Application_Number; i ++) {
@@ -33,6 +33,8 @@ void Applications_Scan() {
 		char txt[45] = {0};
 		sprintf(txt, "Loading %s ...", Application_Info[i].path);
 		lv_label_set_text(ui_applicationsLabel, txt);
+
+		Debug_Printf("Parsing:\n");
 
 		FS_ReadFile(Application_Info[i].path);
 		char *Program = (char *) ReadBuffer;
@@ -68,16 +70,19 @@ void Applications_Scan() {
 						} else if (curPtr == 5 && curVal[0] == 'n' && curVal[1] == 'o' && curVal[2] == 't' && curVal[3] == 'e' && curVal[4] == 's') {
 							Application_Info[i].icon = &ui_img_notes_png;
 						}
+						Debug_Printf("\tIcon = %s\n", curVal);
 					} else if (curAttr[0] == 'N') {
 						sprintf(Application_Info[i].name, "");
 						for (int p = 0; p < curPtr; p ++) {
 							sprintf(Application_Info[i].name, "%s%c", Application_Info[i].name, curVal[p]);
 						}
+						Debug_Printf("\tName = %s\n", Application_Info[i].name);
 					} else if (curAttr[0] == 'C') {
 						Application_Info[i].color = 0;
 						for (int p = 0; p < curPtr; p ++) {
 							Application_Info[i].color = Application_Info[i].color * 10 + curVal[p] - '0';
 						}
+						Debug_Printf("\tColor = %lu\n", Application_Info[i].color);
 					}
 					curPtr = 0;
 					inAttr = 1;
@@ -142,22 +147,36 @@ void Applications_SetApplicationPath(const char *filepath) {
 void Applications_ActivateApplication(const char *filepath) {
 	Applications_SetApplicationPath(filepath);
 	Applications_SetExisted(1);
+	Debug_Printf("Application Activated.\n");
 }
 
 void Applications_HaltApplication() {
-	Applications_SetExisted(0);
-	pks_vm_exit();
-	Debug_Printf("PKS_VM_EXIT() Called.\n");
+	if (Application_RunningExisted) {
+		Debug_Printf("Halt. Current Mem Used: %lu\n", pikaMemNow());
+
+		// Clear Flag
+		Applications_SetExisted(0);
+		// Halt Python VM
+		pks_vm_exit();
+		if (MainPikaObj != NULL) obj_deinit(MainPikaObj);
+		// DeInit LVGL Components
+		lv_obj_clean(ui_Appfield);
+
+		Debug_Printf("Halted. Current Mem Used: %lu\n", pikaMemNow());
+	}
 }
 
 void Application_ExecuteFromFS(const char *filepath) {
 	FS_ReadFile(filepath);
 	char* Program = (char *) ReadBuffer;
+
 	// TODO: 读取文件会在文件末尾多读一些奇怪的字符导致脚本编译错误，此处以下策暂时解决
 	for (int i = 0; i < FSHELPER_READBUFFER_SIZE - 4; i ++) {
 		if (Program[i] == '#' && Program[i + 1] == 'E' && Program[i + 2] == 'N' && Program[i + 3] == 'D' && Program[i + 4] == '#') {
 			for (int j = i + 5; j < FSHELPER_READBUFFER_SIZE; j ++) Program[j] = 0;
 		}
 	}
+
+	MainPikaObj = pikaScriptInit();
 	obj_run(MainPikaObj, Program);
 }

@@ -9,8 +9,6 @@ extern "C" {
 
 #include "PikaPlatform.h"
 
-//int fputc(int ch, FILE *f);
-
 char __platform_getchar(void);
 
 //FILE* __platform_fopen(const char *filename, const char *modes);

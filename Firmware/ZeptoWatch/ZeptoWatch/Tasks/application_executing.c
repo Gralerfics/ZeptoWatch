@@ -9,15 +9,15 @@ extern "C" {
 #include "applications.h"
 
 void StartApplicationExecuting(void const * argument) {
+	Debug_Printf("Detecting ...\n");
 	for (;;) {
 		if (Applications_IsRunning()) {
+			Debug_Printf("Detected Application.\n");
 			Application_ExecuteFromFS(Applications_GetApplicationPath());
-
-			Debug_Printf("Executed.");
 			Applications_HaltApplication();
 			_ui_screen_change(ui_Home, LV_SCR_LOAD_ANIM_FADE_ON, 200, 0);
 		}
-		osDelay(10);
+		osDelay(50);
 	}
 }
 

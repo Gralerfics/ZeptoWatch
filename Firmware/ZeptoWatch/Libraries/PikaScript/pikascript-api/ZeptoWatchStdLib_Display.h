@@ -18,6 +18,7 @@
 PikaObj *New_ZeptoWatchStdLib_Display(Args *args);
 
 int ZeptoWatchStdLib_Display_getBrightness(PikaObj *self);
+PikaObj* ZeptoWatchStdLib_Display_getField(PikaObj *self);
 void ZeptoWatchStdLib_Display_setBrightness(PikaObj *self, int val);
 
 #endif
