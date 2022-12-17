@@ -1,15 +1,14 @@
 ###ICON=calc;NAME=Calculator;COLOR=13726207;###
-import PikaStdLib as std
+
 import pika_lvgl as lv
 import ZeptoWatchStdLib as zws
-import ZeptoWatchPeriphLib as zwp
 
 instr = ''
 sym = ''
 a = 0
 b = 0
 
-lb = lv.label(lv.scr_act())
+lb = lv.label(zws.Display.getField())
 lb.set_align(lv.ALIGN.CENTER)
 lb.set_width(140)
 lb.set_y(-80)
@@ -63,7 +62,7 @@ def event_cb_btns(e):
             lb.set_text(instr)
 
 for i in range(16):
-    btnList.append(lv.btn(lv.scr_act()))
+    btnList.append(lv.btn(zws.Display.getField()))
     btnList[i].set_id(str(i))
     btnList[i].set_align(lv.ALIGN.CENTER)
     btnList[i].set_size(32, 32)
@@ -71,7 +70,7 @@ for i in range(16):
     btnList[i].set_y(int(i / 4) * 40 - 45)
     btnList[i].add_event_cb(event_cb_btns, lv.EVENT.CLICKED, 0)
 
-    lbList.append(lv.label(lv.scr_act()))
+    lbList.append(lv.label(zws.Display.getField()))
     lbList[i].set_align(lv.ALIGN.CENTER)
     lbList[i].set_x((i % 4) * 40 - 60)
     lbList[i].set_y(int(i / 4) * 40 - 45)

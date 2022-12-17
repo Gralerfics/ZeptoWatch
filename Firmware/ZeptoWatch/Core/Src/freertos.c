@@ -40,6 +40,7 @@
 #include "msm261s.h"
 #include "power.h"
 #include "vibrator.h"
+#include "battery.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -134,6 +135,9 @@ void MX_FREERTOS_Init(void) {
 	Microphone_StartSampling();
 	// Vibrator Initialization
 	Vibrator_Initialize(&htim4, TIM_CHANNEL_1);
+	// Battery Initialization
+	Battery_Init();
+	Battery_StartSampling();
 
 	// Scan 任务 Heap 大小大一些好像很重要
 
