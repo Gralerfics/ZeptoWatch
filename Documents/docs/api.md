@@ -6,7 +6,7 @@
 
 - 
 
-0. `PikaStdLib` (Package, Recommend: `import PikaStdLib as std`)
+1. `PikaStdLib` (Package, Recommend: `import PikaStdLib as std`)
 
 - 
 
