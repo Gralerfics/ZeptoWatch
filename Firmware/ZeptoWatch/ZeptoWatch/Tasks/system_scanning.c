@@ -11,6 +11,9 @@ extern "C" {
 int SystemScanningEnabled = 0;
 
 void startSystemScanning(void const * argument) {
+	// Enable Scanning
+	SystemScanningEnabled = 1;
+
 	for (;;) {
 		if (SystemScanningEnabled) {
 			lv_label_set_text(ui_applicationsLabel, "Refreshing ...");
@@ -21,7 +24,7 @@ void startSystemScanning(void const * argument) {
 			SystemScanningEnabled = 0;
 		}
 
-		osDelay(1);
+		osDelay(100);
 	}
 }
 

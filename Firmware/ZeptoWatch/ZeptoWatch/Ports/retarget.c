@@ -70,7 +70,7 @@ int _lseek(int fd, int ptr, int dir)
 int _read(int fd, char *ptr, int len)
 {
 	HAL_StatusTypeDef hstatus;
-	
+
 	if (fd == STDIN_FILENO)
 	{
 		hstatus = HAL_UART_Receive(gHuart, (uint8_t *) ptr, 1, HAL_MAX_DELAY);

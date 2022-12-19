@@ -8,46 +8,27 @@ extern "C" {
 
 #include "lvgl.h"
 #include "ui.h"
-
-#include "battery.h"
 #include "brightness.h"
-#include "power.h"
 
 #include "fshelper.h"
 
+int System_UI_IsReady = 0;
+
 void StartSystemUI(void const * argument) {
-	// Lighting
-	lv_task_handler();
+	/* Set Page State */
+	setUICurrentPage(ui_Home);
+
+	/* Lighting */
+	System_UI_IsReady = 0;
+	while (!System_UI_IsReady) {
+		lv_task_handler();
+		osDelay(10);
+	}
 	Brightness_SetValue(60);
 	Brightness_LightUp();
 
-	// Enable Scanning
-	extern int SystemScanningEnabled;
-	SystemScanningEnabled = 1;
-
-	// Set State
-	setUICurrentPage(ui_Home);
-
-	// Main Loop
+	/* Main Loop */
 	for (;;) {
-		/* State Update */
-		if (Power_GetState() == 0) {
-			// Brightness
-			int brightnessSliderValue;
-			if (!Applications_IsRunning()) {
-				brightnessSliderValue = lv_slider_get_value(ui_dropdownBrightnessSlider);
-				lv_slider_set_value(ui_appDropdownBrightnessSlider, brightnessSliderValue, LV_ANIM_OFF);
-			} else {
-				brightnessSliderValue = lv_slider_get_value(ui_appDropdownBrightnessSlider);
-				lv_slider_set_value(ui_dropdownBrightnessSlider, brightnessSliderValue, LV_ANIM_OFF);
-			}
-			Brightness_SetValueDirect(Brightness_CoreFunc(brightnessSliderValue));
-			// Battery
-			int batterySliderValue = Battery_GetPowerPercentage();
-			lv_slider_set_value(ui_dropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
-			lv_slider_set_value(ui_appDropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
-		}
-
 		/* Lvgl Task Handler */
 		lv_task_handler();
 

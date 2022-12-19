@@ -1,6 +1,7 @@
-#include "pika_override.h"
+#include "PikaPlatform.h"
 
-#include "fatfs.h"
+#include "common.h"
+//#include "fatfs.h"
 
 char __platform_getchar(void) {
 	uint8_t ch;

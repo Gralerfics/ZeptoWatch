@@ -22,7 +22,6 @@ void Battery_StopSampling();
 
 int Battery_IsCharging();
 uint16_t Battery_GetADCData();
-uint16_t Battery_GetVoltageTimes1000();
 uint16_t Battery_GetPowerPercentage();
 
 #ifdef __cplusplus

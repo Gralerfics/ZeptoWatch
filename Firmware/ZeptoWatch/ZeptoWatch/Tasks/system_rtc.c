@@ -8,6 +8,8 @@ extern "C" {
 
 #include "clock.h"
 
+extern int System_UI_IsReady;
+
 void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *mHrtc) {
 	RTC_Update();
 	uint8_t rtcHours = RTC_GetHours(), rtcMinutes = RTC_GetMinutes(), rtcSeconds = RTC_GetSeconds();
@@ -35,6 +37,8 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *mHrtc) {
 	sprintf(timeLabel, "%d%d : %d%d : %d%d", rtcHours / 10, rtcHours % 10, rtcMinutes / 10, rtcMinutes % 10, rtcSeconds / 10, rtcSeconds % 10);
 	lv_label_set_text(ui_dropdownTimeLabel, timeLabel);
 	lv_label_set_text(ui_appDropdownTimeLabel, timeLabel);
+
+	if (!System_UI_IsReady) System_UI_IsReady = 1;
 }
 
 #ifdef __cplusplus

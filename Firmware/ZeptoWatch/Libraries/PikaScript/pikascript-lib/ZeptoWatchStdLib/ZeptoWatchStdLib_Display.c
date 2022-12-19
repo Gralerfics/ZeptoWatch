@@ -12,6 +12,10 @@ PikaObj* ZeptoWatchStdLib_Display_getField(PikaObj *self) {
 	return new_obj;
 }
 
+void ZeptoWatchStdLib_Display_lvglUpdate(PikaObj *self) {
+	lv_task_handler();
+}
+
 int ZeptoWatchStdLib_Display_getBrightness(PikaObj *self) {
 	return (int) Brightness_GetValue();
 }

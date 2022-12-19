@@ -61,8 +61,10 @@ void TIM2_IRQHandler(void);
 void RTC_Alarm_IRQHandler(void);
 void TIM7_IRQHandler(void);
 void DMA2_Stream0_IRQHandler(void);
+void DMA2_Stream1_IRQHandler(void);
 void DMA2_Stream3_IRQHandler(void);
 void OTG_FS_IRQHandler(void);
+void DMA2_Stream6_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

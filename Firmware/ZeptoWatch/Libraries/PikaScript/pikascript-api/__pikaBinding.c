@@ -3867,6 +3867,14 @@ method_typedef(
     "getField", ""
 );
 
+void ZeptoWatchStdLib_Display_lvglUpdateMethod(PikaObj *self, Args *args){
+    ZeptoWatchStdLib_Display_lvglUpdate(self);
+}
+method_typedef(
+    ZeptoWatchStdLib_Display_lvglUpdate,
+    "lvglUpdate", ""
+);
+
 void ZeptoWatchStdLib_Display_setBrightnessMethod(PikaObj *self, Args *args){
     int val = args_getInt(args, "val");
     ZeptoWatchStdLib_Display_setBrightness(self, val);
@@ -3880,6 +3888,7 @@ class_def(ZeptoWatchStdLib_Display){
     __BEFORE_MOETHOD_DEF
     method_def(ZeptoWatchStdLib_Display_setBrightness, 395230250),
     method_def(ZeptoWatchStdLib_Display_getBrightness, 1595558430),
+    method_def(ZeptoWatchStdLib_Display_lvglUpdate, 1912024925),
     method_def(ZeptoWatchStdLib_Display_getField, 2091799721),
 };
 class_inhert(ZeptoWatchStdLib_Display, TinyObj);

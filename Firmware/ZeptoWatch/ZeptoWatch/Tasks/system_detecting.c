@@ -9,18 +9,39 @@ extern "C" {
 #include "lvgl.h"
 #include "ui.h"
 
-#include "fshelper.h"
-
-#include "mpu6050.h"
-#include "msm261s.h"
-#include "vibrator.h"
+#include "applications.h"
+#include "battery.h"
+#include "power.h"
+#include "brightness.h"
 
 lv_chart_series_t *series = NULL;
 
 void StartSystemDetecting(void const * argument) {
+	int cnt = 0;
 	while (1) {
+		/* State Update */
+		if (Power_GetState() == 0) {
+			/* Brightness */
+			int brightnessSliderValue;
+			if (!Applications_IsRunning()) {
+				brightnessSliderValue = lv_slider_get_value(ui_dropdownBrightnessSlider);
+				lv_slider_set_value(ui_appDropdownBrightnessSlider, brightnessSliderValue, LV_ANIM_OFF);
+			} else {
+				brightnessSliderValue = lv_slider_get_value(ui_appDropdownBrightnessSlider);
+				lv_slider_set_value(ui_dropdownBrightnessSlider, brightnessSliderValue, LV_ANIM_OFF);
+			}
+			Brightness_SetValueDirect(Brightness_CoreFunc(brightnessSliderValue));
 
-		osDelay(1);
+			/* Battery */
+			if (cnt ++ >= 500) {
+				int batterySliderValue = Battery_GetPowerPercentage();
+				lv_slider_set_value(ui_dropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
+				lv_slider_set_value(ui_appDropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
+				cnt = 0;
+			}
+		}
+
+		osDelay(5);
 	}
 }
 
