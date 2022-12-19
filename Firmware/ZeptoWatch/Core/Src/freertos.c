@@ -140,6 +140,7 @@ void MX_FREERTOS_Init(void) {
 	Battery_StartSampling();
 
 	// Scan 任务 Heap 大小大一些好像很重要
+	// P.S. 改了 .ld 文件 195 行 ._user_heap_stack 的指向，由 RAM 改为 CCMRAM，在此记录
 
   /* USER CODE END Init */
 
