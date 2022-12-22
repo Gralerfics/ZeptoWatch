@@ -135,6 +135,20 @@ class STATE:
     def __init__(self): ...
 
 
+class PART:
+    MAIN: int
+    SCROLLBAR: int
+    INDICATOR: int
+    KNOB: int
+    SELECTED: int
+    ITEMS: int
+    TICKS: int
+    CURSOR: int
+    CUSTOM_FIRST: int
+    ANY: int
+    def __init__(self): ...
+
+
 class TEXT_DECOR:
     NONE: int
     UNDERLINE: int
@@ -162,6 +176,35 @@ class lv_timer_t:
 
 def palette_lighten(p: int, lvl: int) -> lv_color_t: ...
 def palette_main(p: int) -> lv_color_t: ...
+
+
+class font_t:
+    def __init__(self): ...
+
+
+class FONT:
+    MONTSERRAT_8: font_t
+    MONTSERRAT_10: font_t
+    MONTSERRAT_12: font_t
+    MONTSERRAT_14: font_t
+    MONTSERRAT_16: font_t
+    MONTSERRAT_18: font_t
+    MONTSERRAT_20: font_t
+    MONTSERRAT_22: font_t
+    MONTSERRAT_24: font_t
+    MONTSERRAT_26: font_t
+    MONTSERRAT_28: font_t
+    MONTSERRAT_30: font_t
+    MONTSERRAT_32: font_t
+    MONTSERRAT_34: font_t
+    MONTSERRAT_36: font_t
+    MONTSERRAT_38: font_t
+    MONTSERRAT_40: font_t
+    MONTSERRAT_42: font_t
+    MONTSERRAT_44: font_t
+    MONTSERRAT_46: font_t
+    MONTSERRAT_48: font_t
+    def __init__(self): ...
 
 
 class style_t:
@@ -234,7 +277,7 @@ class style_t:
     def set_arc_img_src(self, value: bytes): ...
     def set_text_color(self, value: lv_color_t): ...
     def set_text_opa(self, value: int): ...
-    # def set_text_font(self, value: lv_font_t): ...
+    def set_text_font(self, value: font_t): ...
     def set_text_letter_space(self, value: int): ...
     def set_text_line_space(self, value: int): ...
     def set_text_decor(self, value: int): ...
@@ -406,12 +449,7 @@ class FLEX_ALIGN:
     def __init__(self): ...
 
 
-class obj(lv_obj):
-    FLAG: flag_t
-    def __init__(self, *parent): ...
-
-
-def indev_get_act() -> indev_t: ...
+def indev_get_act() -> indev_st: ...
 
 
 class point_t:
@@ -502,10 +540,17 @@ class label(lv_obj):
     def set_style_text_align(self, value: int, selector: int): ...
 
 
+class panel(lv_obj):
+    def __init__(self, parent: lv_obj): ...
+
+
 class roller(lv_obj):
     def __init__(self, parent: lv_obj): ...
     def set_options(self, options: str, mode: int): ...
     def set_visible_row_count(self, row_cnt: int): ...
+    def set_selected(self, opt: int, anim: int): ...
+    def get_selected(self) -> int: ...
+    def get_selected_str(self) -> str: ...
 
 
 class slider(lv_obj):

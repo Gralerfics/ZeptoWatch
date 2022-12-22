@@ -103,9 +103,9 @@ void pika_lvgl_lv_obj_add_style(PikaObj* self, PikaObj* style, int selector) {
     lv_obj_t* lv_obj = obj_getPtr(self, "lv_obj");
     lv_style_t* lv_style = obj_getPtr(style, "lv_style");
     lv_obj_add_style(lv_obj, lv_style, selector);
-    char sytle_ref_name[] = "_stylex";
-    sytle_ref_name[sizeof(sytle_ref_name) - 2] = '0' + lv_obj->style_cnt;
-    obj_setRef(self, sytle_ref_name, style);
+    char style_ref_name[] = "_stylex";
+	style_ref_name[sizeof(style_ref_name) - 2] = '0' + lv_obj->style_cnt;
+    obj_setRef(self, style_ref_name, style);
 }
 
 int pika_lvgl_lv_obj_get_x(PikaObj* self) {

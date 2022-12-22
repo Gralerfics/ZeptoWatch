@@ -32,7 +32,7 @@ void UI_Applications_InitList() {
 
 void UI_Applications_Listing() {
 	for (int i = 0; i < Applications_GetAppNumber(); i ++) {
-		lv_obj_set_style_bg_img_src(Application_LVIcons[i], Applications_GetAppIcon(i), LV_PART_MAIN | LV_STATE_DEFAULT); // TODO. Icon selector.
+		lv_obj_set_style_bg_img_src(Application_LVIcons[i], Applications_GetAppIcon(i), LV_PART_MAIN | LV_STATE_DEFAULT);
 		lv_obj_set_style_bg_color(Application_LVIcons[i], lv_color_hex(Applications_GetAppColor(i)), LV_PART_MAIN | LV_STATE_DEFAULT);
 		lv_label_set_text(Application_LVLabels[i], Applications_GetAppName(i));
 		lv_obj_clear_flag(Application_LVIcons[i], LV_OBJ_FLAG_HIDDEN);

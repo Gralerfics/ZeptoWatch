@@ -9,14 +9,14 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __pika_lvgl_obj__H
-#define __pika_lvgl_obj__H
+#ifndef __pika_lvgl_font_t__H
+#define __pika_lvgl_font_t__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_pika_lvgl_obj(Args *args);
+PikaObj *New_pika_lvgl_font_t(Args *args);
 
-void pika_lvgl_obj___init__(PikaObj *self, PikaTuple* parent);
+void pika_lvgl_font_t___init__(PikaObj *self);
 
 #endif

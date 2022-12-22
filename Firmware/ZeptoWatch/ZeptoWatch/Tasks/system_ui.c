@@ -19,11 +19,11 @@ void StartSystemUI(void const * argument) {
 	setUICurrentPage(ui_Home);
 
 	/* Lighting */
-	System_UI_IsReady = 0;
-	while (!System_UI_IsReady) {
-		lv_task_handler();
-		osDelay(10);
-	}
+//	System_UI_IsReady = 0;
+//	while (!System_UI_IsReady) {
+//		lv_task_handler();
+//		osDelay(10);
+//	}
 	Brightness_SetValue(60);
 	Brightness_LightUp();
 

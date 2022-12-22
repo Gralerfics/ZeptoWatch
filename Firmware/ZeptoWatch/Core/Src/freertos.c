@@ -149,7 +149,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
-	/* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -162,23 +161,23 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 64);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of systemUI */
-  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 1024);
+  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 2000);
   systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
   /* definition and creation of systemDetecting */
-  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 128);
+  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1000);
   systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
   /* definition and creation of applicationExec */
-  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 3072);
+  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 3000);
   applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
 
   /* definition and creation of systemScanning */
-  osThreadDef(systemScanning, startSystemScanning, osPriorityBelowNormal, 0, 1024);
+  osThreadDef(systemScanning, startSystemScanning, osPriorityBelowNormal, 0, 1500);
   systemScanningHandle = osThreadCreate(osThread(systemScanning), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */

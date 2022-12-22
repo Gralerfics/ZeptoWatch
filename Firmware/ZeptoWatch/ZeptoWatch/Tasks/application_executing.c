@@ -13,7 +13,11 @@ void StartApplicationExecuting(void const * argument) {
 	for (;;) {
 		if (Applications_IsRunning()) {
 			Debug_Printf("Detected Application.\n");
-			Application_ExecuteFromFS(Applications_GetApplicationPath());
+			if (Applications_IsBuiltIn()) {
+				Application_ExecuteFromBuiltins(Applications_GetApplicationPath());
+			} else {
+				Application_ExecuteFromFS(Applications_GetApplicationPath());
+			}
 			Applications_HaltApplication();
 			_ui_screen_change(ui_Home, LV_SCR_LOAD_ANIM_FADE_ON, 200, 0);
 		}

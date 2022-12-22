@@ -100,6 +100,7 @@ void pika_lvgl_style_t_set_size(PikaObj *self, int value);
 void pika_lvgl_style_t_set_text_align(PikaObj *self, int value);
 void pika_lvgl_style_t_set_text_color(PikaObj *self, PikaObj* value);
 void pika_lvgl_style_t_set_text_decor(PikaObj *self, int value);
+void pika_lvgl_style_t_set_text_font(PikaObj *self, PikaObj* value);
 void pika_lvgl_style_t_set_text_letter_space(PikaObj *self, int value);
 void pika_lvgl_style_t_set_text_line_space(PikaObj *self, int value);
 void pika_lvgl_style_t_set_text_opa(PikaObj *self, int value);

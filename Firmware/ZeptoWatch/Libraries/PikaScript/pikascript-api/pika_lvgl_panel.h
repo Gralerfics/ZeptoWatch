@@ -9,16 +9,14 @@
  * https://pikadoc.readthedocs.io/zh/latest/PikaScript%20%E6%A8%A1%E5%9D%97%E6%A6%82%E8%BF%B0.html
  */
 
-#ifndef __ZeptoWatchStdLib_System__H
-#define __ZeptoWatchStdLib_System__H
+#ifndef __pika_lvgl_panel__H
+#define __pika_lvgl_panel__H
 #include <stdio.h>
 #include <stdlib.h>
 #include "PikaObj.h"
 
-PikaObj *New_ZeptoWatchStdLib_System(Args *args);
+PikaObj *New_pika_lvgl_panel(Args *args);
 
-void ZeptoWatchStdLib_System_delayMs(PikaObj *self, int time);
-void ZeptoWatchStdLib_System_delayMsBlocking(PikaObj *self, int time);
-void ZeptoWatchStdLib_System_delayUsBlocking(PikaObj *self, int time);
+void pika_lvgl_panel___init__(PikaObj *self, PikaObj* parent);
 
 #endif

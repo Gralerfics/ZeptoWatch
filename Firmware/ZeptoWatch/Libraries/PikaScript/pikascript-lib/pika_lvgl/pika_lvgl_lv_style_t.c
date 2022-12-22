@@ -355,6 +355,12 @@ void pika_lvgl_style_t_set_text_decor(PikaObj* self, int value) {
     lv_style_set_text_decor(lv_style, value);
 }
 
+void pika_lvgl_style_t_set_text_font(PikaObj *self, PikaObj* value) {
+	lv_style_t* lv_style = obj_getPtr(self, "lv_style");
+	lv_color_t* lv_font = obj_getPtr(value, "lv_font");
+	lv_style_set_text_font(lv_style, lv_font);
+}
+
 void pika_lvgl_style_t_set_text_letter_space(PikaObj* self, int value) {
     lv_style_t* lv_style = obj_getPtr(self, "lv_style");
     lv_style_set_text_letter_space(lv_style, value);

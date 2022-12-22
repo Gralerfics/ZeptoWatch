@@ -74,6 +74,8 @@ include_directories(
         USB_DEVICE/App
         USB_DEVICE/Target
         ZeptoWatch
+        ZeptoWatch/BuiltIns
+        ZeptoWatch/BuiltIns/UI
         ZeptoWatch/Drivers/battery
         ZeptoWatch/Drivers/bt
         ZeptoWatch/Drivers/eeprom

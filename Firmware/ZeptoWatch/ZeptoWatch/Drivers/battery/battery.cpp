@@ -5,8 +5,19 @@
 
 uint16_t Battery_ADC_Data[BAT_FILTERING_PARAM];
 
-#define BATTERY_ADC_LOW_TH 2110						// limit: ~2080 [2080]
-#define BATTERY_ADC_HIGH_TH 2290					// limit: ~2300 [2600]
+//#define BATTERY_ADC_HIGH_LIMIT_CHARGE_TH 2580
+//#define BATTERY_ADC_HIGH_TH 2410					// limit: ~2480 [2580]
+//#define BATTERY_ADC_LOW_TH 2150					// limit: ~2080 [2080]
+//#define BATTERY_ADC_DELTA 100
+//#define BATTERY_ADC_SHUTDOWN_TH 2120
+//#define BATTERY_ADC_LOW_LIMIT_TH 2080
+
+#define BATTERY_ADC_HIGH_LIMIT_CHARGE_TH 3060
+#define BATTERY_ADC_HIGH_TH 2880					// limit: 2900 [3060]
+#define BATTERY_ADC_LOW_TH 2750						// limit: ~2680 [2680]
+#define BATTERY_ADC_DELTA 160
+#define BATTERY_ADC_SHUTDOWN_TH 2720
+#define BATTERY_ADC_LOW_LIMIT_TH 2680
 
 void Battery_Init() {
 	GPIO_InitTypeDef GPIO_InitStructure = {0};
@@ -38,12 +49,21 @@ uint16_t Battery_GetADCData() {
 	return res / BAT_FILTERING_PARAM;
 }
 
-uint16_t Battery_GetPowerPercentage() {
-	uint16_t res = Battery_GetADCData();
-	if (res < 2150) {
-		res = 0;
-	} else {
-		res = (res - 2150) / 6;
+int Battery_GetPowerPercentage() {
+	int res = Battery_GetADCData();
+	if (Battery_IsCharging()) {
+		res = res - BATTERY_ADC_DELTA * (res - BATTERY_ADC_LOW_LIMIT_TH) / (BATTERY_ADC_HIGH_LIMIT_CHARGE_TH - BATTERY_ADC_LOW_LIMIT_TH);
 	}
-	return res > 100 ? 100 : res;
+	if (res <= BATTERY_ADC_LOW_TH) {
+		if (res < BATTERY_ADC_SHUTDOWN_TH) {
+			res = -1;
+		} else {
+			res = 0;
+		}
+	} else if (res >= BATTERY_ADC_HIGH_TH){
+		res = 100;
+	} else {
+		res = 100 * (res - BATTERY_ADC_LOW_TH) / (BATTERY_ADC_HIGH_TH - BATTERY_ADC_LOW_TH);
+	}
+	return res;
 }

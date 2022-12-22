@@ -18,7 +18,10 @@
 PikaObj *New_pika_lvgl_roller(Args *args);
 
 void pika_lvgl_roller___init__(PikaObj *self, PikaObj* parent);
+int pika_lvgl_roller_get_selected(PikaObj *self);
+char* pika_lvgl_roller_get_selected_str(PikaObj *self);
 void pika_lvgl_roller_set_options(PikaObj *self, char* options, int mode);
+void pika_lvgl_roller_set_selected(PikaObj *self, int opt, int anim);
 void pika_lvgl_roller_set_visible_row_count(PikaObj *self, int row_cnt);
 
 #endif

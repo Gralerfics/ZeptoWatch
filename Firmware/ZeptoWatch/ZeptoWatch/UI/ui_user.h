@@ -25,8 +25,12 @@ void callShutdown();
 void callApplication(lv_event_t *e);
 void refreshAppList(lv_event_t *e);
 
-void UI_Clock_Arrows_Reset();
-void UI_Clock_InitArrows();
+void settingsTimeClicked(lv_event_t * e);
+void settingsRolValChanged(lv_event_t * e);
+void settingsDateClicked(lv_event_t * e);
+void settingsEnBuValChanged(lv_event_t * e);
+
+void initSettingsRollers();
 
 LV_IMG_DECLARE(ui_img_scripts_png);    	// assets\scripts.png
 LV_IMG_DECLARE(ui_img_timer_png);    	// assets\timer.png

@@ -17,10 +17,9 @@ void FS_ScanFolder(const char *dirpath, int *num, Application_Info_Type *fileInf
 	DIR dir;
 	FILINFO fileInfo;
 
-	Debug_Printf("Dir Opening.\n");
+	Debug_Printf("Dir Opening: %s.\n", dirpath);
 	retUSER = f_opendir(&dir, dirpath);
 	if (retUSER == FR_OK) {
-		Debug_Printf("Dir Scanning:\n");
 		(*num) = 0;
 		for (;;) {
 			retUSER = f_readdir(&dir, &fileInfo);
@@ -33,8 +32,7 @@ void FS_ScanFolder(const char *dirpath, int *num, Application_Info_Type *fileInf
 		}
 	} else {
 		(*num) = -1;
-		char errCode[2];
-		Debug_Printf(errCode, "Open Dir Error: %d\n", retUSER);
+		Debug_Printf("Open Dir Error: %d\n", retUSER);
 	}
 	f_closedir(&dir);
 	Debug_Printf("Dir Closed.\n");

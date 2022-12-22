@@ -22,7 +22,12 @@ int ZeptoWatchStdLib_Clock_getHours(PikaObj *self);
 int ZeptoWatchStdLib_Clock_getMinutes(PikaObj *self);
 int ZeptoWatchStdLib_Clock_getMonth(PikaObj *self);
 int ZeptoWatchStdLib_Clock_getSeconds(PikaObj *self);
+int ZeptoWatchStdLib_Clock_getSubseconds(PikaObj *self);
 int ZeptoWatchStdLib_Clock_getWeekDay(PikaObj *self);
 int ZeptoWatchStdLib_Clock_getYear(PikaObj *self);
+void ZeptoWatchStdLib_Clock_setHours(PikaObj *self, int val);
+void ZeptoWatchStdLib_Clock_setMinutes(PikaObj *self, int val);
+void ZeptoWatchStdLib_Clock_setSeconds(PikaObj *self, int val);
+void ZeptoWatchStdLib_Clock_setTime(PikaObj *self, int h, int m, int s);
 
 #endif

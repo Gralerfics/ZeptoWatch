@@ -59,6 +59,27 @@ extern lv_obj_t * ui_appDropdownBtn;
 void ui_event_appDropdownBackBtn(lv_event_t * e);
 extern lv_obj_t * ui_appDropdownBackBtn;
 
+void ui_event_Settings(lv_event_t * e);
+extern lv_obj_t * ui_settingsBkPanel;
+extern lv_obj_t * ui_Settings;
+extern lv_obj_t * ui_settingsLabel;
+extern lv_obj_t * ui_settingsPanel;
+extern lv_obj_t * ui_settingsTimeLabel;
+void ui_event_settingsTimeBtn(lv_event_t * e);
+extern lv_obj_t * ui_settingsTimeBtn;
+void ui_event_rollers(lv_event_t * e);
+extern lv_obj_t * ui_rolHour;
+extern lv_obj_t * ui_rolMin;
+extern lv_obj_t * ui_rolSec;
+extern lv_obj_t * ui_settingsDateLabel;
+void ui_event_settingsDateBtn(lv_event_t * e);
+extern lv_obj_t * ui_settingsDateBtn;
+extern lv_obj_t * ui_rolYear;
+extern lv_obj_t * ui_rolMon;
+extern lv_obj_t * ui_rolDay;
+extern lv_obj_t * ui_settingsBuiltInAppLabel;
+void ui_event_settingsEnBulSwt(lv_event_t * e);
+extern lv_obj_t * ui_settingsEnBulSwt;
 
 LV_IMG_DECLARE(ui_img_clock_sec_png);    // assets\clock_sec.png
 LV_IMG_DECLARE(ui_img_clock_min_png);    // assets\clock_min.png

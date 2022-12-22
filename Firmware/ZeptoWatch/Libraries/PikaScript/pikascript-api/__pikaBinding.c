@@ -107,11 +107,15 @@
 #include "TinyObj.h"
 #include "pika_lvgl_FLEX_FLOW.h"
 #include "TinyObj.h"
+#include "pika_lvgl_FONT.h"
+#include "TinyObj.h"
 #include "pika_lvgl_LAYOUT_FLEX.h"
 #include "TinyObj.h"
 #include "pika_lvgl_OPA.h"
 #include "TinyObj.h"
 #include "pika_lvgl_PALETTE.h"
+#include "TinyObj.h"
+#include "pika_lvgl_PART.h"
 #include "TinyObj.h"
 #include "pika_lvgl_SIZE.h"
 #include "TinyObj.h"
@@ -131,6 +135,8 @@
 #include "pika_lvgl_lv_obj.h"
 #include "pika_lvgl_flag_t.h"
 #include "TinyObj.h"
+#include "pika_lvgl_font_t.h"
+#include "TinyObj.h"
 #include "pika_lvgl_img.h"
 #include "pika_lvgl_lv_obj.h"
 #include "pika_lvgl_img_dsc_t.h"
@@ -147,7 +153,7 @@
 #include "TinyObj.h"
 #include "pika_lvgl_lv_timer_t.h"
 #include "TinyObj.h"
-#include "pika_lvgl_obj.h"
+#include "pika_lvgl_panel.h"
 #include "pika_lvgl_lv_obj.h"
 #include "pika_lvgl_point_t.h"
 #include "TinyObj.h"
@@ -3807,6 +3813,15 @@ method_typedef(
     "getSeconds", ""
 );
 
+void ZeptoWatchStdLib_Clock_getSubsecondsMethod(PikaObj *self, Args *args){
+    int res = ZeptoWatchStdLib_Clock_getSubseconds(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_getSubseconds,
+    "getSubseconds", ""
+);
+
 void ZeptoWatchStdLib_Clock_getWeekDayMethod(PikaObj *self, Args *args){
     int res = ZeptoWatchStdLib_Clock_getWeekDay(self);
     method_returnInt(args, res);
@@ -3825,10 +3840,53 @@ method_typedef(
     "getYear", ""
 );
 
+void ZeptoWatchStdLib_Clock_setHoursMethod(PikaObj *self, Args *args){
+    int val = args_getInt(args, "val");
+    ZeptoWatchStdLib_Clock_setHours(self, val);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_setHours,
+    "setHours", "val"
+);
+
+void ZeptoWatchStdLib_Clock_setMinutesMethod(PikaObj *self, Args *args){
+    int val = args_getInt(args, "val");
+    ZeptoWatchStdLib_Clock_setMinutes(self, val);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_setMinutes,
+    "setMinutes", "val"
+);
+
+void ZeptoWatchStdLib_Clock_setSecondsMethod(PikaObj *self, Args *args){
+    int val = args_getInt(args, "val");
+    ZeptoWatchStdLib_Clock_setSeconds(self, val);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_setSeconds,
+    "setSeconds", "val"
+);
+
+void ZeptoWatchStdLib_Clock_setTimeMethod(PikaObj *self, Args *args){
+    int h = args_getInt(args, "h");
+    int m = args_getInt(args, "m");
+    int s = args_getInt(args, "s");
+    ZeptoWatchStdLib_Clock_setTime(self, h, m, s);
+}
+method_typedef(
+    ZeptoWatchStdLib_Clock_setTime,
+    "setTime", "h,m,s"
+);
+
 class_def(ZeptoWatchStdLib_Clock){
     __BEFORE_MOETHOD_DEF
+    method_def(ZeptoWatchStdLib_Clock_setTime, 203745024),
+    method_def(ZeptoWatchStdLib_Clock_setHours, 267128674),
+    method_def(ZeptoWatchStdLib_Clock_getSubseconds, 520019326),
+    method_def(ZeptoWatchStdLib_Clock_setMinutes, 764720950),
     method_def(ZeptoWatchStdLib_Clock_getSeconds, 1087652404),
     method_def(ZeptoWatchStdLib_Clock_getYear, 1886173526),
+    method_def(ZeptoWatchStdLib_Clock_setSeconds, 1901268928),
     method_def(ZeptoWatchStdLib_Clock_getWeekDay, 1960739247),
     method_def(ZeptoWatchStdLib_Clock_getHours, 2094404822),
     method_def(ZeptoWatchStdLib_Clock_getMinutes, 2098588074),
@@ -3914,9 +3972,29 @@ method_typedef(
     "delayMs", "time"
 );
 
+void ZeptoWatchStdLib_System_delayMsBlockingMethod(PikaObj *self, Args *args){
+    int time = args_getInt(args, "time");
+    ZeptoWatchStdLib_System_delayMsBlocking(self, time);
+}
+method_typedef(
+    ZeptoWatchStdLib_System_delayMsBlocking,
+    "delayMsBlocking", "time"
+);
+
+void ZeptoWatchStdLib_System_delayUsBlockingMethod(PikaObj *self, Args *args){
+    int time = args_getInt(args, "time");
+    ZeptoWatchStdLib_System_delayUsBlocking(self, time);
+}
+method_typedef(
+    ZeptoWatchStdLib_System_delayUsBlocking,
+    "delayUsBlocking", "time"
+);
+
 class_def(ZeptoWatchStdLib_System){
     __BEFORE_MOETHOD_DEF
     method_def(ZeptoWatchStdLib_System_delayMs, 150074516),
+    method_def(ZeptoWatchStdLib_System_delayMsBlocking, 1246387581),
+    method_def(ZeptoWatchStdLib_System_delayUsBlocking, 1788798597),
 };
 class_inhert(ZeptoWatchStdLib_System, TinyObj);
 
@@ -3977,6 +4055,15 @@ method_typedef(
     "FLEX_FLOW", ""
 );
 
+void pika_lvgl_FONTMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_FONT(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_FONT,
+    "FONT", ""
+);
+
 void pika_lvgl_LAYOUT_FLEXMethod(PikaObj *self, Args *args){
     Arg* res = pika_lvgl_LAYOUT_FLEX(self);
     method_returnArg(args, res);
@@ -4002,6 +4089,15 @@ void pika_lvgl_PALETTEMethod(PikaObj *self, Args *args){
 method_typedef(
     pika_lvgl_PALETTE,
     "PALETTE", ""
+);
+
+void pika_lvgl_PARTMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_PART(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_PART,
+    "PART", ""
 );
 
 void pika_lvgl_SIZEMethod(PikaObj *self, Args *args){
@@ -4091,6 +4187,15 @@ void pika_lvgl_flag_tMethod(PikaObj *self, Args *args){
 method_typedef(
     pika_lvgl_flag_t,
     "flag_t", ""
+);
+
+void pika_lvgl_font_tMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_font_t(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_font_t,
+    "font_t", ""
 );
 
 void pika_lvgl_imgMethod(PikaObj *self, Args *args){
@@ -4184,15 +4289,6 @@ method_typedef(
     "lv_timer_t", ""
 );
 
-void pika_lvgl_objMethod(PikaObj *self, Args *args){
-    Arg* res = pika_lvgl_obj(self);
-    method_returnArg(args, res);
-}
-method_typedef(
-    pika_lvgl_obj,
-    "obj", ""
-);
-
 void pika_lvgl_palette_lightenMethod(PikaObj *self, Args *args){
     int p = args_getInt(args, "p");
     int lvl = args_getInt(args, "lvl");
@@ -4212,6 +4308,15 @@ void pika_lvgl_palette_mainMethod(PikaObj *self, Args *args){
 method_typedef(
     pika_lvgl_palette_main,
     "palette_main", "p"
+);
+
+void pika_lvgl_panelMethod(PikaObj *self, Args *args){
+    Arg* res = pika_lvgl_panel(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    pika_lvgl_panel,
+    "panel", ""
 );
 
 void pika_lvgl_pctMethod(PikaObj *self, Args *args){
@@ -4316,13 +4421,13 @@ class_def(pika_lvgl){
     constructor_def(pika_lvgl_bar, 193487034),
     constructor_def(pika_lvgl_btn, 193487657),
     constructor_def(pika_lvgl_img, 193495042),
-    constructor_def(pika_lvgl_obj, 193501216),
     method_def(pika_lvgl_pct, 193502348),
     constructor_def(pika_lvgl_lv_obj, 207188321),
     constructor_def(pika_lvgl_ALIGN, 214050224),
     constructor_def(pika_lvgl_EVENT, 219149159),
     constructor_def(pika_lvgl_STATE, 235676006),
     constructor_def(pika_lvgl_label, 265827749),
+    constructor_def(pika_lvgl_panel, 270584501),
     constructor_def(pika_lvgl_table, 275315341),
     constructor_def(pika_lvgl_checkbox, 296102156),
     constructor_def(pika_lvgl_lv_color_t, 394293688),
@@ -4345,8 +4450,11 @@ class_def(pika_lvgl){
     constructor_def(pika_lvgl_FLEX_ALIGN, 1805883102),
     method_def(pika_lvgl_lv_color_hex, 2036570665),
     constructor_def(pika_lvgl_ANIM, 2088896938),
+    constructor_def(pika_lvgl_FONT, 2089077884),
+    constructor_def(pika_lvgl_PART, 2089422140),
     constructor_def(pika_lvgl_SIZE, 2089538912),
     constructor_def(pika_lvgl_flag_t, 2108063474),
+    constructor_def(pika_lvgl_font_t, 2112102575),
     method_def(pika_lvgl_indev_get_act, 2120537489),
 };
 class_inhert(pika_lvgl, TinyObj);
@@ -4489,6 +4597,32 @@ Arg *pika_lvgl_FLEX_FLOW(PikaObj *self){
 #endif
 
 #ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_FONT___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_FONT___init__(self);
+}
+method_typedef(
+    pika_lvgl_FONT___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_FONT){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_FONT___init__, 904762485),
+};
+class_inhert(pika_lvgl_FONT, TinyObj);
+
+PikaObj *New_pika_lvgl_FONT(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_FONT);
+    return self;
+}
+
+Arg *pika_lvgl_FONT(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_FONT);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
 void pika_lvgl_LAYOUT_FLEX___init__Method(PikaObj *self, Args *args){
     pika_lvgl_LAYOUT_FLEX___init__(self);
 }
@@ -4563,6 +4697,32 @@ PikaObj *New_pika_lvgl_PALETTE(Args *args){
 
 Arg *pika_lvgl_PALETTE(PikaObj *self){
     return obj_newObjInPackage(New_pika_lvgl_PALETTE);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_PART___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_PART___init__(self);
+}
+method_typedef(
+    pika_lvgl_PART___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_PART){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_PART___init__, 904762485),
+};
+class_inhert(pika_lvgl_PART, TinyObj);
+
+PikaObj *New_pika_lvgl_PART(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_PART);
+    return self;
+}
+
+Arg *pika_lvgl_PART(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_PART);
 }
 #endif
 
@@ -5317,6 +5477,32 @@ PikaObj *New_pika_lvgl_flag_t(Args *args){
 
 Arg *pika_lvgl_flag_t(PikaObj *self){
     return obj_newObjInPackage(New_pika_lvgl_flag_t);
+}
+#endif
+
+#ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
+void pika_lvgl_font_t___init__Method(PikaObj *self, Args *args){
+    pika_lvgl_font_t___init__(self);
+}
+method_typedef(
+    pika_lvgl_font_t___init__,
+    "__init__", ""
+);
+
+class_def(pika_lvgl_font_t){
+    __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_font_t___init__, 904762485),
+};
+class_inhert(pika_lvgl_font_t, TinyObj);
+
+PikaObj *New_pika_lvgl_font_t(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, pika_lvgl_font_t);
+    return self;
+}
+
+Arg *pika_lvgl_font_t(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_font_t);
 }
 #endif
 
@@ -6250,29 +6436,29 @@ Arg *pika_lvgl_lv_timer_t(PikaObj *self){
 #endif
 
 #ifndef PIKA_MODULE_PIKA_LVGL_DISABLE
-void pika_lvgl_obj___init__Method(PikaObj *self, Args *args){
-    PikaTuple* parent = args_getTuple(args, "parent");
-    pika_lvgl_obj___init__(self, parent);
+void pika_lvgl_panel___init__Method(PikaObj *self, Args *args){
+    PikaObj* parent = args_getPtr(args, "parent");
+    pika_lvgl_panel___init__(self, parent);
 }
 method_typedef(
-    pika_lvgl_obj___init__,
-    "__init__", "*parent"
+    pika_lvgl_panel___init__,
+    "__init__", "parent"
 );
 
-class_def(pika_lvgl_obj){
+class_def(pika_lvgl_panel){
     __BEFORE_MOETHOD_DEF
-    method_def(pika_lvgl_obj___init__, 904762485),
+    method_def(pika_lvgl_panel___init__, 904762485),
 };
-class_inhert(pika_lvgl_obj, pika_lvgl_lv_obj);
+class_inhert(pika_lvgl_panel, pika_lvgl_lv_obj);
 
-PikaObj *New_pika_lvgl_obj(Args *args){
+PikaObj *New_pika_lvgl_panel(Args *args){
     PikaObj *self = New_pika_lvgl_lv_obj(args);
-    obj_setClass(self, pika_lvgl_obj);
+    obj_setClass(self, pika_lvgl_panel);
     return self;
 }
 
-Arg *pika_lvgl_obj(PikaObj *self){
-    return obj_newObjInPackage(New_pika_lvgl_obj);
+Arg *pika_lvgl_panel(PikaObj *self){
+    return obj_newObjInPackage(New_pika_lvgl_panel);
 }
 #endif
 
@@ -6312,6 +6498,24 @@ method_typedef(
     "__init__", "parent"
 );
 
+void pika_lvgl_roller_get_selectedMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_roller_get_selected(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_roller_get_selected,
+    "get_selected", ""
+);
+
+void pika_lvgl_roller_get_selected_strMethod(PikaObj *self, Args *args){
+    char* res = pika_lvgl_roller_get_selected_str(self);
+    method_returnStr(args, res);
+}
+method_typedef(
+    pika_lvgl_roller_get_selected_str,
+    "get_selected_str", ""
+);
+
 void pika_lvgl_roller_set_optionsMethod(PikaObj *self, Args *args){
     char* options = args_getStr(args, "options");
     int mode = args_getInt(args, "mode");
@@ -6320,6 +6524,16 @@ void pika_lvgl_roller_set_optionsMethod(PikaObj *self, Args *args){
 method_typedef(
     pika_lvgl_roller_set_options,
     "set_options", "options,mode"
+);
+
+void pika_lvgl_roller_set_selectedMethod(PikaObj *self, Args *args){
+    int opt = args_getInt(args, "opt");
+    int anim = args_getInt(args, "anim");
+    pika_lvgl_roller_set_selected(self, opt, anim);
+}
+method_typedef(
+    pika_lvgl_roller_set_selected,
+    "set_selected", "opt,anim"
 );
 
 void pika_lvgl_roller_set_visible_row_countMethod(PikaObj *self, Args *args){
@@ -6333,9 +6547,12 @@ method_typedef(
 
 class_def(pika_lvgl_roller){
     __BEFORE_MOETHOD_DEF
+    method_def(pika_lvgl_roller_set_selected, 102144121),
     method_def(pika_lvgl_roller___init__, 904762485),
+    method_def(pika_lvgl_roller_get_selected, 984496109),
     method_def(pika_lvgl_roller_set_visible_row_count, 1296618621),
     method_def(pika_lvgl_roller_set_options, 1329356092),
+    method_def(pika_lvgl_roller_get_selected_str, 1441298181),
 };
 class_inhert(pika_lvgl_roller, pika_lvgl_lv_obj);
 
@@ -7126,6 +7343,15 @@ method_typedef(
     "set_text_decor", "value"
 );
 
+void pika_lvgl_style_t_set_text_fontMethod(PikaObj *self, Args *args){
+    PikaObj* value = args_getPtr(args, "value");
+    pika_lvgl_style_t_set_text_font(self, value);
+}
+method_typedef(
+    pika_lvgl_style_t_set_text_font,
+    "set_text_font", "value"
+);
+
 void pika_lvgl_style_t_set_text_letter_spaceMethod(PikaObj *self, Args *args){
     int value = args_getInt(args, "value");
     pika_lvgl_style_t_set_text_letter_space(self, value);
@@ -7347,6 +7573,7 @@ class_def(pika_lvgl_style_t){
     method_def(pika_lvgl_style_t_set_img_opa, 2037300396),
     method_def(pika_lvgl_style_t_set_bg_img_recolor_opa, 2052224713),
     method_def(pika_lvgl_style_t_set_pad_left, 2052521615),
+    method_def(pika_lvgl_style_t_set_text_font, 2077126667),
     method_def(pika_lvgl_style_t_init, 2090370361),
     method_def(pika_lvgl_style_t_set_line_rounded, 2094663912),
     method_def(pika_lvgl_style_t_prop_has_flag, 2108733306),

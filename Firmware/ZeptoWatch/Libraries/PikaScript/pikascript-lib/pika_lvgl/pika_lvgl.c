@@ -32,6 +32,19 @@ Args* pika_lv_id_register_g;
 #error "pikascript version must be greater than 1.11.7"
 #endif
 
+void pika_lvgl_PART___init__(PikaObj *self) {
+	obj_setInt(self, "MAIN", LV_PART_MAIN);
+	obj_setInt(self, "SCROLLBAR", LV_PART_SCROLLBAR);
+	obj_setInt(self, "INDICATOR", LV_PART_INDICATOR);
+	obj_setInt(self, "KNOB", LV_PART_KNOB);
+	obj_setInt(self, "SELECTED", LV_PART_SELECTED);
+	obj_setInt(self, "ITEMS", LV_PART_ITEMS);
+	obj_setInt(self, "TICKS", LV_PART_TICKS);
+	obj_setInt(self, "CURSOR", LV_PART_CURSOR);
+	obj_setInt(self, "CUSTOM_FIRST", LV_PART_CUSTOM_FIRST);
+	obj_setInt(self, "ANY", LV_PART_ANY);
+}
+
 void pika_lvgl_STATE___init__(PikaObj* self) {
     obj_setInt(self, "DEFAULT", LV_STATE_DEFAULT);
     obj_setInt(self, "CHECKED", LV_STATE_CHECKED);
@@ -88,8 +101,8 @@ void pika_lvgl_TEXT_DECOR___init__(PikaObj* self) {
 }
 
 void pika_lvgl_ANIM___init__(PikaObj* self) {
-    obj_setInt(self, "ON", LV_ANIM_OFF);
-    obj_setInt(self, "OFF", LV_ANIM_ON);
+    obj_setInt(self, "ON", LV_ANIM_ON);
+    obj_setInt(self, "OFF", LV_ANIM_OFF);
 }
 
 void pika_lvgl_ALIGN___init__(PikaObj* self) {
@@ -205,22 +218,6 @@ void pika_lvgl___init__(PikaObj* self) {
     obj_newDirectObj(self, "lv_event_listener", New_TinyObj);
     pika_lv_event_listener_g = obj_getObj(self, "lv_event_listener");
     pika_lv_id_register_g = New_args(NULL);
-}
-
-void pika_lvgl_obj___init__(PikaObj* self, PikaTuple* parent) {
-    PikaObj* parent_obj = NULL;
-    if (NULL == parent) {
-        void pika_lvgl_flag_tMethod(PikaObj * self, Args * args);
-        class_defineConstructor(self, "FLAG", "", pika_lvgl_flag_tMethod);
-        return;
-    }
-    if (pikaTuple_getSize(parent) == 1) {
-        parent_obj = pikaTuple_getPtr(parent, 0);
-        lv_obj_t* lv_parent = obj_getPtr(parent_obj, "lv_obj");
-        lv_obj_t* lv_obj = lv_obj_create(lv_parent);
-        obj_setPtr(self, "lv_obj", lv_obj);
-        return;
-    }
 }
 
 PikaObj* pika_lvgl_palette_lighten(PikaObj* self, int p, int lvl) {

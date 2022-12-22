@@ -44,7 +44,7 @@ void callApplication(lv_event_t *e) {
 	lv_obj_t* target = lv_event_get_target(e);
 	for (int i = 0; i < Applications_GetAppNumber(); i ++) {
 		if (target == Application_LVIcons[i]) {
-			Applications_ActivateApplication(Applications_GetAppPath(i));
+			Applications_ActivateApplication(Applications_GetAppPath(i), Applications_GetAppBuiltIn(i));
 			break;
 		}
 	}
@@ -60,25 +60,80 @@ void refreshAppList(lv_event_t *e) {
 	SystemScanningEnabled = 1;
 }
 
-void UI_Clock_Arrows_Reset() {
-	lv_img_set_angle(ui_secPtr, 0);
-	lv_img_set_angle(ui_minPtr, 0);
-	lv_img_set_angle(ui_hourPtr, 0);
-//	lv_obj_set_style_opa(ui_secPtr, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-//	lv_obj_set_style_opa(ui_minPtr, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-//	lv_obj_set_style_opa(ui_hourPtr, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+//static int getMonthDay(int M) {
+//	if (M == )
+//}
+
+static int getIntValue(char *str) {
+	if (strlen(str) == 1) {
+		return str[0] - '0';
+	} else {
+		return (str[0] - '0') * 10 + (str[1] - '0');
+	}
 }
 
-void UI_Clock_InitArrows() {
-	RTC_Update();
-	uint8_t rtcHours = RTC_GetHours(), rtcMinutes = RTC_GetMinutes(), rtcSeconds = RTC_GetSeconds();
-	uint16_t secPtrAngle = (uint16_t) (60 * (uint32_t) rtcSeconds);
-	uint16_t minPtrAngle = (uint16_t) (60 * (uint32_t) rtcMinutes + (uint32_t) rtcSeconds);
-	uint16_t hourPtrAngle = (uint16_t) (300 * (uint32_t) rtcHours + 5 * (uint32_t) rtcMinutes + (uint32_t) rtcSeconds / 12);
-	lv_img_set_angle(ui_secPtr, secPtrAngle);
-	lv_img_set_angle(ui_minPtr, minPtrAngle);
-	lv_img_set_angle(ui_hourPtr, hourPtrAngle);
-//	UI_Animate_PtrIniting(ui_secPtr, secPtrAngle, 0);
-//	UI_Animate_PtrIniting(ui_minPtr, minPtrAngle, 0);
-//	UI_Animate_PtrIniting(ui_hourPtr, hourPtrAngle, 0);
+static void calcRollerOptions(char *buf, int val, int half, int inval, int modulo) {
+	sprintf(buf, "");
+	for (int i = val - half; i <= val + half; i ++) {
+		int v = (i + modulo) % modulo + inval;
+		if (i == val + half) {
+			sprintf(buf, "%s%d", buf, v);
+		} else {
+			sprintf(buf, "%s%d\n", buf, v);
+		}
+	}
+}
+
+static void setRollerOptions(lv_obj_t *target, int val, int half, int modulo) {
+	int inval = 0;
+	if (modulo == 12) inval = 1;
+	if (modulo == 31) {
+		inval = 1;
+//		lv_roller_get_selected_str();
+//		modulo = getMonthDay();
+	}
+	char list[50];
+	calcRollerOptions(list, val, half, inval, modulo);
+	lv_roller_set_options(target, list, LV_ROLLER_MODE_NORMAL);
+	lv_roller_set_selected(target, half, LV_ANIM_OFF);
+}
+
+#define SETTINGS_ROLLERS_HALF 4
+
+void settingsRolValChanged(lv_event_t * e) {
+	int *user_data = lv_event_get_user_data(e);
+	lv_obj_t *target = lv_event_get_target(e);
+	char seltmp[5];
+	lv_roller_get_selected_str(target, seltmp, 5);
+	setRollerOptions(target, getIntValue(seltmp), SETTINGS_ROLLERS_HALF, user_data[0]);
+}
+
+void settingsTimeClicked(lv_event_t * e) {
+	char seltmp1[5], seltmp2[5], seltmp3[5];
+	lv_roller_get_selected_str(ui_rolHour, seltmp1, 5);
+	lv_roller_get_selected_str(ui_rolMin, seltmp2, 5);
+	lv_roller_get_selected_str(ui_rolSec, seltmp3, 5);
+	RTC_SetTime(getIntValue(seltmp1), getIntValue(seltmp2), getIntValue(seltmp3));
+}
+
+void settingsDateClicked(lv_event_t * e) {
+	char seltmp1[5], seltmp2[5], seltmp3[5];
+	lv_roller_get_selected_str(ui_rolYear, seltmp1, 5);
+	lv_roller_get_selected_str(ui_rolMon, seltmp2, 5);
+	lv_roller_get_selected_str(ui_rolDay, seltmp3, 5);
+	RTC_SetDate(getIntValue(seltmp1), getIntValue(seltmp2), getIntValue(seltmp3));
+}
+
+void settingsEnBuValChanged(lv_event_t * e) {
+	extern int BuiltInAppsEnabled;
+	BuiltInAppsEnabled = lv_obj_has_state(ui_settingsEnBulSwt, LV_STATE_CHECKED);
+}
+
+void initSettingsRollers() {
+	setRollerOptions(ui_rolHour, RTC_GetHours(), SETTINGS_ROLLERS_HALF, 24);
+	setRollerOptions(ui_rolMin, RTC_GetMinutes(), SETTINGS_ROLLERS_HALF, 60);
+	setRollerOptions(ui_rolSec, RTC_GetSeconds(), SETTINGS_ROLLERS_HALF, 60);
+	setRollerOptions(ui_rolYear, RTC_GetYear(), SETTINGS_ROLLERS_HALF, 100);
+	setRollerOptions(ui_rolMon, RTC_GetMonth(), SETTINGS_ROLLERS_HALF, 12);
+	setRollerOptions(ui_rolDay, RTC_GetDay(), SETTINGS_ROLLERS_HALF, 31);
 }

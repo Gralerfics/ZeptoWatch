@@ -125,7 +125,7 @@ void pika_lvgl_bar___init__(PikaObj* self, PikaObj* parent) {
 
 void pika_lvgl_bar_set_value(PikaObj* self, int value, int anim) {
     lv_obj_t* lv_obj = obj_getPtr(self, "lv_obj");
-    lv_bar_set_value(lv_obj, value, value);
+    lv_bar_set_value(lv_obj, value, anim);
 }
 
 int pika_lvgl_bar_get_max_value(PikaObj* self) {
@@ -312,6 +312,12 @@ void pika_lvgl_label_set_style_text_align(PikaObj* self,
     lv_obj_set_style_text_align(lv_obj, value, selector);
 }
 
+void pika_lvgl_panel___init__(PikaObj *self, PikaObj* parent) {
+	lv_obj_t* lv_parent = obj_getPtr(parent, "lv_obj");
+	lv_obj_t* lv_obj = lv_obj_create(lv_parent);
+	obj_setPtr(self, "lv_obj", lv_obj);
+}
+
 void pika_lvgl_roller___init__(PikaObj* self, PikaObj* parent) {
     lv_obj_t* lv_parent = obj_getPtr(parent, "lv_obj");
     lv_obj_t* lv_obj = lv_roller_create(lv_parent);
@@ -321,6 +327,24 @@ void pika_lvgl_roller___init__(PikaObj* self, PikaObj* parent) {
 void pika_lvgl_roller_set_options(PikaObj* self, char* options, int mode) {
     lv_obj_t* lv_obj = obj_getPtr(self, "lv_obj");
     lv_roller_set_options(lv_obj, options, mode);
+}
+
+void pika_lvgl_roller_set_selected(PikaObj *self, int opt, int anim) {
+	lv_obj_t* lv_obj = obj_getPtr(self, "lv_obj");
+	lv_roller_set_selected(lv_obj, opt, anim);
+}
+
+int pika_lvgl_roller_get_selected(PikaObj *self) {
+	lv_obj_t* lv_obj = obj_getPtr(self, "lv_obj");
+	return lv_roller_get_selected(lv_obj);
+}
+
+char* pika_lvgl_roller_get_selected_str(PikaObj *self) {
+	lv_obj_t* lv_obj = obj_getPtr(self, "lv_obj");
+	obj_setBytes(self, "_buff", NULL, 32);
+	char *_buff = (char *) obj_getBytes(self, "_buff");
+	lv_roller_get_selected_str(lv_obj, _buff, 32);
+	return _buff;
 }
 
 void pika_lvgl_roller_set_visible_row_count(PikaObj* self, int row_cnt) {

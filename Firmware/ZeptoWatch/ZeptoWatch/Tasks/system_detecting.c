@@ -17,7 +17,7 @@ extern "C" {
 lv_chart_series_t *series = NULL;
 
 void StartSystemDetecting(void const * argument) {
-	int cnt = 0;
+//	int cnt = 0;
 	while (1) {
 		/* State Update */
 		if (Power_GetState() == 0) {
@@ -33,14 +33,17 @@ void StartSystemDetecting(void const * argument) {
 			Brightness_SetValueDirect(Brightness_CoreFunc(brightnessSliderValue));
 
 			/* Battery */
-			if (cnt ++ >= 500) {
+//			if (cnt ++ >= 500) {
 				int batterySliderValue = Battery_GetPowerPercentage();
-				lv_slider_set_value(ui_dropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
-				lv_slider_set_value(ui_appDropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
-				cnt = 0;
-			}
+//				if (!Battery_IsCharging() && batterySliderValue < 0) {
+//					Power_Standby();
+//				} else {
+					lv_slider_set_value(ui_dropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
+					lv_slider_set_value(ui_appDropdownBatterySlider, batterySliderValue, LV_ANIM_OFF);
+//				}
+//				cnt = 0;
+//			}
 		}
-
 		osDelay(5);
 	}
 }

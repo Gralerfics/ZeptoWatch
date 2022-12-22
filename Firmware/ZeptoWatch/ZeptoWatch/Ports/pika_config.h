@@ -3,6 +3,6 @@
 
 #define PIKA_CONFIG_ENABLE /* 放进 pika_config_valid.h */
 
-#define PIKA_STACK_BUFF_SIZE 1024
+#define PIKA_STACK_BUFF_SIZE 8192
 
 #endif

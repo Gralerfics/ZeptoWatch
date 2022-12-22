@@ -7,11 +7,11 @@ int ZeptoWatchStdLib_Clock_getDay(PikaObj *self) {
 }
 
 int ZeptoWatchStdLib_Clock_getHours(PikaObj *self) {
-	return RTC_Time.Hours;
+	return RTC_GetHours();
 }
 
 int ZeptoWatchStdLib_Clock_getMinutes(PikaObj *self) {
-	return RTC_Time.Minutes;
+	return RTC_GetMinutes();
 }
 
 int ZeptoWatchStdLib_Clock_getMonth(PikaObj *self) {
@@ -19,7 +19,11 @@ int ZeptoWatchStdLib_Clock_getMonth(PikaObj *self) {
 }
 
 int ZeptoWatchStdLib_Clock_getSeconds(PikaObj *self) {
-	return RTC_Time.Seconds;
+	return RTC_GetSeconds();
+}
+
+int ZeptoWatchStdLib_Clock_getSubseconds(PikaObj *self) {
+	return RTC_GetSubseconds();
 }
 
 int ZeptoWatchStdLib_Clock_getWeekDay(PikaObj *self) {
@@ -28,4 +32,20 @@ int ZeptoWatchStdLib_Clock_getWeekDay(PikaObj *self) {
 
 int ZeptoWatchStdLib_Clock_getYear(PikaObj *self) {
 	return RTC_GetYear();
+}
+
+void ZeptoWatchStdLib_Clock_setHours(PikaObj *self, int val) {
+	RTC_SetHours(val);
+}
+
+void ZeptoWatchStdLib_Clock_setMinutes(PikaObj *self, int val) {
+	RTC_SetMinutes(val);
+}
+
+void ZeptoWatchStdLib_Clock_setSeconds(PikaObj *self, int val) {
+	RTC_SetSeconds(val);
+}
+
+void ZeptoWatchStdLib_Clock_setTime(PikaObj *self, int h, int m, int s) {
+	RTC_SetTime(h, m, s);
 }
