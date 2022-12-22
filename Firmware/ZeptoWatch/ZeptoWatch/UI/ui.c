@@ -73,9 +73,9 @@ lv_obj_t * ui_settingsDateBtn;
 lv_obj_t * ui_rolYear;
 lv_obj_t * ui_rolMon;
 lv_obj_t * ui_rolDay;
-lv_obj_t * ui_settingsBuiltInAppLabel;
-void ui_event_settingsEnBulSwt(lv_event_t * e);
-lv_obj_t * ui_settingsEnBulSwt;
+//lv_obj_t * ui_settingsBuiltInAppLabel;
+//void ui_event_settingsEnBulSwt(lv_event_t * e);
+//lv_obj_t * ui_settingsEnBulSwt;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
 #if LV_COLOR_DEPTH != 16
@@ -349,14 +349,14 @@ void ui_event_settingsDateBtn(lv_event_t * e)
 		settingsDateClicked(e);
 	}
 }
-void ui_event_settingsEnBulSwt(lv_event_t * e)
-{
-	lv_event_code_t event_code = lv_event_get_code(e);
-	lv_obj_t * target = lv_event_get_target(e);
-	if(event_code == LV_EVENT_VALUE_CHANGED) {
-		settingsEnBuValChanged(e);
-	}
-}
+//void ui_event_settingsEnBulSwt(lv_event_t * e)
+//{
+//	lv_event_code_t event_code = lv_event_get_code(e);
+//	lv_obj_t * target = lv_event_get_target(e);
+//	if(event_code == LV_EVENT_VALUE_CHANGED) {
+//		settingsEnBuValChanged(e);
+//	}
+//}
 
 ///////////////////// SCREENS ////////////////////
 void ui_Home_screen_init(void)
@@ -970,32 +970,32 @@ void ui_Settings_screen_init(void)
 	lv_obj_set_style_bg_color(ui_rolDay, lv_color_hex(0xE6E6E6), LV_PART_SELECTED | LV_STATE_DEFAULT);
 	lv_obj_set_style_bg_opa(ui_rolDay, 255, LV_PART_SELECTED | LV_STATE_DEFAULT);
 
-	ui_settingsBuiltInAppLabel = lv_label_create(ui_settingsPanel);
-	lv_obj_set_width(ui_settingsBuiltInAppLabel, LV_SIZE_CONTENT);   /// 1
-	lv_obj_set_height(ui_settingsBuiltInAppLabel, LV_SIZE_CONTENT);    /// 1
-	lv_obj_set_x(ui_settingsBuiltInAppLabel, -9);
-	lv_obj_set_y(ui_settingsBuiltInAppLabel, 86);
-	lv_obj_set_align(ui_settingsBuiltInAppLabel, LV_ALIGN_LEFT_MID);
-	lv_label_set_text(ui_settingsBuiltInAppLabel, "Enable Built-Ins");
-	lv_obj_set_style_text_font(ui_settingsBuiltInAppLabel, &lv_font_montserrat_12, LV_PART_MAIN | LV_STATE_DEFAULT);
+//	ui_settingsBuiltInAppLabel = lv_label_create(ui_settingsPanel);
+//	lv_obj_set_width(ui_settingsBuiltInAppLabel, LV_SIZE_CONTENT);   /// 1
+//	lv_obj_set_height(ui_settingsBuiltInAppLabel, LV_SIZE_CONTENT);    /// 1
+//	lv_obj_set_x(ui_settingsBuiltInAppLabel, -9);
+//	lv_obj_set_y(ui_settingsBuiltInAppLabel, 86);
+//	lv_obj_set_align(ui_settingsBuiltInAppLabel, LV_ALIGN_LEFT_MID);
+//	lv_label_set_text(ui_settingsBuiltInAppLabel, "Enable Built-Ins");
+//	lv_obj_set_style_text_font(ui_settingsBuiltInAppLabel, &lv_font_montserrat_12, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-	ui_settingsEnBulSwt = lv_switch_create(ui_settingsPanel);
-	lv_obj_set_width(ui_settingsEnBulSwt, 33);
-	lv_obj_set_height(ui_settingsEnBulSwt, 16);
-	lv_obj_set_x(ui_settingsEnBulSwt, 113);
-	lv_obj_set_y(ui_settingsEnBulSwt, 87);
-	lv_obj_set_align(ui_settingsEnBulSwt, LV_ALIGN_LEFT_MID);
-	lv_obj_add_state(ui_settingsEnBulSwt, LV_STATE_CHECKED);       /// States
+//	ui_settingsEnBulSwt = lv_switch_create(ui_settingsPanel);
+//	lv_obj_set_width(ui_settingsEnBulSwt, 33);
+//	lv_obj_set_height(ui_settingsEnBulSwt, 16);
+//	lv_obj_set_x(ui_settingsEnBulSwt, 113);
+//	lv_obj_set_y(ui_settingsEnBulSwt, 87);
+//	lv_obj_set_align(ui_settingsEnBulSwt, LV_ALIGN_LEFT_MID);
+//	lv_obj_add_state(ui_settingsEnBulSwt, LV_STATE_CHECKED);       /// States
 
-	lv_obj_set_style_bg_color(ui_settingsEnBulSwt, lv_color_hex(0x292831), LV_PART_INDICATOR | LV_STATE_DEFAULT);
-	lv_obj_set_style_bg_opa(ui_settingsEnBulSwt, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-	lv_obj_set_style_bg_color(ui_settingsEnBulSwt, lv_color_hex(0x909090), LV_PART_INDICATOR | LV_STATE_CHECKED);
-	lv_obj_set_style_bg_opa(ui_settingsEnBulSwt, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
+//	lv_obj_set_style_bg_color(ui_settingsEnBulSwt, lv_color_hex(0x292831), LV_PART_INDICATOR | LV_STATE_DEFAULT);
+//	lv_obj_set_style_bg_opa(ui_settingsEnBulSwt, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+//	lv_obj_set_style_bg_color(ui_settingsEnBulSwt, lv_color_hex(0x909090), LV_PART_INDICATOR | LV_STATE_CHECKED);
+//	lv_obj_set_style_bg_opa(ui_settingsEnBulSwt, 255, LV_PART_INDICATOR | LV_STATE_CHECKED);
 
-	lv_obj_set_style_bg_color(ui_settingsEnBulSwt, lv_color_hex(0xE6E6E6), LV_PART_KNOB | LV_STATE_DEFAULT);
-	lv_obj_set_style_bg_opa(ui_settingsEnBulSwt, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
-	lv_obj_set_style_bg_color(ui_settingsEnBulSwt, lv_color_hex(0xE6E6E6), LV_PART_KNOB | LV_STATE_CHECKED);
-	lv_obj_set_style_bg_opa(ui_settingsEnBulSwt, 255, LV_PART_KNOB | LV_STATE_CHECKED);
+//	lv_obj_set_style_bg_color(ui_settingsEnBulSwt, lv_color_hex(0xE6E6E6), LV_PART_KNOB | LV_STATE_DEFAULT);
+//	lv_obj_set_style_bg_opa(ui_settingsEnBulSwt, 255, LV_PART_KNOB | LV_STATE_DEFAULT);
+//	lv_obj_set_style_bg_color(ui_settingsEnBulSwt, lv_color_hex(0xE6E6E6), LV_PART_KNOB | LV_STATE_CHECKED);
+//	lv_obj_set_style_bg_opa(ui_settingsEnBulSwt, 255, LV_PART_KNOB | LV_STATE_CHECKED);
 
 	static int tmp[5] = {24, 60, 100, 12, 31};
 	lv_obj_add_event_cb(ui_settingsTimeBtn, ui_event_settingsTimeBtn, LV_EVENT_ALL, NULL);
@@ -1006,7 +1006,7 @@ void ui_Settings_screen_init(void)
 	lv_obj_add_event_cb(ui_rolYear, ui_event_rollers, LV_EVENT_ALL, &tmp[2]);
 	lv_obj_add_event_cb(ui_rolMon, ui_event_rollers, LV_EVENT_ALL, &tmp[3]);
 	lv_obj_add_event_cb(ui_rolDay, ui_event_rollers, LV_EVENT_ALL, &tmp[4]);
-	lv_obj_add_event_cb(ui_settingsEnBulSwt, ui_event_settingsEnBulSwt, LV_EVENT_ALL, NULL);
+//	lv_obj_add_event_cb(ui_settingsEnBulSwt, ui_event_settingsEnBulSwt, LV_EVENT_ALL, NULL);
 	lv_obj_add_event_cb(ui_Settings, ui_event_Settings, LV_EVENT_ALL, NULL);
 }
 

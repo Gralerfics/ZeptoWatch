@@ -44,7 +44,7 @@ void callApplication(lv_event_t *e) {
 	lv_obj_t* target = lv_event_get_target(e);
 	for (int i = 0; i < Applications_GetAppNumber(); i ++) {
 		if (target == Application_LVIcons[i]) {
-			Applications_ActivateApplication(Applications_GetAppPath(i), Applications_GetAppBuiltIn(i));
+			Applications_ActivateApplication(Applications_GetAppPath(i));
 			break;
 		}
 	}
@@ -125,8 +125,7 @@ void settingsDateClicked(lv_event_t * e) {
 }
 
 void settingsEnBuValChanged(lv_event_t * e) {
-	extern int BuiltInAppsEnabled;
-	BuiltInAppsEnabled = lv_obj_has_state(ui_settingsEnBulSwt, LV_STATE_CHECKED);
+
 }
 
 void initSettingsRollers() {

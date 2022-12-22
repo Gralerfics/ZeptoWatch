@@ -5,11 +5,8 @@
 
 #include "fshelper.h"
 
-#include "builtin-ui.h"
-
 PikaObj *MainPikaObj = NULL;
 
-int Application_IsBuiltIn __attribute__((section(".ccmram"))) = 0;
 int Application_RunningExisted __attribute__((section(".ccmram"))) = 0;
 char Application_RunningFilePath[APPLICATION_PATH_MAXLEN] __attribute__((section(".ccmram"))) = {0};
 
@@ -31,7 +28,6 @@ void Applications_Scan() {
 		sprintf(Application_Info[i].name, "%s", Application_Info[i].path);
 		Application_Info[i].icon = &ui_img_scripts_png;
 		Application_Info[i].color = 0xFF9B37;
-		Application_Info[i].isBuiltIn = 0;
 
 #ifdef APPLICATION_SCAN_HEADER
 		char txt[45] = {0};
@@ -107,15 +103,6 @@ void Applications_Scan() {
 	}
 }
 
-void Applications_ScanBuiltIns() {
-	sprintf(Application_Info[Application_Number].path, "Merits");
-	sprintf(Application_Info[Application_Number].name, "Merits");
-	Application_Info[Application_Number].icon = &ui_img_clock_png;
-	Application_Info[Application_Number].color = 0xFF9B37;
-	Application_Info[Application_Number].isBuiltIn = 1;
-	Application_Number += 1;
-}
-
 int Applications_GetAppNumber() {
 	return Application_Number;
 }
@@ -141,17 +128,8 @@ uint32_t Applications_GetAppColor(int index) {
 	return Application_Info[index].color;
 }
 
-int Applications_GetAppBuiltIn(int index) {
-	if (index >= Application_Number) return 0;
-	return Application_Info[index].isBuiltIn;
-}
-
 int Applications_IsRunning() {
 	return Application_RunningExisted;
-}
-
-int Applications_IsBuiltIn() {
-	return Application_IsBuiltIn;
 }
 
 char* Applications_GetApplicationPath() {
@@ -162,19 +140,14 @@ void Applications_SetExisted(int val) {
 	Application_RunningExisted = val;
 }
 
-void Applications_SetBuiltIn(int val) {
-	Application_IsBuiltIn = val;
-}
-
 void Applications_SetApplicationPath(const char *filepath) {
 	sprintf(Application_RunningFilePath, "%s", filepath);
 }
 
-void Applications_ActivateApplication(const char *filepath, int isBuiltIn) {
+void Applications_ActivateApplication(const char *filepath) {
 	Applications_SetApplicationPath(filepath);
 	Applications_SetExisted(1);
-	Applications_SetBuiltIn(isBuiltIn);
-	Debug_Printf("Application Activated: %s; Is Built-in: %d.\n", filepath, isBuiltIn);
+	Debug_Printf("Application Activated: %s.\n", filepath);
 }
 
 void Applications_HaltApplication() {
@@ -206,15 +179,4 @@ void Application_ExecuteFromFS(const char *filepath) {
 
 	MainPikaObj = pikaScriptInit();
 	obj_run(MainPikaObj, Program);
-}
-
-void Application_ExecuteFromBuiltins(const char *appPath) {
-	if (appPath[0] == 'M' && appPath[1] == 'e' && appPath[2] == 'r' && appPath[3] == 'i' && appPath[4] == 't' && appPath[5] == 's') {
-		ui_Woodenf_screen_init();
-		while (1) {
-			osDelay(5);
-		}
-	} else {
-		Debug_Printf("Built-in Application Not Found.\n");
-	}
 }

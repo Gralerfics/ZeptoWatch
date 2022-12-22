@@ -77,9 +77,9 @@ extern lv_obj_t * ui_settingsDateBtn;
 extern lv_obj_t * ui_rolYear;
 extern lv_obj_t * ui_rolMon;
 extern lv_obj_t * ui_rolDay;
-extern lv_obj_t * ui_settingsBuiltInAppLabel;
-void ui_event_settingsEnBulSwt(lv_event_t * e);
-extern lv_obj_t * ui_settingsEnBulSwt;
+//extern lv_obj_t * ui_settingsBuiltInAppLabel;
+//void ui_event_settingsEnBulSwt(lv_event_t * e);
+//extern lv_obj_t * ui_settingsEnBulSwt;
 
 LV_IMG_DECLARE(ui_img_clock_sec_png);    // assets\clock_sec.png
 LV_IMG_DECLARE(ui_img_clock_min_png);    // assets\clock_min.png

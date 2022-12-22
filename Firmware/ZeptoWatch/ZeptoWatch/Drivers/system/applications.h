@@ -24,23 +24,19 @@ typedef struct {
 	char name[APPLICATION_NAME_MAXLEN];
 	lv_img_dsc_t *icon;
 	uint32_t color;
-	int isBuiltIn;
 } Application_Info_Type;
 
 void Applications_Scan();
-void Applications_ScanBuiltIns();
 int Applications_GetAppNumber();
 char* Applications_GetAppName(int index);
 char* Applications_GetAppPath(int index);
 lv_img_dsc_t* Applications_GetAppIcon(int index);
 uint32_t Applications_GetAppColor(int index);
-int Applications_GetAppBuiltIn(int index);
 
 int Applications_IsRunning();
-int Applications_IsBuiltIn();
 char* Applications_GetApplicationPath();
 
-void Applications_ActivateApplication(const char *filepath, int isBuiltIn);
+void Applications_ActivateApplication(const char *filepath);
 void Applications_HaltApplication();
 
 void Application_ExecuteFromFS(const char *filepath);

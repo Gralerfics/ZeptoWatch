@@ -9,7 +9,6 @@ extern "C" {
 #include "applications.h"
 
 int SystemScanningEnabled = 0;
-int BuiltInAppsEnabled = 1;
 
 void startSystemScanning(void const * argument) {
 	// Enable Scanning
@@ -19,7 +18,6 @@ void startSystemScanning(void const * argument) {
 		if (SystemScanningEnabled) {
 			lv_label_set_text(ui_applicationsLabel, "Refreshing ...");
 			Applications_Scan();
-			if (BuiltInAppsEnabled) Applications_ScanBuiltIns();
 			UI_Applications_Listing();
 
 			lv_label_set_text(ui_applicationsLabel, "Applications");
