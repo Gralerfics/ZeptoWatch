@@ -41,5 +41,8 @@ LV_IMG_DECLARE(ui_img_info_png);    	// assets\info.png
 LV_IMG_DECLARE(ui_img_clock_png);    	// assets\clock.png
 LV_IMG_DECLARE(ui_img_check_png);    	// assets\check.png
 LV_IMG_DECLARE(ui_img_notes_png);    	// assets\notes.png
+LV_IMG_DECLARE(ui_img_merits_png);    	// assets\merits.png
+
+LV_IMG_DECLARE(ui_img_woodenf_png);    	// assets\woodenf.png
 
 #endif

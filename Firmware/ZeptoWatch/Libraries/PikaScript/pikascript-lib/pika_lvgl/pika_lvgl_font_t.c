@@ -33,7 +33,7 @@ void pika_lvgl_FONT___init__(PikaObj *self) {
 	obj_setPtr(font, "lv_font", &lv_font_montserrat_14);
 	obj_setPtr(self, "MONTSERRAT_14", font);
 #endif
-#if LV_FONT_MONTSERRAT_1
+#if LV_FONT_MONTSERRAT_16
 	obj_setPtr(font, "lv_font", &lv_font_montserrat_16);
 	obj_setPtr(self, "MONTSERRAT_16", font);
 #endif

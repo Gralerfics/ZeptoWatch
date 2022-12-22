@@ -19,6 +19,7 @@
 #include "PikaMain.h"
 #include "PikaStdLib_SysObj.h"
 #include "PikaStdLib.h"
+#include "ZeptoWatchAssets.h"
 #include "ZeptoWatchPeriphLib.h"
 #include "ZeptoWatchStdLib.h"
 #include "pika_lvgl.h"
@@ -77,6 +78,10 @@
 #include "PikaStdTask_Task.h"
 #include "PikaStdLib_SysObj.h"
 #include "PikaStdData_List.h"
+#include "ZeptoWatchAssets.h"
+#include "TinyObj.h"
+#include "ZeptoWatchAssets_Imgs.h"
+#include "TinyObj.h"
 #include "ZeptoWatchPeriphLib.h"
 #include "TinyObj.h"
 #include "ZeptoWatchPeriphLib_Battery.h"
@@ -237,6 +242,7 @@ class_inhert(PikaMain, PikaStdLib_SysObj);
 PikaObj *New_PikaMain(Args *args){
     PikaObj *self = New_PikaStdLib_SysObj(args);
     obj_newObj(self, "PikaStdLib", "PikaStdLib", New_PikaStdLib);
+    obj_newObj(self, "ZeptoWatchAssets", "ZeptoWatchAssets", New_ZeptoWatchAssets);
     obj_newObj(self, "ZeptoWatchPeriphLib", "ZeptoWatchPeriphLib", New_ZeptoWatchPeriphLib);
     obj_newObj(self, "ZeptoWatchStdLib", "ZeptoWatchStdLib", New_ZeptoWatchStdLib);
     obj_newObj(self, "pika_lvgl", "pika_lvgl", New_pika_lvgl);
@@ -3493,6 +3499,55 @@ PikaObj *New_PikaStdTask_Task(Args *args){
 
 Arg *PikaStdTask_Task(PikaObj *self){
     return obj_newObjInPackage(New_PikaStdTask_Task);
+}
+#endif
+
+#ifndef PIKA_MODULE_ZEPTOWATCHASSETS_DISABLE
+void ZeptoWatchAssets_ImgsMethod(PikaObj *self, Args *args){
+    Arg* res = ZeptoWatchAssets_Imgs(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    ZeptoWatchAssets_Imgs,
+    "Imgs", ""
+);
+
+class_def(ZeptoWatchAssets){
+    __BEFORE_MOETHOD_DEF
+    constructor_def(ZeptoWatchAssets_Imgs, 2089219221),
+};
+class_inhert(ZeptoWatchAssets, TinyObj);
+
+PikaObj *New_ZeptoWatchAssets(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchAssets);
+    return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_ZEPTOWATCHASSETS_DISABLE
+void ZeptoWatchAssets_Imgs___init__Method(PikaObj *self, Args *args){
+    ZeptoWatchAssets_Imgs___init__(self);
+}
+method_typedef(
+    ZeptoWatchAssets_Imgs___init__,
+    "__init__", ""
+);
+
+class_def(ZeptoWatchAssets_Imgs){
+    __BEFORE_MOETHOD_DEF
+    method_def(ZeptoWatchAssets_Imgs___init__, 904762485),
+};
+class_inhert(ZeptoWatchAssets_Imgs, TinyObj);
+
+PikaObj *New_ZeptoWatchAssets_Imgs(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, ZeptoWatchAssets_Imgs);
+    return self;
+}
+
+Arg *ZeptoWatchAssets_Imgs(PikaObj *self){
+    return obj_newObjInPackage(New_ZeptoWatchAssets_Imgs);
 }
 #endif
 

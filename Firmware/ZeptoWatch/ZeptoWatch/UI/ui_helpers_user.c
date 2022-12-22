@@ -15,6 +15,7 @@ void UI_Applications_InitList() {
 		lv_obj_clear_flag(Application_LVIcons[i], LV_OBJ_FLAG_SCROLLABLE);
 		lv_obj_set_style_radius(Application_LVIcons[i], 25, LV_PART_MAIN | LV_STATE_DEFAULT);
 		lv_obj_set_style_bg_opa(Application_LVIcons[i], 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+		lv_obj_set_style_bg_img_recolor(Application_LVIcons[i], lv_color_hex(0x101418), LV_PART_MAIN | LV_STATE_DEFAULT);
 		lv_obj_add_flag(Application_LVIcons[i], LV_OBJ_FLAG_HIDDEN); // Hide first.
 		lv_obj_add_event_cb(Application_LVIcons[i], ui_event_appButtons, LV_EVENT_ALL, NULL);
 

@@ -69,6 +69,8 @@ void Applications_Scan() {
 							Application_Info[i].icon = &ui_img_check_png;
 						} else if (curPtr == 5 && curVal[0] == 'n' && curVal[1] == 'o' && curVal[2] == 't' && curVal[3] == 'e' && curVal[4] == 's') {
 							Application_Info[i].icon = &ui_img_notes_png;
+						} else if (curPtr == 6 && curVal[0] == 'm' && curVal[1] == 'e' && curVal[2] == 'r' && curVal[3] == 'i' && curVal[4] == 't' && curVal[5] == 's') {
+							Application_Info[i].icon = &ui_img_merits_png;
 						}
 						Debug_Printf("\tIcon = %s\n", curVal);
 					} else if (curAttr[0] == 'N') {
