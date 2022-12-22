@@ -62,7 +62,7 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-osThreadId defaultTaskHandle;
+//osThreadId defaultTaskHandle;
 osThreadId systemUIHandle;
 osThreadId systemDetectingHandle;
 osThreadId applicationExecHandle;
@@ -73,7 +73,7 @@ osThreadId systemScanningHandle;
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const * argument);
+//void StartDefaultTask(void const * argument);
 void StartSystemUI(void const * argument);
 void StartSystemDetecting(void const * argument);
 void StartApplicationExecuting(void const * argument);
@@ -87,7 +87,7 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
 
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
-static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
+static StackType_t xIdleStack[configMINIMAL_STACK_SIZE] __attribute__((section(".ccmram")));
 
 void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
 {
@@ -161,19 +161,19 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 64);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+//  osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 64);
+//  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of systemUI */
-  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 2000);
+  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 2500);
   systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
   /* definition and creation of systemDetecting */
-  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1000);
+  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1500);
   systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
   /* definition and creation of applicationExec */
-  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 3000);
+  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 4000);
   applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
 
   /* definition and creation of systemScanning */
@@ -193,18 +193,18 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
-{
-  /* init code for USB_DEVICE */
-  MX_USB_DEVICE_Init();
-  /* USER CODE BEGIN StartDefaultTask */
-	/* Infinite loop */
-	for(;;)
-	{
-		osDelay(1);
-	}
-  /* USER CODE END StartDefaultTask */
-}
+//void StartDefaultTask(void const * argument)
+//{
+//  /* init code for USB_DEVICE */
+//  MX_USB_DEVICE_Init();
+//  /* USER CODE BEGIN StartDefaultTask */
+//	/* Infinite loop */
+//	for(;;)
+//	{
+//		osDelay(1);
+//	}
+//  /* USER CODE END StartDefaultTask */
+//}
 
 /* USER CODE BEGIN Header_StartSystemUI */
 /**

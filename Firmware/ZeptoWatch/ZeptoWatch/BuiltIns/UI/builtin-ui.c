@@ -10,7 +10,7 @@
 
 ///////////////////// VARIABLES ////////////////////
 void beatfish_Animation(lv_obj_t * TargetObject, int delay);
-void beatShowLabel_Animation(lv_obj_t * TargetObject, int delay);
+//void beatShowLabel_Animation(lv_obj_t * TargetObject, int delay);
 lv_obj_t * ui_woodenfImg;
 lv_obj_t * ui_woodenfIncLabel;
 lv_obj_t * ui_woodenfAccLabel;
@@ -58,38 +58,38 @@ void beatfish_Animation(lv_obj_t * TargetObject, int delay)
     lv_anim_start(&PropertyAnimation_1);
 
 }
-void beatShowLabel_Animation(lv_obj_t * TargetObject, int delay)
-{
-    lv_anim_t PropertyAnimation_0;
-    lv_anim_init(&PropertyAnimation_0);
-    lv_anim_set_time(&PropertyAnimation_0, 300);
-    lv_anim_set_user_data(&PropertyAnimation_0, TargetObject);
-    lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_y);
-    lv_anim_set_values(&PropertyAnimation_0, -50, -80);
-    lv_anim_set_path_cb(&PropertyAnimation_0, lv_anim_path_linear);
-    lv_anim_set_delay(&PropertyAnimation_0, delay + 0);
-    lv_anim_set_playback_time(&PropertyAnimation_0, 0);
-    lv_anim_set_playback_delay(&PropertyAnimation_0, 0);
-    lv_anim_set_repeat_count(&PropertyAnimation_0, 0);
-    lv_anim_set_repeat_delay(&PropertyAnimation_0, 0);
-    lv_anim_set_early_apply(&PropertyAnimation_0, false);
-    lv_anim_start(&PropertyAnimation_0);
-    lv_anim_t PropertyAnimation_1;
-    lv_anim_init(&PropertyAnimation_1);
-    lv_anim_set_time(&PropertyAnimation_1, 300);
-    lv_anim_set_user_data(&PropertyAnimation_1, TargetObject);
-    lv_anim_set_custom_exec_cb(&PropertyAnimation_1, _ui_anim_callback_set_opacity);
-    lv_anim_set_values(&PropertyAnimation_1, 255, 0);
-    lv_anim_set_path_cb(&PropertyAnimation_1, lv_anim_path_linear);
-    lv_anim_set_delay(&PropertyAnimation_1, delay + 0);
-    lv_anim_set_playback_time(&PropertyAnimation_1, 0);
-    lv_anim_set_playback_delay(&PropertyAnimation_1, 0);
-    lv_anim_set_repeat_count(&PropertyAnimation_1, 0);
-    lv_anim_set_repeat_delay(&PropertyAnimation_1, 0);
-    lv_anim_set_early_apply(&PropertyAnimation_1, false);
-    lv_anim_start(&PropertyAnimation_1);
-
-}
+//void beatShowLabel_Animation(lv_obj_t * TargetObject, int delay)
+//{
+//    lv_anim_t PropertyAnimation_0;
+//    lv_anim_init(&PropertyAnimation_0);
+//    lv_anim_set_time(&PropertyAnimation_0, 300);
+//    lv_anim_set_user_data(&PropertyAnimation_0, TargetObject);
+//    lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_y);
+//    lv_anim_set_values(&PropertyAnimation_0, -50, -80);
+//    lv_anim_set_path_cb(&PropertyAnimation_0, lv_anim_path_linear);
+//    lv_anim_set_delay(&PropertyAnimation_0, delay + 0);
+//    lv_anim_set_playback_time(&PropertyAnimation_0, 0);
+//    lv_anim_set_playback_delay(&PropertyAnimation_0, 0);
+//    lv_anim_set_repeat_count(&PropertyAnimation_0, 0);
+//    lv_anim_set_repeat_delay(&PropertyAnimation_0, 0);
+//    lv_anim_set_early_apply(&PropertyAnimation_0, false);
+//    lv_anim_start(&PropertyAnimation_0);
+//    lv_anim_t PropertyAnimation_1;
+//    lv_anim_init(&PropertyAnimation_1);
+//    lv_anim_set_time(&PropertyAnimation_1, 300);
+//    lv_anim_set_user_data(&PropertyAnimation_1, TargetObject);
+//    lv_anim_set_custom_exec_cb(&PropertyAnimation_1, _ui_anim_callback_set_opacity);
+//    lv_anim_set_values(&PropertyAnimation_1, 255, 0);
+//    lv_anim_set_path_cb(&PropertyAnimation_1, lv_anim_path_linear);
+//    lv_anim_set_delay(&PropertyAnimation_1, delay + 0);
+//    lv_anim_set_playback_time(&PropertyAnimation_1, 0);
+//    lv_anim_set_playback_delay(&PropertyAnimation_1, 0);
+//    lv_anim_set_repeat_count(&PropertyAnimation_1, 0);
+//    lv_anim_set_repeat_delay(&PropertyAnimation_1, 0);
+//    lv_anim_set_early_apply(&PropertyAnimation_1, false);
+//    lv_anim_start(&PropertyAnimation_1);
+//
+//}
 
 ///////////////////// FUNCTIONS ///////////////////
 void ui_event_woodenfBtn(lv_event_t * e)
@@ -98,7 +98,7 @@ void ui_event_woodenfBtn(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         beatfish_Animation(ui_woodenfImg, 0);
-        beatShowLabel_Animation(ui_woodenfIncLabel, 0);
+//        beatShowLabel_Animation(ui_woodenfIncLabel, 0);
         woodenfMeritsInc(e);
     }
 }
@@ -117,15 +117,15 @@ void ui_Woodenf_screen_init(void)
     lv_obj_clear_flag(ui_woodenfImg, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_woodenfImg, 225);
 
-    ui_woodenfIncLabel = lv_label_create(ui_Appfield);
-    lv_obj_set_width(ui_woodenfIncLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_woodenfIncLabel, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_woodenfIncLabel, -49);
-    lv_obj_set_y(ui_woodenfIncLabel, -50);
-    lv_obj_set_align(ui_woodenfIncLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_woodenfIncLabel, "Merit + 1");
-    lv_obj_set_style_text_font(ui_woodenfIncLabel, &lv_font_montserrat_12, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_opa(ui_woodenfIncLabel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+//    ui_woodenfIncLabel = lv_label_create(ui_Appfield);
+//    lv_obj_set_width(ui_woodenfIncLabel, LV_SIZE_CONTENT);   /// 1
+//    lv_obj_set_height(ui_woodenfIncLabel, LV_SIZE_CONTENT);    /// 1
+//    lv_obj_set_x(ui_woodenfIncLabel, -49);
+//    lv_obj_set_y(ui_woodenfIncLabel, -50);
+//    lv_obj_set_align(ui_woodenfIncLabel, LV_ALIGN_CENTER);
+//    lv_label_set_text(ui_woodenfIncLabel, "Merit + 1");
+//    lv_obj_set_style_text_font(ui_woodenfIncLabel, &lv_font_montserrat_12, LV_PART_MAIN | LV_STATE_DEFAULT);
+//    lv_obj_set_style_opa(ui_woodenfIncLabel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_woodenfAccLabel = lv_label_create(ui_Appfield);
     lv_obj_set_width(ui_woodenfAccLabel, LV_SIZE_CONTENT);   /// 1
@@ -133,9 +133,6 @@ void ui_Woodenf_screen_init(void)
     lv_obj_set_x(ui_woodenfAccLabel, 0);
     lv_obj_set_y(ui_woodenfAccLabel, 80);
     lv_obj_set_align(ui_woodenfAccLabel, LV_ALIGN_CENTER);
-//	extern int woodenf_merits;
-//	char tmpStr[20];
-//	sprintf(tmpStr, "Merits: %d", woodenf_merits);
     lv_label_set_text(ui_woodenfAccLabel, "Knock.");
     lv_obj_set_style_text_font(ui_woodenfAccLabel, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 

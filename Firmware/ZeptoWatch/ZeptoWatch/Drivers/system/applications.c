@@ -182,10 +182,8 @@ void Applications_HaltApplication() {
 		Debug_Printf("Halt. Current Mem Used: %lu\n", pikaMemNow());
 
 		// Halt Python VM
-		if (!Application_IsBuiltIn) {
-			pks_vm_exit();
-			if (MainPikaObj != NULL) obj_deinit(MainPikaObj);
-		}
+		pks_vm_exit();
+		if (MainPikaObj != NULL) obj_deinit(MainPikaObj);
 		// Clear Flag
 		Applications_SetExisted(0);
 		// DeInit LVGL Components

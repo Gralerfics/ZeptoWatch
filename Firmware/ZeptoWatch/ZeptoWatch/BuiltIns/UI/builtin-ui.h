@@ -13,7 +13,7 @@ extern "C" {
 #include "lvgl/lvgl.h"
 
 extern lv_obj_t * ui_woodenfImg;
-extern lv_obj_t * ui_woodenfIncLabel;
+//extern lv_obj_t * ui_woodenfIncLabel;
 extern lv_obj_t * ui_woodenfAccLabel;
 void ui_event_woodenfBtn(lv_event_t * e);
 extern lv_obj_t * ui_woodenfBtn;
