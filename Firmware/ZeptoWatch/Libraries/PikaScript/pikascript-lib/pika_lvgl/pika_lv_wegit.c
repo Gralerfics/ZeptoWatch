@@ -358,6 +358,16 @@ void pika_lvgl_slider___init__(PikaObj* self, PikaObj* parent) {
     obj_setPtr(self, "lv_obj", lv_obj);
 }
 
+int pika_lvgl_slider_get_value(PikaObj *self) {
+	lv_obj_t* lv_obj = obj_getPtr(self, "lv_obj");
+	return lv_slider_get_value(lv_obj);
+}
+
+void pika_lvgl_slider_set_value(PikaObj *self, int val, int anim) {
+	lv_obj_t* lv_obj = obj_getPtr(self, "lv_obj");
+	lv_slider_set_value(lv_obj, val, anim);
+}
+
 void pika_lvgl_switch___init__(PikaObj* self, PikaObj* parent) {
     lv_obj_t* lv_parent = obj_getPtr(parent, "lv_obj");
     lv_obj_t* lv_obj = lv_switch_create(lv_parent);

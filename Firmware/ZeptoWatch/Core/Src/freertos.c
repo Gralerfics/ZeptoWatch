@@ -146,6 +146,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
+	
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
@@ -165,15 +166,15 @@ void MX_FREERTOS_Init(void) {
 //  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of systemUI */
-  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 2500);
+  osThreadDef(systemUI, StartSystemUI, osPriorityHigh, 0, 3200);
   systemUIHandle = osThreadCreate(osThread(systemUI), NULL);
 
   /* definition and creation of systemDetecting */
-  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1500);
+  osThreadDef(systemDetecting, StartSystemDetecting, osPriorityNormal, 0, 1000);
   systemDetectingHandle = osThreadCreate(osThread(systemDetecting), NULL);
 
   /* definition and creation of applicationExec */
-  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 4000);
+  osThreadDef(applicationExec, StartApplicationExecuting, osPriorityNormal, 0, 4800);
   applicationExecHandle = osThreadCreate(osThread(applicationExec), NULL);
 
   /* definition and creation of systemScanning */

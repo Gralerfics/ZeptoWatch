@@ -6780,9 +6780,30 @@ method_typedef(
     "__init__", "parent"
 );
 
+void pika_lvgl_slider_get_valueMethod(PikaObj *self, Args *args){
+    int res = pika_lvgl_slider_get_value(self);
+    method_returnInt(args, res);
+}
+method_typedef(
+    pika_lvgl_slider_get_value,
+    "get_value", ""
+);
+
+void pika_lvgl_slider_set_valueMethod(PikaObj *self, Args *args){
+    int val = args_getInt(args, "val");
+    int anim = args_getInt(args, "anim");
+    pika_lvgl_slider_set_value(self, val, anim);
+}
+method_typedef(
+    pika_lvgl_slider_set_value,
+    "set_value", "val,anim"
+);
+
 class_def(pika_lvgl_slider){
     __BEFORE_MOETHOD_DEF
     method_def(pika_lvgl_slider___init__, 904762485),
+    method_def(pika_lvgl_slider_set_value, 1133002029),
+    method_def(pika_lvgl_slider_get_value, 1303572769),
 };
 class_inhert(pika_lvgl_slider, pika_lvgl_lv_obj);
 

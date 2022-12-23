@@ -11,11 +11,13 @@ void arm_math_dsp_FFT___init__(PikaObj *self) {
 	obj_setInt(self, "LENGTH_128", 128);
 	obj_setInt(self, "LENGTH_256", 256);
 	obj_setInt(self, "LENGTH_512", 512);
-	obj_setInt(self, "LENGTH_1024", 1024);
+//	obj_setInt(self, "LENGTH_1024", 1024);
+//	obj_setInt(self, "LENGTH_2048", 2048);
+//	obj_setInt(self, "LENGTH_4096", 4096);
 }
 
-float fft_tmp_list_1[1050] __attribute__((section(".ccmram")));
-float fft_tmp_list_2[1050] __attribute__((section(".ccmram")));
+float fft_tmp_list_1[550] __attribute__((section(".ccmram")));
+float fft_tmp_list_2[550] __attribute__((section(".ccmram")));
 
 PikaObj* arm_math_dsp_FFT_rfft(PikaObj *self, PikaObj* inputList, int length) {
 	PikaList* in = obj_getPtr(inputList, "list");
@@ -27,8 +29,11 @@ PikaObj* arm_math_dsp_FFT_rfft(PikaObj *self, PikaObj* inputList, int length) {
 
 	PikaObj *res = newNormalObj(New_PikaStdData_List);
 	PikaStdData_List___init__(res);
-	for (int i = 0; i < length; i ++) PikaStdData_List_append(res, arg_newFloat(fft_tmp_list_2[i]));
-
+	for (int i = 0; i < length; i ++) {
+		Arg *arg = arg_newFloat(fft_tmp_list_2[i]);
+		PikaStdData_List_append(res, arg);
+		arg_deinit(arg);
+	}
 	return res;
 }
 
@@ -40,14 +45,21 @@ PikaObj* arm_math_dsp_Complex_mag(PikaObj *self, PikaObj* inputList, int num) {
 
 	PikaObj *res = newNormalObj(New_PikaStdData_List);
 	PikaStdData_List___init__(res);
-	for (int i = 0; i < num; i ++) PikaStdData_List_append(res, arg_newFloat(fft_tmp_list_2[i]));
-
+	for (int i = 0; i < num; i ++) {
+		Arg *arg = arg_newFloat(fft_tmp_list_2[i]);
+		PikaStdData_List_append(res, arg);
+		arg_deinit(arg);
+	}
 	return res;
 }
 
 PikaObj* arm_math_dsp_Hamming_getFactors(PikaObj *self, int N) {
 	PikaObj *res = newNormalObj(New_PikaStdData_List);
 	PikaStdData_List___init__(res);
-	for (int i = 0; i < N; i ++) PikaStdData_List_append(res, arg_newFloat(0.54 - 0.46 * arm_cos_f32(2.0 * PI * i / (N - 1))));
+	for (int i = 0; i < N; i ++) {
+		Arg *arg = arg_newFloat(0.54 - 0.46 * arm_cos_f32(2.0 * PI * i / (N - 1)));
+		PikaStdData_List_append(res, arg);
+		arg_deinit(arg);
+	}
 	return res;
 }

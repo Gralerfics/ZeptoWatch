@@ -18,5 +18,7 @@
 PikaObj *New_pika_lvgl_slider(Args *args);
 
 void pika_lvgl_slider___init__(PikaObj *self, PikaObj* parent);
+int pika_lvgl_slider_get_value(PikaObj *self);
+void pika_lvgl_slider_set_value(PikaObj *self, int val, int anim);
 
 #endif
