@@ -2,6 +2,7 @@
 
 import pika_lvgl as lv
 import ZeptoWatchStdLib as zws
+import ZeptoWatchPeriphLib as zwp
 import ZeptoWatchAssets as assets
 
 merits_acc = 0
@@ -25,6 +26,11 @@ def btn_event_cb(e):
     global merits_acc
     merits_acc += 1
     lb.set_text('Merits: ' + str(merits_acc))
+    zwp.Vibrator.vibrate(2, 70)
+    zwp.Vibrator.vibrate(6, 80)
+    zwp.Vibrator.vibrate(10, 90)
+    zwp.Vibrator.vibrate(6, 80)
+    zwp.Vibrator.vibrate(2, 70)
 
 btn = lv.btn(zws.Display.getField())
 btn.set_align(lv.ALIGN.CENTER)
