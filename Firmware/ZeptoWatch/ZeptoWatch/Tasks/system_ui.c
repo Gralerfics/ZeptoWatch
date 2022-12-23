@@ -30,10 +30,14 @@ void StartSystemUI(void const * argument) {
 	/* Main Loop */
 	for (;;) {
 		/* Lvgl Task Handler */
+		extern SemaphoreHandle_t lvglMutexHandle;
+		xSemaphoreTake(lvglMutexHandle, portMAX_DELAY);
 		lv_task_handler();
+		xSemaphoreGive(lvglMutexHandle);
 
 		/* Delay */
 		osDelay(1);
+
 	}
 }
 

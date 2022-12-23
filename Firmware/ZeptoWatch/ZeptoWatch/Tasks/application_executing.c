@@ -13,7 +13,14 @@ void StartApplicationExecuting(void const * argument) {
 	for (;;) {
 		if (Applications_IsRunning()) {
 			Debug_Printf("Detected Application.\n");
+
+			extern SemaphoreHandle_t lvglMutexHandle;
+			xSemaphoreTake(lvglMutexHandle, portMAX_DELAY);
+
 			Application_ExecuteFromFS(Applications_GetApplicationPath());
+
+			xSemaphoreGive(lvglMutexHandle);
+
 			Applications_HaltApplication();
 			_ui_screen_change(ui_Home, LV_SCR_LOAD_ANIM_FADE_ON, 200, 0);
 		}

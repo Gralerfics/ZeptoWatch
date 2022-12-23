@@ -1,6 +1,5 @@
 ###ICON=scripts;NAME=Freqs;COLOR=16251415;###
 
-import PikaStdLib as std
 import ZeptoWatchStdLib as zws
 import ZeptoWatchPeriphLib as zwp
 import arm_math_dsp as dsp
@@ -9,8 +8,11 @@ import pika_lvgl as lv
 POINTS = dsp.FFT.LENGTH_32
 HALF = POINTS / 2
 MAX_VAL = 950000
-MIN_VAL = 50000
+MIN_VAL = 30000
 SLI_NUM = 8
+
+def coreFunc(x):
+    return -0.01 * (x - 100) * (x - 100) + 100
 
 def getSliderValue(x):
     if x >= MAX_VAL:
@@ -18,7 +20,7 @@ def getSliderValue(x):
     elif x <= MIN_VAL:
         return 0
     else:
-        return int(100 * (x - MIN_VAL) / (MAX_VAL - MIN_VAL))
+        return int(coreFunc(100 * (x - MIN_VAL) / (MAX_VAL - MIN_VAL)))
 
 st_main = lv.style_t()
 st_main.set_radius(2)
@@ -62,14 +64,11 @@ while 1 == 1:
 
     for j in range(SLI_NUM):
         i = j * int(HALF / SLI_NUM)
-        print(getSliderValue(mList[i] / HALF))
-        sliderList[j].set_value(getSliderValue(mList[i] / HALF), lv.ANIM.ON)
-        zws.System.delayMs(10)
+        sliderList[SLI_NUM - j - 1].set_value(getSliderValue(mList[i] / HALF), lv.ANIM.ON)
 
     for i in range(POINTS):
         curList[i] = zwp.Microphone.getRawData()
 
-    # print(std.MemChecker.now())
-    # zws.System.delayMs(100)
+    zws.System.delayMs(1)
 
 ###END###

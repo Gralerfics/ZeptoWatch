@@ -67,6 +67,8 @@ osThreadId systemUIHandle;
 osThreadId systemDetectingHandle;
 osThreadId applicationExecHandle;
 osThreadId systemScanningHandle;
+//osMutexId lvglMutexHandle;
+SemaphoreHandle_t lvglMutexHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -81,22 +83,6 @@ void startSystemScanning(void const * argument);
 
 extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
-
-/* GetIdleTaskMemory prototype (linked to static allocation support) */
-void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
-
-/* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
-static StaticTask_t xIdleTaskTCBBuffer;
-static StackType_t xIdleStack[configMINIMAL_STACK_SIZE] __attribute__((section(".ccmram")));
-
-void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
-{
-	*ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
-	*ppxIdleTaskStackBuffer = &xIdleStack[0];
-	*pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
-	/* place for user code */
-}
-/* USER CODE END GET_IDLE_TASK_MEMORY */
 
 /**
   * @brief  FreeRTOS initialization
@@ -143,6 +129,11 @@ void MX_FREERTOS_Init(void) {
 	// P.S. 改了 .ld 文件 195 行 ._user_heap_stack 的指向，由 RAM 改为 CCMRAM，在此记录
 
   /* USER CODE END Init */
+  /* Create the mutex(es) */
+  /* definition and creation of lvglMutex */
+//  osMutexDef(lvglMutex);
+//  lvglMutexHandle = osMutexCreate(osMutex(lvglMutex));
+	lvglMutexHandle = xSemaphoreCreateMutex();
 
   /* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
@@ -162,7 +153,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-//  osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 64);
+//  osThreadDef(defaultTask, StartDefaultTask, osPriorityRealtime, 0, 512);
 //  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of systemUI */

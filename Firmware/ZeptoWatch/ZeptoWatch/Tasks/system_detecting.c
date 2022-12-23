@@ -20,6 +20,8 @@ void StartSystemDetecting(void const * argument) {
 //	int cnt = 0;
 	while (1) {
 		/* State Update */
+		extern SemaphoreHandle_t lvglMutexHandle;
+		xSemaphoreTake(lvglMutexHandle, portMAX_DELAY);
 		if (Power_GetState() == 0) {
 			/* Brightness */
 			int brightnessSliderValue;
@@ -44,6 +46,8 @@ void StartSystemDetecting(void const * argument) {
 //				cnt = 0;
 //			}
 		}
+		xSemaphoreGive(lvglMutexHandle);
+
 		osDelay(5);
 	}
 }
