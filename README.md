@@ -3,7 +3,7 @@
 A smart watch based on STM32F405RGT6.
 
 基于 STM32F405RGT6 的智能手表（大号手环），特点是可以执行用户编写的 Python 脚本（应用程序），并提供板上资源的 Python 库封装。
-使能了 USB FS Device，使设备可像 U 盘一样被操作系统识别，并且内有 FAT 文件系统，脚本直接拖入根目录即可（就是没优化有亿点慢）。设备端可在应用列表以左滑手势刷新列表，固件会进行扫描。
+开了 USB FS Device，使设备可像 U 盘一样被操作系统识别，并且内有 FAT 文件系统，脚本直接拖入根目录即可（就是 IIC 且暴力读写有亿点慢）。设备端可在应用列表以左滑手势刷新列表，固件会进行扫描。
 
 **【Incompleted. 未完成，各项功能完善中】**
 
@@ -36,7 +36,7 @@ A smart watch based on STM32F405RGT6.
 
 - Version 1.0: Polish up the schematics. Be not implemented. 第一版为什么都不会时设计的废稿，不过应该能亮。
 
-- Version 2.0: There are some **mistakes** that would be modified in Ver.3.0. 第二版采取了一些更好的实践，尚有一些小问题。
+- Version 2.0: There are some **mistakes** that would be modified in Ver.3.0. 第二版采取了一些更主流的方案，尚有一些小问题。
 
 - Version 3.0: **Stacked design**. Verifying. 第三版采用两块叠板设计，原理图中标注了大量还可以修改的地方。
 
@@ -57,6 +57,22 @@ A smart watch based on STM32F405RGT6.
     <img src="Documents/imgs/5992D42DC3AB0C8722A747962F6D78E2.jpg" height="200">
     <img src="Documents/imgs/02B38ED2BDC76FF8CDB0900A786208DB.jpg" height="200">
 </div>
+
+**/Software/Scripts**: Some example scripts. 一些示例脚本（应用程序）。
+
+- BATUTIL.PY: 电源插拔检测和电池电压采样测试，字体大小变更测试。
+
+- CALCAPP.PY: 简单的**计算器**，按钮阵列测试。
+
+- FREQ.PY: 乱跳的**频谱显示**，麦克风、lvgl 样式、FFT (arm_math) 测试。
+
+- LVTEST.PY: lvgl 测试，单个按钮与点击事件回调。
+
+- MERITS.PY: **电 子 木 鱼**，内置图片资源获取、振动马达测试。
+
+- SETTINGS.PY: 时间设置，roller 和 rtc 接口测试，设置界面已弃用改为内置。
+
+- TEST.PY: 屏幕亮度变更、温度传感器测试。
 
 **/Structure**: Models in SolidWorks **(Just drafts, do not match the current PCB design)**. 几乎无关的外壳设计，和实际设计的 PCB 不匹配，仅留档。
 
