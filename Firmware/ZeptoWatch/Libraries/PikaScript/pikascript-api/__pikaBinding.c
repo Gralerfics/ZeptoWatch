@@ -22,6 +22,7 @@
 #include "ZeptoWatchAssets.h"
 #include "ZeptoWatchPeriphLib.h"
 #include "ZeptoWatchStdLib.h"
+#include "arm_math_dsp.h"
 #include "pika_lvgl.h"
 #include "PikaStdData.h"
 #include "TinyObj.h"
@@ -99,6 +100,14 @@
 #include "ZeptoWatchStdLib_Display.h"
 #include "TinyObj.h"
 #include "ZeptoWatchStdLib_System.h"
+#include "TinyObj.h"
+#include "arm_math_dsp.h"
+#include "TinyObj.h"
+#include "arm_math_dsp_Complex.h"
+#include "TinyObj.h"
+#include "arm_math_dsp_FFT.h"
+#include "TinyObj.h"
+#include "arm_math_dsp_Hamming.h"
 #include "TinyObj.h"
 #include "pika_lvgl.h"
 #include "TinyObj.h"
@@ -245,6 +254,7 @@ PikaObj *New_PikaMain(Args *args){
     obj_newObj(self, "ZeptoWatchAssets", "ZeptoWatchAssets", New_ZeptoWatchAssets);
     obj_newObj(self, "ZeptoWatchPeriphLib", "ZeptoWatchPeriphLib", New_ZeptoWatchPeriphLib);
     obj_newObj(self, "ZeptoWatchStdLib", "ZeptoWatchStdLib", New_ZeptoWatchStdLib);
+    obj_newObj(self, "arm_math_dsp", "arm_math_dsp", New_arm_math_dsp);
     obj_newObj(self, "pika_lvgl", "pika_lvgl", New_pika_lvgl);
     obj_setClass(self, PikaMain);
     return self;
@@ -4061,6 +4071,144 @@ PikaObj *New_ZeptoWatchStdLib_System(Args *args){
 
 Arg *ZeptoWatchStdLib_System(PikaObj *self){
     return obj_newObjInPackage(New_ZeptoWatchStdLib_System);
+}
+#endif
+
+#ifndef PIKA_MODULE_ARM_MATH_DSP_DISABLE
+void arm_math_dsp_ComplexMethod(PikaObj *self, Args *args){
+    Arg* res = arm_math_dsp_Complex(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    arm_math_dsp_Complex,
+    "Complex", ""
+);
+
+void arm_math_dsp_FFTMethod(PikaObj *self, Args *args){
+    Arg* res = arm_math_dsp_FFT(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    arm_math_dsp_FFT,
+    "FFT", ""
+);
+
+void arm_math_dsp_HammingMethod(PikaObj *self, Args *args){
+    Arg* res = arm_math_dsp_Hamming(self);
+    method_returnArg(args, res);
+}
+method_typedef(
+    arm_math_dsp_Hamming,
+    "Hamming", ""
+);
+
+class_def(arm_math_dsp){
+    __BEFORE_MOETHOD_DEF
+    constructor_def(arm_math_dsp_FFT, 193455621),
+    constructor_def(arm_math_dsp_Hamming, 341252646),
+    constructor_def(arm_math_dsp_Complex, 874370045),
+};
+class_inhert(arm_math_dsp, TinyObj);
+
+PikaObj *New_arm_math_dsp(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, arm_math_dsp);
+    return self;
+}
+#endif
+
+#ifndef PIKA_MODULE_ARM_MATH_DSP_DISABLE
+void arm_math_dsp_Complex_magMethod(PikaObj *self, Args *args){
+    PikaObj* inputList = args_getPtr(args, "inputList");
+    int num = args_getInt(args, "num");
+    PikaObj* res = arm_math_dsp_Complex_mag(self, inputList, num);
+    method_returnObj(args, res);
+}
+method_typedef(
+    arm_math_dsp_Complex_mag,
+    "mag", "inputList,num"
+);
+
+class_def(arm_math_dsp_Complex){
+    __BEFORE_MOETHOD_DEF
+    method_def(arm_math_dsp_Complex_mag, 193499002),
+};
+class_inhert(arm_math_dsp_Complex, TinyObj);
+
+PikaObj *New_arm_math_dsp_Complex(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, arm_math_dsp_Complex);
+    return self;
+}
+
+Arg *arm_math_dsp_Complex(PikaObj *self){
+    return obj_newObjInPackage(New_arm_math_dsp_Complex);
+}
+#endif
+
+#ifndef PIKA_MODULE_ARM_MATH_DSP_DISABLE
+void arm_math_dsp_FFT___init__Method(PikaObj *self, Args *args){
+    arm_math_dsp_FFT___init__(self);
+}
+method_typedef(
+    arm_math_dsp_FFT___init__,
+    "__init__", ""
+);
+
+void arm_math_dsp_FFT_rfftMethod(PikaObj *self, Args *args){
+    PikaObj* inputList = args_getPtr(args, "inputList");
+    int length = args_getInt(args, "length");
+    PikaObj* res = arm_math_dsp_FFT_rfft(self, inputList, length);
+    method_returnObj(args, res);
+}
+method_typedef(
+    arm_math_dsp_FFT_rfft,
+    "rfft", "inputList,length"
+);
+
+class_def(arm_math_dsp_FFT){
+    __BEFORE_MOETHOD_DEF
+    method_def(arm_math_dsp_FFT___init__, 904762485),
+    method_def(arm_math_dsp_FFT_rfft, 2090684983),
+};
+class_inhert(arm_math_dsp_FFT, TinyObj);
+
+PikaObj *New_arm_math_dsp_FFT(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, arm_math_dsp_FFT);
+    return self;
+}
+
+Arg *arm_math_dsp_FFT(PikaObj *self){
+    return obj_newObjInPackage(New_arm_math_dsp_FFT);
+}
+#endif
+
+#ifndef PIKA_MODULE_ARM_MATH_DSP_DISABLE
+void arm_math_dsp_Hamming_getFactorsMethod(PikaObj *self, Args *args){
+    int N = args_getInt(args, "N");
+    PikaObj* res = arm_math_dsp_Hamming_getFactors(self, N);
+    method_returnObj(args, res);
+}
+method_typedef(
+    arm_math_dsp_Hamming_getFactors,
+    "getFactors", "N"
+);
+
+class_def(arm_math_dsp_Hamming){
+    __BEFORE_MOETHOD_DEF
+    method_def(arm_math_dsp_Hamming_getFactors, 1322077655),
+};
+class_inhert(arm_math_dsp_Hamming, TinyObj);
+
+PikaObj *New_arm_math_dsp_Hamming(Args *args){
+    PikaObj *self = New_TinyObj(args);
+    obj_setClass(self, arm_math_dsp_Hamming);
+    return self;
+}
+
+Arg *arm_math_dsp_Hamming(PikaObj *self){
+    return obj_newObjInPackage(New_arm_math_dsp_Hamming);
 }
 #endif
 

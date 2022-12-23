@@ -46,9 +46,9 @@
     #define PIKA_SYNTAX_LEVEL_MAXIMAL 1
 
     /* use user config */
-//    #ifdef PIKA_CONFIG_ENABLE
+    #ifdef PIKA_CONFIG_ENABLE
         #include "pika_config.h"
-//    #endif
+    #endif
 
     /* default pika_nano_enabled */
     #ifndef PIKA_NANO_ENABLE

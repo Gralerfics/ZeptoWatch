@@ -30,6 +30,7 @@ PikaObj *pikaScriptInit(void){
             "import ZeptoWatchStdLib as zws\n"
             "import ZeptoWatchPeriphLib as zwp\n"
             "import ZeptoWatchAssets as assets\n"
+            "import arm_math_dsp as dsp\n"
             "import pika_lvgl as lv\n"
             "\n");
 #else 

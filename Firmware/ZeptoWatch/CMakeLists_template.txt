@@ -1,4 +1,3 @@
-#THIS FILE IS AUTO GENERATED FROM THE TEMPLATE! DO NOT CHANGE!
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_VERSION 1)
 cmake_minimum_required(VERSION 3.23)
@@ -17,6 +16,9 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 project(ZeptoWatch C CXX ASM)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
+
+# PikaScript - [USER]
+add_compile_definitions(PIKA_CONFIG_ENABLE)
 
 #Uncomment for hardware floating point
 add_compile_definitions(ARM_MATH_CM4;ARM_MATH_MATRIX_CHECK;ARM_MATH_ROUNDING)
@@ -65,6 +67,7 @@ include_directories(
         Libraries/lvgl/src/core
         Libraries/PikaScript/pikascript-api
         Libraries/PikaScript/pikascript-core
+        Middlewares/ST/ARM/DSP/Inc
         Middlewares/ST/STM32_USB_Device_Library/Class/MSC/Inc
         Middlewares/ST/STM32_USB_Device_Library/Core/Inc
         Middlewares/Third_Party/FatFs/src/
@@ -113,6 +116,11 @@ add_link_options(-mcpu=cortex-m4 -mthumb -mthumb-interwork)
 add_link_options(-T ${LINKER_SCRIPT})
 
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
+
+# Arm-math - [USER]
+add_library(arm_math STATIC IMPORTED)
+set_target_properties(arm_math PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/Middlewares/ST/ARM/DSP/Lib/libarm_cortexM4lf_math.a)
+target_link_libraries(${PROJECT_NAME}.elf arm_math)
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)
