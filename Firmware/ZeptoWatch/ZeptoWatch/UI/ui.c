@@ -578,7 +578,7 @@ void ui_Applications_screen_init(void)
     lv_label_set_text(ui_applicationsLabel, "Applications");
 
     ui_applicationsList = lv_obj_create(ui_applicationsPanel);
-    lv_obj_set_width(ui_applicationsList, 150);
+    lv_obj_set_width(ui_applicationsList, 180);
     lv_obj_set_height(ui_applicationsList, 147);
     lv_obj_set_x(ui_applicationsList, 0);
     lv_obj_set_y(ui_applicationsList, 7);
