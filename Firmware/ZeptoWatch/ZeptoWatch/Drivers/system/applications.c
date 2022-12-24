@@ -162,9 +162,12 @@ void Applications_HaltApplication() {
 		// Clear Flag
 		Applications_SetExisted(0);
 		// DeInit LVGL Components
+		extern SemaphoreHandle_t lvglMutexHandle;
+		xSemaphoreTake(lvglMutexHandle, portMAX_DELAY);
 		lv_obj_clean(ui_Appfield);
+		xSemaphoreGive(lvglMutexHandle);
 
-		Debug_Printf("Halted. Current Mem Used: %lu\n", pikaMemNow());
+		Debug_Printf("Halted. Current Mem Used: %lf kB.\n", pikaMemNow() / 1024.0);
 	}
 }
 
