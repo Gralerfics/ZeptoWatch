@@ -2,22 +2,23 @@
 
 A smart watch based on STM32F405RGT6.
 
-基于 STM32F405RGT6 的智能手表（大号手环），特点是可以执行用户编写的 Python 脚本（应用程序），并提供板上资源的 Python 库封装。
-开了 USB FS Device，使设备可像 U 盘一样被操作系统识别，并且内有 FAT 文件系统，脚本直接拖入根目录即可（就是 IIC 且暴力读写有亿点慢）。设备端可在应用列表以左滑手势刷新列表，固件会进行扫描。
+基于 STM32F405RGT6 的智能手表 / 大号手环，特点是可以执行用户编写的 Python 脚本（应用程序），并提供板上资源的 Python 库封装。
+使能为 USB FS Device，设备可像 U 盘一样被识别，并且内有 FAT 文件系统，脚本直接拖入根目录即可。设备端可在应用列表以左滑手势刷新列表，固件会进行扫描。
 
-**【Incompleted. 未完成，各项功能完善中】**
+**【Improving.】**
 
 ---
 
 **/Documents**.
 
-- imgs: Shots. 一些个展示图。
+  - imgs: Shots. 一些展示图。
+  - docs: Documents. 一些粗糙的 API 说明和脚本程序示例。
 
-**/Firmware**.
+**/Firmware**: The firmware for ZeptoWatch.
 
-- Firmware for ZeptoWatch (developing). 固件开发（进行中）
-
+  - UI based on LVGL. LVGL 实现的图形交互界面。
   - Drivers for peripherals on board. 驱动封装。
+  - Type-C Support. Type-C 接口支持。
   - USB Mass Storage Class. 可识别为 USB 大容量存储设备。
   - FatFs on EEPROM. 在 EEPROM 上建立 FAT 文件系统。
   - Applying [PikaScript](https://github.com/pikasTech/pikascript) as a built-in interpreter. 采用 PikaScript 作为内置 Python 解释器。
@@ -34,19 +35,11 @@ A smart watch based on STM32F405RGT6.
 
 - Version 0.0: Test. 原型验证。
 
-- Version 1.0: Polish up the schematics. Be not implemented. 第一版为什么都不会时设计的废稿，不过应该能亮。
+- Version 1.0: Polish up the schematics. Be not implemented. 初稿，存在问题。
 
-- Version 2.0: There are some **mistakes** that would be modified in Ver.3.0. 第二版采取了一些更主流的方案，尚有一些小问题。
+- Version 2.0: There are some **mistakes** that would be modified in Ver.3.0. 第二版多处采取了一些更主流的方案，尚有一些小问题。
 
-- Version 3.0: **Stacked design**. Verifying. 第三版采用两块叠板设计，原理图中标注了大量还可以修改的地方。
-
-[//]: # (<div align="center">)
-
-[//]: # (    <img src="Documents/imgs/20221127045100.png" height="250">)
-
-[//]: # (    <img src="Documents/imgs/20221127045030.png" height="250">)
-
-[//]: # (</div>)
+- Version 3.0: **Stacked design**. 第三版采用两块叠板设计。
 
 <div align="center">
     <img src="Documents/imgs/A9D83C7F3B059AC34AE6EB4E3EEF9CB2.jpg" height="200">
@@ -58,7 +51,9 @@ A smart watch based on STM32F405RGT6.
     <img src="Documents/imgs/02B38ED2BDC76FF8CDB0900A786208DB.jpg" height="200">
 </div>
 
-**/Software/Scripts**: Some example scripts. 一些示例脚本（应用程序）。
+- Version 4.0: Expectations. To be designed. 预期改进设计，详见第三版原理图注释。
+
+**/Software/Scripts**: Some example scripts. 一些示例应用程序。
 
 - BATUTIL.PY: 电源插拔检测和电池电压采样测试，字体大小变更测试。
 
@@ -74,7 +69,11 @@ A smart watch based on STM32F405RGT6.
 
 - TEST.PY: 屏幕亮度变更、温度传感器测试。
 
-**/Structure**: Models in SolidWorks **(Just drafts, do not match the current PCB design)**. 几乎无关的外壳设计，和实际设计的 PCB 不匹配，仅留档。
+- BALANCE.PY: 简单的**刚体模拟**小程序，用 IMU 加速度计给控件施加向下的模拟重力，顺便加了个边界反弹。
+
+- GRAVITY.PY: BALANCE 的一个物体变为五个。
+
+**/Structure**: Models in SolidWorks **(Just drafts, do not match the current PCB design)**. 无关的外壳设计，和实际设计的 PCB 不匹配，留档用。
 
 ---
 
